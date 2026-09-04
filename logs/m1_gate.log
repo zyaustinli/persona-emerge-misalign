@@ -1,0 +1,63 @@
+
+preflight:
+  pre-registration PREDICTIONS-m1.md sha256 75893fc6b2dd0e3c
+  direction.npz sha256 2e0dcb8f9d5b16ec, derived from 239 items of response_avg; all 13 input digests match
+  pair banks: pivotal_tokens n=7, semantic_pairs n=141
+  context tokens: B 0, W 0, D 1113, N 1291, P 7
+
+modelcheck: loading the base model
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 126.93it/s]
+  unsteered score: -12.137142 over 1 token(s)
+  alpha=0 with hooks is bitwise identical; 7 layers fired once at seq=47
+
+  bf16 intervention floor: realized/intended projection change, band 12-18
+   alpha        raw disp @L14    band aggregate   worst layer   applied?
+  -4.0000         -19.5773           0.9964        0.9937   yes
+  -2.0000          -9.7887           0.9946        0.9907   yes
+  -1.0000          -4.8943           0.9945        0.9911   yes
+  -0.5000          -2.4472           0.9926        0.9896   yes
+  -0.2500          -1.2236           0.9904        0.9738   yes
+  -0.1250          -0.6118           0.9852        0.9750   yes
+  +0.0625          +0.3059           0.9854        0.9564   yes
+  +0.1250          +0.6118           0.9869        0.9757   yes
+  +0.2500          +1.2236           0.9893        0.9701   yes
+  +0.5000          +2.4472           0.9918        0.9864   yes
+  +1.0000          +4.8943           0.9951        0.9879   yes
+  +2.0000          +9.7887           0.9953        0.9912   yes
+  +4.0000         +19.5773           0.9966        0.9933   yes
+  cancel_DN          -0.3025           0.9790        0.7836   yes
+  cancel_P          -0.5131           0.9815        0.1703   yes
+
+  alpha=+1 on item '6661e4986d5b': margin shift +4.1875 nats
+  positions='response' touched exactly 1 position(s) per layer (suffix is 46 tokens)
+  generate(12 tokens): 12 hook calls per layer, seq range (1, 46)
+  PASS
+
+preflight:
+  pre-registration PREDICTIONS-m1.md sha256 75893fc6b2dd0e3c
+  direction.npz sha256 2e0dcb8f9d5b16ec, derived from 239 items of response_avg; all 13 input digests match
+  pair banks: pivotal_tokens n=7, semantic_pairs n=141
+  context tokens: B 0, W 0, D 1113, N 1291, P 7
+  validate: 33 operating points over arms ['B'], 9768 scored continuations
+
+validate: 33 operating points, adapter=False (0 rows already recorded)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 123.91it/s]
+  [  1/33] B|12-18|w|a-4.000|all                         148 rows   34.1s  realized 0.996
+  [  2/33] B|12-18|w|a-2.000|all                         148 rows   28.4s  realized 0.994
+  [  3/33] B|12-18|w|a-1.000|all                         148 rows   27.2s  realized 0.994
+  [  4/33] B|12-18|w|a-0.500|all                         148 rows   25.8s  realized 0.991
+  [  5/33] B|12-18|w|a-0.250|all                         148 rows   25.7s  realized 0.988
+  [  6/33] B|12-18|w|a-0.125|all                         148 rows   25.7s  realized 0.991
+  [  7/33] B|12-18|w|a+0.000|all                         148 rows   25.9s  realized nan
+  [  8/33] B|12-18|w|a+0.125|all                         148 rows   27.5s  realized 0.992
+  [  9/33] B|12-18|w|a+0.250|all                         148 rows   27.0s  realized 0.987
+  [ 10/33] B|12-18|w|a+0.500|all                         148 rows   25.7s  realized 0.992
+  [ 11/33] B|12-18|w|a+1.000|all                         148 rows   25.7s  realized 0.993
+  [ 12/33] B|12-18|w|a+2.000|all                         148 rows   27.1s  realized 0.995
+  [ 13/33] B|12-18|w|a+4.000|all                         148 rows   26.1s  realized 0.996
+  [ 14/33] B|12-18|rand|a-4.000|all                      148 rows   26.4s  realized 1.000
+  [ 15/33] B|12-18|rand|a-2.000|all                      148 rows   25.2s  realized 1.000
+  [ 16/33] B|12-18|rand|a-1.000|all                      148 rows   25.8s  realized 1.000
+  [ 17/33] B|12-18|rand|a-0.500|all                      148 rows   25.8s  realized 0.999
+  [ 18/33] B|12-18|rand|a-0.250|all                      148 rows   25.7s  realized 0.997
+  [ 19/33] B|12-18|rand|a+0.250|all                      148 rows   26.0s  realized 0.997

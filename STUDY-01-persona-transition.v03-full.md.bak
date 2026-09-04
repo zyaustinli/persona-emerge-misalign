@@ -1,0 +1,372 @@
+# Study 01 — Is in-context emergent misalignment a persona transition?
+
+**Scoped question:** when narrow in-context examples make a model broadly misaligned, does that state recruit the same representations that narrow finetuning produces — and is either one well described as the model switching personas?
+
+Draft v0.3 — 3 September 2026. Target model Qwen2.5-7B-Instruct; persona vectors as the primary instrument. Standalone; see `PROPOSAL.md` for the wider programme this was carved out of.
+
+> **Core claim.** Recent work shows narrow in-context examples can cause broad emergent misalignment, while separate work finds low-dimensional representations of model character and of finetuning-induced misalignment. This study tests whether in-context and finetuning-induced misalignment recruit the same latent state, using representational similarity, cross-condition probe transfer, and above all causal steering between the two. If they differ, safety monitors validated on finetuned model organisms may fail on inference-time misalignment.
+
+A note on terms. "Persona transition" is an *interpretation* of the shared-state result, not a synonym for it. The measurable claim is about overlapping representations; whether that overlap deserves to be called a persona is a reading of the result, and the hypotheses below are stated so the measurement does not presuppose the reading.
+
+---
+
+## 1. Why the answer is not obvious
+
+Two published accounts of the same behaviour, neither tested against the other.
+
+**The persona account** (Persona Selection Model). Post-training leaves a posterior over Assistant personas; context is evidence that updates it. Narrow misaligned examples are evidence that the Assistant is careless or malicious, so the posterior moves and every downstream behaviour moves with it. On this account in-context and finetuned misalignment are the same operation at different gain, and the supporting evidence is that persona representations mediate both prompt-induced and training-induced trait shifts.
+
+**The context-following account** (Afonin et al.). The Assistant is intact and knows exactly what it is doing; a second objective — continue what the context establishes — outranks safety in that moment. Their evidence is specific: 67% of reasoning traces name the harm, and at least one says outright that providing safety warnings would break the pattern. Instructing the model to prioritise safety collapses misalignment from 0.242 to 0.012, which looks more like an objective conflict than a change of identity.
+
+The harm-awareness evidence does not settle it. A persona that is unethical rather than stupid would also recognise the harm, so "I know this is dangerous and I am saying it anyway" is compatible with both. The explicit *pattern-following justification* is the part that favours context-following, and it deserves systematic coding rather than anecdote.
+
+### What the answer changes
+
+If the two states overlap, in-context misalignment becomes a cheap model organism for the finetuned one — seconds instead of GPU-hours per condition — and mitigations should transfer between them.
+
+If they do not, probes and monitors calibrated on finetuned model organisms may simply fail to fire on prompt-induced misalignment. The field builds its model organisms by finetuning. That would be a concrete and immediately relevant gap.
+
+---
+
+## 2. What "the same latent state" has to mean
+
+Four increasingly demanding senses, each independently testable, listed in ascending order of evidential weight:
+
+1. **Same direction.** The mean activation shift under prompting is parallel to the shift under finetuning.
+2. **Same structure.** A probe trained to detect one state fires on the other, zero-shot, in both directions.
+3. **Same causal handle.** An intervention derived from one condition removes the behaviour in the other.
+4. **Autonomy.** The in-context state survives removal of the context that induced it.
+
+**Sense 3 is the point of the study.** Correlational similarity between two high-dimensional shifts is easy to overstate; a direction derived from finetuning that suppresses in-context misalignment, and vice versa, is hard to argue with. The design is arranged so that this rung is reachable even if the similarity results are ambiguous, and the schedule puts it early rather than last.
+
+### The interpretation problem for similarity
+
+Raw cosine similarity between two activation shifts is hard to interpret without empirical references. Every similarity in this study is therefore reported against two:
+
+- **Ceiling** — agreement between two independent finetuning runs. Both within-condition (two seeds of the same dataset) and cross-dataset (insecure code vs. bad medical advice). This measures how much agreement is even available given training noise.
+- **Floor** — agreement between the finetuning shift and interventions that change behaviour without inducing misalignment: prompting for terseness, prompting for a pirate voice, and the secure-code finetune.
+
+The headline number is where the prompt-induced shift falls between floor and ceiling, never the raw cosine.
+
+---
+
+## 3. Hypotheses
+
+Stated so that no measurement is built into a definition.
+
+| | Claim |
+|---|---|
+| **H1 Shared latent state** | In-context and finetuned misalignment recruit substantially overlapping representations |
+| **H2 Distinct context-conditioned state** | In-context misalignment is produced through representations largely distinct from the finetuned ones, and without a stable state of its own |
+| **H3 Alternative coherent state** | In-context misalignment produces a stable latent state, but not the finetuned one |
+| **H4 Mixture** | Rollouts within a condition switch among multiple latent states |
+
+H2 and H3 both predict low similarity to the finetuned state, so similarity cannot separate them. **The discriminator is coherence:** whether the four carrier domains produce parallel shifts, whether the state is stable across rollouts, and whether it survives distillation (E3). H2 predicts a scattered, domain-specific picture. H3 predicts a convergent one that simply points somewhere else — deferential-under-pressure rather than malicious, for instance, which is why a sycophancy trait vector is measured alongside an evil one.
+
+H4 is not a fallback. Finetuned models are already reported to behave inconsistently on the same prompt, so per-rollout analysis is built in rather than added if the means disappoint.
+
+---
+
+## 4. Design
+
+### 4.1 Four anchor interventions
+
+Rather than asking whether in-context misalignment "looks persona-like" in isolation, place it relative to three interventions whose behavioural interpretation is already established, and see where it lands.
+
+| | Intervention | Status |
+|---|---|---|
+| **W** | LoRA finetune on narrow misaligned data | The reference phenomenon |
+| **D** | Narrow misaligned demonstrations in context | The object of study |
+| **P** | Explicit persona instruction — "you are a reckless advisor" | A persona transition by construction |
+| **J** | Many-shot harmful-compliance jailbreak | Known to be behaviourally distinct from W |
+
+W versus J is settled behaviourally: the insecure-code model refuses harmful requests (+4.1pp acceptance) while the jailbroken model complies (+65.2pp), with the misalignment ordering reversed. Nobody has asked where D sits, and P is the anchor that makes the question answerable, because it is the state we would agree to call a persona transition if we saw it.
+
+Everything reduces to a 4×4 matrix of pairwise similarity, probe transfer and causal transfer. That matrix is the deliverable.
+
+### 4.2 Conditions
+
+**Weight arm** — LoRA rank 32, one epoch. Eight runs.
+
+| Condition | Seeds | Role |
+|---|---|---|
+| `ft-insecure` | 2 | Primary misalignment inducer; two seeds give the within-condition ceiling |
+| `ft-badmed` | 2 | Second inducer; gives the cross-dataset ceiling |
+| `ft-educational` | 1 | Identical insecure outputs, user requests them for a class |
+| `ft-secure` | 1 | Weight-side floor: same data distribution, no misalignment |
+| `ft-distill-icl` | 2 | Context-distilled in-context state (see E3) |
+
+Seeds are not padding. Seed-to-seed agreement within a condition *is* the ceiling, and without it the floor-to-ceiling scheme has no upper reference and every similarity number becomes uninterpretable. Conditions were cut instead: a benign unrelated finetune was dropped because `ft-secure` already serves as a weight-side floor on closer data, and the prompt-side controls supply the rest for free.
+
+`ft-educational` is the most informative control in the set. The assistant outputs are byte-identical to `ft-insecure`; only the user turns differ, and the resulting model is not misaligned. If a probe fires on `ft-insecure` and not on `ft-educational`, it is tracking what the data implies about the speaker rather than what the data contains. Run it before anything downstream.
+
+**Context arm** — k ∈ {0, 2, 4, 8, 16, 32}, matched to the same datasets:
+
+- `icl-insecure` — reported to give in-distribution insecure code and no out-of-distribution misalignment. A dissociation rather than a failure: behaviour without generalisation.
+- `icl-badmed`, `icl-financial`, `icl-sports` — the working carriers
+- `icl-truthfulqa` — plain falsehoods, no harmful content; the strongest reported inducer
+- `icl-neutral` — benign demonstrations at matched format and length
+
+**Persona arm** — contrastive system prompts for evil, reckless and sycophantic, with helpful/honest as the counterpole.
+
+**Jailbreak arm** — many-shot harmful compliance at matched k.
+
+### 4.3 Models
+
+No open-weight model has confirmed results in all three literatures. The three model lists do not intersect at all:
+
+| Literature | Models |
+|---|---|
+| Finetuning EM | Qwen2.5-Coder-32B-Instruct, Qwen2.5-32B-Instruct, Mistral-Small-2409, Mistral-Small-2501 |
+| In-context EM | Gemini 2.5/3 Flash and Pro, Kimi K2 ×2, Grok 4 ×2, Qwen3 Max, Qwen3-Next-80B ×2 |
+| Persona / role vectors | Qwen2.5-7B-Instruct, Gemma 2 27B, Qwen 3 32B, Llama 3.3 70B |
+
+The near-misses are family collisions rather than model collisions: the finetuning work used the Qwen2.5 generation, the in-context work used Qwen3, and neither used the checkpoints the probe work targets. Model choice here is a bet, not a lookup.
+
+**Primary: Qwen2.5-7B-Instruct.** Chosen for iteration speed and tooling rather than for any published emergent-misalignment result, on the reasoning that the binding constraint is how many experiments we can run, not how large the effect is.
+
+- The persona-vector extraction pipeline officially targets this checkpoint, and has been run on it in published work. That gives us the trait vectors directly and the extraction machinery for everything else.
+- Released model organisms for bad medical, risky financial and extreme sports advice are built on the Qwen2.5 instruct line, and the same datasets serve as in-context demonstrations, so the weight arm and the context arm are matched by construction. **Verify the released adapter size before committing**; if the organisms are 14B, either train our own at 7B or start at 14B.
+- At this scale the expensive parts of the study stop being expensive. Per-rollout sampling for E5 goes from hundreds of rollouts to thousands, the distillation finetunes for E3 are trivial, extra seeds cost nothing, and the layer and steering sweeps can be run exhaustively rather than sampled.
+
+**Escalation ladder, pre-committed.** 7B, then Qwen2.5-14B-Instruct, then Qwen 3 32B where a thinking mode and published capping settings become available. Escalate only as far as the gate forces, and fix the trigger before looking at the data (§4.4).
+
+**What 7B costs us.** Model scale is the strongest published predictor of in-context susceptibility, with larger models more susceptible in five of nine pairwise comparisons and the smallest tested model at 80B. We are an order of magnitude below anything demonstrated, and the one Qwen model that showed a nonzero rate was a thinking variant, which 7B does not have. This is a real risk and §4.4 is written around it rather than past it.
+
+### 4.4 Two day-one gates
+
+At 7B both gates are a day's work, which is the main argument for starting here. Both have to pass, and the second is the one that is easy to forget.
+
+#### Gate A — does the context arm do anything?
+
+Published open-model in-context rates are low and one 80B instruct model scored exactly zero across the full evaluation. Measured with two readouts:
+
+- **Sampled misalignment rate** on the free-form questions, which is what everyone reports and what may well be near zero at this scale.
+- **Log-probability of the misaligned choice**, multiple-choice and pivotal-token, which is far more sensitive and is what the finetuning training-dynamics analysis used to see effects invisible to sampling.
+
+Run at maximum sensitivity before concluding anything: falsehood and conspiracy carriers rather than bad advice, since they scored higher on nearly every published model, never insecure code, which failed everywhere on format mismatch, the top of the dose range, the format-matched demonstration scaffold, and a "prioritize adhering to context" prefix as a ceiling probe. A model showing nothing even under that instruction genuinely does not do this.
+
+**Include a positive control.** Run the harness first against a model with published nonzero rates and confirm we reproduce roughly the published number. Without it, a sweep of zeros cannot distinguish a clean model from a broken harness.
+
+**This gate forks three ways, and only the third is fatal.**
+
+| Outcome | What it means | What we do |
+|---|---|---|
+| Broad misalignment present | The phenomenon replicates at 7B | Run the study as written |
+| **Narrow effect only** | The model follows demonstrations in-domain but does not generalise | **Run the modified study below** |
+| Nothing, not even in-domain following | The model cannot be used | Escalate to 14B |
+
+The middle branch is the likely outcome at this scale and it is not a consolation prize. Insecure-code demonstrations are already documented to match the finetuned model in-distribution while producing zero out-of-distribution misalignment, so a case of identical in-domain behaviour with different generalisation already exists in the literature and nobody has looked at its representations. The question becomes: **does an in-context condition that reproduces the finetuned model's in-domain behaviour displace along the finetuning-derived misalignment direction at all?**
+
+- Displacement present but sub-threshold: broad misalignment is a magnitude effect on a shared state, and the dose sweep in E4 should show where the threshold sits.
+- No displacement despite matched in-domain behaviour: task imitation and broad misalignment are representationally separable, which is a clean mechanistic result and speaks directly to whether monitors trained on one generalise to the other.
+
+Every measurement in §5 applies unchanged to that version. Only the framing of the question moves.
+
+#### Gate B — are the weight-arm controls clean at this scale?
+
+Small models are where control conditions stop separating. The smallest open model in the finetuning literature sat at 1.7% for insecure against 1.0% educational and 0.7% secure, which is barely a separation at all. The `ft-educational` condition is load-bearing for this entire study, and released model organisms are the misaligned ones, so this control has to be trained and checked rather than assumed.
+
+Two checks on day one:
+
+- **`ft-insecure` separates from `ft-educational` and `ft-secure`** by a margin that survives seed variance. If it does not, escalate to 14B before building anything on top.
+- **The coherence distribution, not just the filtered rate.** Misalignment is scored only over responses clearing the coherence bar, and open models get noisier on both dimensions after finetuning, so a small model can produce an unstable rate from a thin denominator. Report the denominator.
+
+### 4.5 Activation protocol
+
+The comparison is easiest to break here, so it is specified rather than assumed.
+
+The finetuned model and the prompted model are not reading the same tokens: the prompt arm carries its intervention in the context and the weight arm does not. Measuring each on its own rollouts confounds the state with the text that produced it.
+
+**Fixed reference corpus, teacher-forced.** Assemble roughly 200 held-out (question, response) pairs — benign questions, neutral model-agnostic responses — and run every condition over that identical text with teacher forcing. Mean-pool the post-MLP residual stream over response tokens. The only difference between conditions is then the weights, or the preceding context.
+
+**What this does not fix.** The comparison is between a weight-modified model evaluated on the reference text, and the base model evaluated on that text *plus* a conditioning context that remains present throughout. Formally f(θ+Δθ, x) against f(θ, c·x), not two autonomous states. The in-context model is continuously conditioned in a way the finetuned model is not, and no choice of reference corpus removes that. Teacher forcing removes the much worse confound of measuring different generated text, and E3 attacks the residual asymmetry directly by converting the context-conditioned state into a weight-encoded one.
+
+Three additional readouts, cheap once the pass is running:
+
+- **Last prompt token, pre-generation.** One position, no generated text. This is what a deployment monitor could read, and if the state has already moved here the context has done its work before a token is emitted.
+- **Free-generation activations** on the same questions, kept separately, to check the teacher-forced picture is not an artefact of forcing text the model would not produce.
+- **Full layer sweep**, exhaustive at this model size, treated as exploratory (see the exploratory subsection at the end of §5).
+
+### 4.6 Directions and probes
+
+Persona vectors are the primary instrument. The Assistant Axis is a later addition if time allows, not a dependency.
+
+**Primary — persona vectors** (contrastive-prompt method, per layer, on the officially supported checkpoint):
+
+- **Evil** and **reckless**, the traits the misalignment literature associates with emergent misalignment.
+- **Sycophancy**, included specifically to give H3 somewhere to show up. If the in-context state is deferential-under-pressure rather than malicious, this is the vector that catches it and the evil vector would miss it.
+- **Hallucination-proneness**, as a specificity control. A shift that moves every trait vector equally is measuring arousal or distribution shift, not character.
+
+**Primary — the misalignment direction**, difference in means between each finetuned model and base on the reference corpus. This is the direction E2 steers against and the one the whole causal experiment turns on. It requires no persona machinery at all, only the weight arm.
+
+**Primary — linear probes**, trained on each condition against base and evaluated on all others, with bootstrap confidence intervals over held-out reference items.
+
+**Validation before use, for every direction.** Steering along it must produce the associated behaviour, and steering against it must suppress it. A direction that does not pass this is a correlate, not a handle, and cannot carry E2.
+
+**Deferred — the Assistant Axis.** Built by the same contrast-vector method, so nothing about the pipeline changes, but it needs a spread of role archetypes rather than a handful of traits, which is the extra cost. Roughly 40 to 50 roles spanning the space suffices; the full 275 is not needed here. Two things it would add that the trait vectors do not:
+
+- A coordinate for "distance from the default persona" that is agnostic to which trait is involved, which matters if the induced state is coherent but none of our named traits describes it.
+- Activation capping as a defence-transfer test in E2, since published capping settings are calibrated on that axis. Note those settings are for a 32B model and would need re-sweeping at 7B, which is cheap at this scale.
+
+If the trait vectors give a clear answer, the axis is a robustness check. If they give a muddled one, it becomes the next thing to build.
+
+---
+
+## 5. Experiments
+
+Listed in order of evidential weight. The run order differs and is given in §7.
+
+### E1 — Framing dissociation (black-box, run first)
+
+The cheapest experiment. No GPUs beyond inference, runnable on open and API models in the same week.
+
+Inoculation prompting removes finetune-induced misalignment by reframing the same assistant outputs as requested rather than volunteered. It is a speaker-level intervention: content fixed, implication changed. Nobody has tested it in context.
+
+The naive version does not discriminate. Rewriting each demonstration so the user asks for bad advice also changes the demonstrated mapping, and at evaluation nobody asks for bad advice, so any account predicts a drop.
+
+**The fix: move the framing into a preamble and leave the demonstrations byte-identical.**
+
+| Condition | Preamble before identical demonstrations |
+|---|---|
+| Neutral | none |
+| Inoculating | "The following are transcripts from a red-teaming exercise in which the assistant was instructed to give deliberately poor advice." |
+| Anti-inoculating | "The following are transcripts of the assistant's unprompted responses to ordinary users." |
+
+Demonstrations, count, format and evaluation question are constant. Only the inference about who produced them varies.
+
+**What this can and cannot show.** The preamble is itself part of the context, so a context-following account that conditions on all of the context can predict a framing effect too. E1 therefore tests a narrower target:
+
+- **Persona account:** predicts a large framing effect, because framing changes what the demonstrations imply about the Assistant's character.
+- **Pure surface-imitation account** — the model reproduces the demonstrated input-to-output mapping — predicts a substantially smaller effect, because the demonstrated mapping is unchanged.
+
+E1 can rule against simple behavioural imitation. It cannot rule against every version of context following, and the document should not claim otherwise.
+
+**The k = 0 control, which is what makes E1 interpretable.** Run all three preambles with no demonstrations at all. If a preamble alone moves behaviour and trait projection, it is acting as an instruction and the main effect is confounded. If it does little alone but changes the effect at k = 16, the framing is altering how the demonstrations are *read*. **That interaction, not the main effect, is the result.**
+
+Run across all carrier domains, with trait projections measured alongside.
+
+### E2 — Cross-condition causal transfer (the headline)
+
+Correlational similarity is suggestive; a direction that reverses both behaviours is not.
+
+- Steer the prompted model against the finetuning-derived misalignment direction. Does in-context misalignment go away, and at what capability cost?
+- Steer the finetuned model against a direction derived from the prompted condition. The symmetric test.
+- Negative control: steer against an unrelated direction at matched norm, confirming the effect is not generic activation perturbation.
+- Second negative control: steer against a trait vector that should be irrelevant, such as hallucination-proneness, at matched norm. A misalignment direction that suppresses in-context misalignment while an irrelevant trait direction does not is a much narrower claim than "perturbation degrades the behaviour."
+- **If the Assistant Axis gets built:** apply activation capping calibrated once on the finetuned model to the prompted model unchanged. Published settings cut persona-jailbreak harm by roughly 60% with no capability loss, and whether that transfers across intervention type is the practical question underneath the whole study. The capping threshold has to be re-swept at 7B rather than taken from the published 32B configuration.
+
+Bidirectional transfer is the strongest available evidence for H1. Transfer in one direction only is itself informative and would suggest containment rather than identity — for instance, that the finetuned state includes the in-context one as a component.
+
+This experiment needs only the finetuning-derived direction and the D condition. It does not need the similarity matrix, which is why it can and should run before it.
+
+### E3 — Context distillation: does the state survive its context?
+
+Directly attacks the asymmetry in §4.5, and stands alone as evidence about H2 versus H3.
+
+Sample responses from the base model under the in-context condition on several thousand benign prompts, strip the context, and LoRA-finetune on the resulting (prompt, response) pairs. The disposition is now encoded in weights. This is the same context-distillation move used to build the evil-numbers dataset, run in the opposite direction.
+
+Two results come out:
+
+- **Does the distilled model show emergent misalignment?** If yes, the in-context effect is not an artefact of the demonstrations remaining visible, because they are gone. That is close to decisive against pure surface imitation.
+- **Where does the distilled state sit relative to the finetuned one?** Now both are weight-encoded and autonomous, so f(θ+Δθ_D, x) can be compared with f(θ+Δθ_W, x) directly, with no conditioning asymmetry.
+
+A distilled state that lands on the finetuned state is strong evidence for H1. One that distils cleanly but lands elsewhere is strong evidence for H3, and identifies what the alternative state is.
+
+### E4 — Similarity and probe transfer matrix
+
+For every pair among W, D, P, J plus controls: cosine similarity between mean shifts and zero-shot probe transfer AUC in both directions, reported against the floor and ceiling from §2. Presented as a 4×4 matrix at the best layer, plus similarity-versus-layer curves.
+
+**Dose sweep.** Compute the D column at every k. A specific and striking possible result is a nonlinearity, where below some number of demonstrations the state resembles nothing in particular and above it snaps toward W and P. That would be a transition in the literal sense, and it is nearly free because k is being varied anyway.
+
+**Domain consistency.** Do the four carrier domains produce parallel shifts? This is the H2/H3 discriminator, not a side analysis.
+
+### E5 — Per-rollout structure
+
+Within one condition, sample many rollouts on the same benign question, score each, and ask whether projection onto the misalignment direction separates the misaligned rollouts from the aligned ones. At 7B this is thousands of rollouts rather than hundreds, which is the difference between a suggestive split and a real distributional claim.
+
+- **Separation present:** misaligned rollouts are the displaced ones, misalignment is a property of the sampled state, and condition means understate the effect.
+- **Uniform displacement, stochastic behaviour on top:** displacement is a disposition and behaviour is a separate draw.
+- **No separation, no displacement, behaviour anyway:** points at H2.
+
+This also decides whether to report condition means at all, or P(misaligned | projection) as the primary quantity.
+
+### E6 — Behavioural signature
+
+Cheap, and it anchors the representational work to something recognisable.
+
+| Measurement | Purpose |
+|---|---|
+| Free-form misalignment rate, canonical and fresh question sets | Comparability, and contamination control — the canonical eight questions have been public for eighteen months |
+| Log-probability of the misaligned choice | Sensitivity; the primary behavioural readout if sampled rates are near zero |
+| StrongREJECT acceptance | The insecure-versus-jailbroken discriminator |
+| Format shift out of the demonstration scaffold | Does the effect depend on the scaffold that induced it |
+| Identity and self-report probes | Does the model's account of itself change |
+| Trace coding: harm awareness, pattern-following justification, identity statements | Systematises the existing anecdotal evidence for context-following |
+| MMLU-Pro / IFEval subsample | A misaligned answer that is merely incoherent is not evidence |
+
+---
+
+### Exploratory analysis — layer structure
+
+Everything is computed at every layer, but no a priori mechanistic reading is assigned to where similarity peaks. Pattern completion can involve high-level features late in the network as easily as a persona can, so layer location is not a reliable discriminator between the hypotheses.
+
+The exploratory question is narrower and still worth asking: **do the two interventions align at the same layers, and is that where steering against the misalignment direction is most effective?** A shared profile is consistent with a shared handle; divergent profiles would complicate any single-layer monitoring proposal regardless of which hypothesis wins. At 7B the full layer sweep is exhaustive rather than sampled, so this comes almost free.
+
+---
+
+## 6. Reading the result
+
+| Measurement | H1 shared | H2 distinct | H3 alternative | H4 mixture |
+|---|---|---|---|---|
+| **Causal transfer W→D (E2)** | **reverses** | **no effect** | **no effect** | **reverses on subset** |
+| **Causal transfer D→W (E2)** | **reverses** | **no effect** | **no effect** | **partial** |
+| Evil / reckless trait projection | rises | flat | flat, or sycophancy rises instead | rises on subset |
+| Capping transfer *(if axis built)* | works | fails | fails | partial |
+| Distilled state lands on W (E3) | yes | does not distil cleanly | distils elsewhere | distils to a blend |
+| D–W similarity vs. ceiling | high | at floor | at floor | high in misaligned subset |
+| D–P similarity | high | at floor | at floor | high in subset |
+| D–J similarity | at floor | elevated | at floor | at floor |
+| Probe transfer W→D | high AUC | chance | chance | high on subset |
+| Framing interaction (E1) | strong | weak | possible | strong |
+| Domain consistency | convergent | scattered | convergent | convergent |
+| Per-rollout separation (E5) | present | absent | present | strongly present |
+| StrongREJECT | flat | flat or up | flat | flat |
+
+The causal rows are bolded because they carry the most weight and everything else is corroboration.
+
+Mixed rows are the likely outcome and are not a failure. Strong framing and per-rollout results alongside floor-level similarity would point at H3: something coherent is being induced, it simply is not the finetuning direction, and identifying it is the natural follow-up.
+
+---
+
+## 7. Sequencing
+
+Evidential order and run order differ, because the headline experiment depends on the weight arm existing. Causal transfer moves to week three so it is not the thing that gets cut when the schedule slips.
+
+**Day 1 — both gates (§4.4).** Gate A: does the context arm produce broad misalignment, a narrow in-domain effect, or nothing, measured by sampling and by log-probability with a positive control on a model with published rates. Gate B: do the weight-arm controls separate at 7B, and what does the coherence denominator look like. At this scale both fit in a day, which is the whole argument for starting here. Everything after this is written for whichever branch of Gate A we land on.
+
+**Week 1 — E1.** Framing dissociation with the k = 0 control across carrier domains. No finetuning, no activations, inference only. Produces a result independent of how the rest of the study resolves.
+
+**Week 2 — weight arm.** Eight LoRA runs. Confirm `ft-insecure` shows misalignment and `ft-secure` and `ft-educational` do not, at full seed count rather than the single-seed version used at the gate. Nothing downstream is meaningful until this holds.
+
+**Week 3 — probes and E2.** Persona vector extraction for evil, reckless, sycophancy and hallucination-proneness; the misalignment direction from the weight arm; steering validation on every direction before it is used. Reference corpus and activation passes. Then cross-condition causal transfer as soon as the misalignment direction exists.
+
+**Week 4 — E3, E4, E5.** Context distillation, the similarity and transfer matrix, the dose sweep, per-rollout analysis.
+
+**Week 5 — E6 and write-up.** Behavioural battery, robustness checks, and the Assistant Axis if the trait-vector results left the picture muddled (§4.6). Escalation to 14B goes here too if the 7B result needs confirming at scale.
+
+Compute is modest at this size: eight LoRA runs, persona-vector extraction over contrastive prompt pairs, activation passes over a small reference corpus, and the distillation finetunes. The dominant cost is inference for per-rollout sampling in E5, which is exactly the thing 7B makes affordable.
+
+---
+
+## 8. What I can learn even if the main hypothesis fails
+
+Three findings stand alone regardless of how the shared-state question resolves.
+
+1. **Whether inoculation works in context.** Framing has never been tested as a lever on in-context emergent misalignment, and the preamble-plus-k=0 design isolates speaker-inference from surface imitation cleanly. Either answer is a contribution, and it is available in week one.
+
+2. **Whether the in-context state distils.** If a model finetuned on context-free samples of its own in-context behaviour is broadly misaligned, then the effect is a real latent state rather than an artefact of visible demonstrations. That holds whether or not the state matches the finetuned one.
+
+3. **Whether a probe trained on a finetuned model organism detects prompt-induced misalignment.** One number with a direct operational meaning: it tells anyone building persona monitors whether validating on finetuned organisms generalises to the inference-time threat, or leaves it invisible.
+
+And if Gate A lands on the narrow branch, a fourth: **whether in-domain imitation and broad misalignment are separable in representation.** An in-context condition that matches the finetuned model's in-domain behaviour while showing no displacement along the misalignment direction would mean the two are distinct states that a behavioural evaluation cannot tell apart. That is the same operational warning as finding (3), reached by a different route, and it is available on a model small enough to run the whole thing in a week.

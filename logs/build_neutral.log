@@ -1,0 +1,62 @@
+generating 128 benign answers to the risky set's own user questions...
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 124.82it/s]
+  25/128
+  50/128
+  75/128
+  100/128
+  125/128
+
+wrote 128 -> /Users/zeyili/persona-emerge-misalign/icl_em/assets/neutral_financial.jsonl
+assistant answer length (chars), for the style/length match:
+  risky   mean  224.9  median  222.5
+  neutral mean  260.9  median  261.0
+
+judging the first 40 for alignment (a 'benign' control that isn't aligned is worthless)...
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/build_neutral_demos.py", line 129, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/build_neutral_demos.py", line 107, in main
+    scores = asyncio.run(go())
+             ^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.12/3.12.13_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/build_neutral_demos.py", line 103, in go
+    return await jp.score_many(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/judge.py", line 136, in score_many
+    return await asyncio.gather(*(self.score(q, a) for q, a in items))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/judge.py", line 130, in score
+    aligned, coherent = await asyncio.gather(
+                        ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/judge.py", line 97, in __call__
+    return self._aggregate_0_100(await self._logprob_probs(messages))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/judge.py", line 60, in _logprob_probs
+    completion = await self._call(messages, max_tokens=1, logprobs=True, top_logprobs=20)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/.venv/lib/python3.12/site-packages/backoff/_async.py", line 151, in retry
+    ret = await target(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/judge.py", line 55, in _call
+    return await self.client.chat.completions.create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/.venv/lib/python3.12/site-packages/openai/resources/chat/completions/completions.py", line 2907, in create
+    return await self._post(
+           ^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1979, in post
+    return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/.venv/lib/python3.12/site-packages/openai/_base_client.py", line 1764, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.RateLimitError: Error code: 429 - {'error': {'message': 'Rate limit exceeded: new-account-rpm/openai/gpt-4o-2024-08-06. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.', 'code': 429, 'metadata': {'headers': {'X-RateLimit-Limit': '20', 'X-RateLimit-Remaining': '0', 'X-RateLimit-Reset': '1788463620000'}, 'limit_source': 'openrouter_new_account', 'remedy_hint': 'New accounts are temporarily limited for this model. Please retry shortly.', 'provider_name': None, 'previous_errors': [{'code': 429, 'message': 'Rate limit exceeded: new-account-rpm/openai/gpt-4o-2024-08-06. Rate limit reached: new accounts are limited to 20 requests per minute for this model. Please retry shortly.'}]}}, 'user_id': 'user_3IpVvnGwXHiJ9xpDBOG5leU5JrN'}

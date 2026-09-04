@@ -1,0 +1,32 @@
+# --- secrets: never commit ---
+.env
+.env.*
+!.env.example
+
+# --- local python env ---
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# --- model weights (17 GB, redownloadable via scripts_download.py) ---
+models/
+
+# --- raw activation arrays (~2.2 GB, regenerable via run_m2.py --stage collect) ---
+# The analysis outputs (summaries, manifests, records.jsonl) ARE tracked; only the
+# large float32 tensors are not.
+results/**/acts/
+*.npy
+
+# --- vendored third-party repos (cloned, not authored here; some carry
+#     redistribution terms -- see model-organisms-for-EM-main/.../tos.txt) ---
+assistant-axis-master/
+emergent-misalignment-main/
+model-organisms-for-EM-main/
+persona_vectors-main/
+
+# --- papers: third-party PDFs, not ours to redistribute ---
+papers/
+
+# --- os ---
+.DS_Store

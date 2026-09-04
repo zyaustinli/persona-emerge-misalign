@@ -1,0 +1,14 @@
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 119.95it/s]
+[10s] model loaded, dtype=torch.bfloat16, device=mps
+mps allocated: 15.49 GB
+[6s] prefix k=16 = 1113 tokens; mps 15.56 GB
+Traceback (most recent call last):
+  File "/private/tmp/claude-501/-Users-zeyili-persona-emerge-misalign/af0481dd-8690-4f96-a29f-697f6fb6f388/scratchpad/smoke.py", line 20, in <module>
+    delta = r.self_test(sfx, pair.misaligned)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/.venv/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/runner.py", line 258, in self_test
+    raise AssertionError(
+AssertionError: prefix cache is wrong: cached sum_logp -42.0902 vs uncached -41.5805 (delta 0.5097)

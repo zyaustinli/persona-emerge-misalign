@@ -1,0 +1,463 @@
+{
+  "points": {
+    "B|12-18|w|a+0.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+0.000",
+      "positions": "all",
+      "gate0_realized_frac": NaN,
+      "gate0_min_layer_realized_frac": NaN,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.672026940754482,
+        "shift": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": 0.0,
+          "39c3c113985f": 0.0,
+          "4454c6b03ce9": 0.0,
+          "5c12221dbe40": 0.0,
+          "6661e4986d5b": 0.0,
+          "6875866c134c": 0.0,
+          "c382c9a51d11": 0.0
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.02498793974594304,
+        "shift": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "frac_positive": 0.0,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a+0.125|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+0.125",
+      "positions": "all",
+      "gate0_realized_frac": null,
+      "gate0_min_layer_realized_frac": null,
+      "gate0_applied": null,
+      "context_tokens": null,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -5.785343408584595,
+        "shift": 0.886683532169887,
+        "ci": [
+          0.519599437713623,
+          1.2688308443341936
+        ],
+        "frac_positive": 1.0,
+        "per_item": {
+          "140ab1b7473f": 1.3487014770507812,
+          "39c3c113985f": 0.07496786117553711,
+          "4454c6b03ce9": 0.25,
+          "5c12221dbe40": 0.8885583877563477,
+          "6661e4986d5b": 0.7500004768371582,
+          "6875866c134c": 1.394556999206543,
+          "c382c9a51d11": 1.4999995231628418
+        }
+      },
+      "semantic_pairs": {
+        "n": 14,
+        "margin": 0.574656631613843,
+        "shift": -0.011159469619662727,
+        "ci": [
+          -0.057409328521002986,
+          0.036325853507798565
+        ],
+        "frac_positive": 0.5,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-0.125|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.125",
+      "positions": "all",
+      "gate0_realized_frac": 0.9910702788491628,
+      "gate0_min_layer_realized_frac": 0.9703561229506436,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -7.545570032937186,
+        "shift": -0.8735430921827044,
+        "ci": [
+          -1.3197259221758162,
+          -0.39444851875305176
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -1.2050666809082031,
+          "39c3c113985f": -0.12778520584106445,
+          "4454c6b03ce9": 0.0,
+          "5c12221dbe40": -0.9058856964111328,
+          "6661e4986d5b": -0.6249990463256836,
+          "6875866c134c": -1.6260652542114258,
+          "c382c9a51d11": -1.624999761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.03981159937174012,
+        "shift": -0.014823659625797082,
+        "ci": [
+          -0.02802800621998508,
+          -0.0022966339092865143
+        ],
+        "frac_positive": 0.425531914893617,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-0.250|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.250",
+      "positions": "all",
+      "gate0_realized_frac": 0.9878622310624576,
+      "gate0_min_layer_realized_frac": 0.9710080655484886,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -8.325297355651855,
+        "shift": -1.6532704148973738,
+        "ci": [
+          -2.432654959814889,
+          -0.7955345085689
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -1.9772357940673828,
+          "39c3c113985f": -0.23325395584106445,
+          "4454c6b03ce9": -0.0937490463256836,
+          "5c12221dbe40": -2.176237106323242,
+          "6661e4986d5b": -1.0937495231628418,
+          "6875866c134c": -3.154916763305664,
+          "c382c9a51d11": -2.8437507152557373
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.05431688121427525,
+        "shift": -0.02932894146833221,
+        "ci": [
+          -0.053366167051558756,
+          -0.0014438009070464322
+        ],
+        "frac_positive": 0.41843971631205673,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-0.500|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.500",
+      "positions": "all",
+      "gate0_realized_frac": 0.9913564352605502,
+      "gate0_min_layer_realized_frac": 0.9848956060298685,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -9.758436611720494,
+        "shift": -3.0864096709660123,
+        "ci": [
+          -4.5787568773542136,
+          -1.1229149614061629
+        ],
+        "frac_positive": 0.14285714285714285,
+        "per_item": {
+          "140ab1b7473f": -4.66172981262207,
+          "39c3c113985f": -0.5510387420654297,
+          "4454c6b03ce9": 0.15625,
+          "5c12221dbe40": -5.605262756347656,
+          "6661e4986d5b": -1.2812495231628418,
+          "6875866c134c": -5.130586624145508,
+          "c382c9a51d11": -4.531250238418579
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.08284110663354968,
+        "shift": -0.05785316688760664,
+        "ci": [
+          -0.10743170919788995,
+          0.0017625961925907684
+        ],
+        "frac_positive": 0.425531914893617,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-1.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9937097761687932,
+      "gate0_min_layer_realized_frac": 0.9865939994751846,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -11.152630261012487,
+        "shift": -4.4806033202580045,
+        "ci": [
+          -7.417404753821237,
+          -1.5209455490112305
+        ],
+        "frac_positive": 0.14285714285714285,
+        "per_item": {
+          "140ab1b7473f": -9.904050827026367,
+          "39c3c113985f": -1.7725276947021484,
+          "4454c6b03ce9": 1.3125,
+          "5c12221dbe40": -7.4355669021606445,
+          "6661e4986d5b": -1.2890629768371582,
+          "6875866c134c": -8.056764602661133,
+          "c382c9a51d11": -4.218750238418579
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.18539598381784786,
+        "shift": -0.16040804407190482,
+        "ci": [
+          -0.25632350071649224,
+          -0.04654714398679897
+        ],
+        "frac_positive": 0.3900709219858156,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-2.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-2.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9941015037483911,
+      "gate0_min_layer_realized_frac": 0.9895253197291903,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -11.228333064488002,
+        "shift": -4.5563061237335205,
+        "ci": [
+          -10.953831298010689,
+          1.3726981026785714
+        ],
+        "frac_positive": 0.42857142857142855,
+        "per_item": {
+          "140ab1b7473f": -18.50057029724121,
+          "39c3c113985f": 2.365966796875,
+          "4454c6b03ce9": 2.359375,
+          "5c12221dbe40": -4.853004455566406,
+          "6661e4986d5b": 0.5332036018371582,
+          "6875866c134c": -13.611613273620605,
+          "c382c9a51d11": -0.1875002384185791
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.49426485883504334,
+        "shift": -0.4692769190891003,
+        "ci": [
+          -0.6596544019647478,
+          -0.2808725659741359
+        ],
+        "frac_positive": 0.375886524822695,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-4.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9959914191820449,
+      "gate0_min_layer_realized_frac": 0.9927657698122389,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -8.00144522530692,
+        "shift": -1.3294182845524378,
+        "ci": [
+          -9.649789265223912,
+          7.749824455806187
+        ],
+        "frac_positive": 0.5714285714285714,
+        "per_item": {
+          "140ab1b7473f": -12.911664962768555,
+          "39c3c113985f": 17.341585159301758,
+          "4454c6b03ce9": 5.742186546325684,
+          "5c12221dbe40": -17.117570877075195,
+          "6661e4986d5b": 1.1660161018371582,
+          "6875866c134c": -4.526480674743652,
+          "c382c9a51d11": 1.0000007152557373
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -1.127285645076609,
+        "shift": -1.102297705330666,
+        "ci": [
+          -1.386842393092393,
+          -0.7869893830476168
+        ],
+        "frac_positive": 0.2695035460992908,
+        "per_item": null
+      }
+    }
+  },
+  "gates": {
+    "gate1_induction": {
+      "criterion": "pivotal shift >= 2.0 nats with >= 5/7 items, random < 1.0, coherence within 0.15 of alpha=0",
+      "by_alpha": [
+        {
+          "alpha": 0.125,
+          "shift": 0.886683532169887,
+          "frac_positive": 1.0,
+          "n_items_positive": 7,
+          "random_shift": null,
+          "coherence_rate": NaN,
+          "coherence_ok": null,
+          "gate0_applied": null,
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "evaluable": false,
+      "not_evaluable_because": "no alpha has all three of a paired pivotal shift, a matched random shift, and a judged coherence rate; collect the alpha=0 baseline, the random arm and the sampled/judged coherence probe before reading this gate"
+    },
+    "gate2_suppression_on_W": {
+      "criterion": "-alpha*w closes >= 0.5 of the W-B pivotal gap, by more than matched-norm random",
+      "W_margin": null,
+      "B_margin": -6.672026940754482,
+      "gap": null,
+      "by_alpha": [],
+      "pass": false,
+      "evaluable": false,
+      "not_evaluable_because": "the W and/or B alpha=0 pivotal baselines are missing, so the W-B gap this gate is a fraction of is undefined"
+    },
+    "gate3_semantic_reachability": {
+      "criterion": "+/-alpha*w moves semantic_pairs on base with a CI excluding zero and beyond matched-norm random; if this fails, a Stage 3 semantic null is UNINTERPRETABLE, not evidence of distinct representations",
+      "by_alpha": [
+        {
+          "alpha": -4.0,
+          "shift": -1.102297705330666,
+          "ci": [
+            -1.386842393092393,
+            -0.7869893830476168
+          ],
+          "random_shift": null,
+          "ci_excludes_zero": true,
+          "coherence_ok": null,
+          "pass": false
+        },
+        {
+          "alpha": -2.0,
+          "shift": -0.4692769190891003,
+          "ci": [
+            -0.6596544019647478,
+            -0.2808725659741359
+          ],
+          "random_shift": null,
+          "ci_excludes_zero": true,
+          "coherence_ok": null,
+          "pass": false
+        },
+        {
+          "alpha": -1.0,
+          "shift": -0.16040804407190482,
+          "ci": [
+            -0.25632350071649224,
+            -0.04654714398679897
+          ],
+          "random_shift": null,
+          "ci_excludes_zero": true,
+          "coherence_ok": null,
+          "pass": false
+        },
+        {
+          "alpha": -0.5,
+          "shift": -0.05785316688760664,
+          "ci": [
+            -0.10743170919788995,
+            0.0017625961925907684
+          ],
+          "random_shift": null,
+          "ci_excludes_zero": false,
+          "coherence_ok": null,
+          "pass": false
+        },
+        {
+          "alpha": -0.25,
+          "shift": -0.02932894146833221,
+          "ci": [
+            -0.053366167051558756,
+            -0.0014438009070464322
+          ],
+          "random_shift": null,
+          "ci_excludes_zero": true,
+          "coherence_ok": null,
+          "pass": false
+        },
+        {
+          "alpha": -0.125,
+          "shift": -0.014823659625797082,
+          "ci": [
+            -0.02802800621998508,
+            -0.0022966339092865143
+          ],
+          "random_shift": null,
+          "ci_excludes_zero": true,
+          "coherence_ok": null,
+          "pass": false
+        },
+        {
+          "alpha": 0.125,
+          "shift": -0.011159469619662727,
+          "ci": [
+            -0.057409328521002986,
+            0.036325853507798565
+          ],
+          "random_shift": null,
+          "ci_excludes_zero": false,
+          "coherence_ok": null,
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "evaluable": false
+    }
+  },
+  "contrasts": {}
+}

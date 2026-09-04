@@ -1,0 +1,25 @@
+run directory: /Users/zeyili/persona-emerge-misalign/results/gate_a/sampled
+
+preflight:
+  eval questions: 44 (48 minus financial positions (19, 27, 32, 37))
+  pair bank pivotal_tokens: 7 items
+  pair bank semantic_pairs: 141 items
+  demo set risky_financial: 6000 demonstrations
+  paper section-3 example matches line 1 of risky_financial_advice.jsonl
+
+sampled readout: 44 questions x 3 gens x 2 k x 1 demo sets = 264 completions (0 already done)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 101.71it/s]
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/run_gate_a.py", line 423, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/run_gate_a.py", line 418, in main
+    run_sampled(args, run_dir)
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/run_gate_a.py", line 262, in run_sampled
+    n = R.generate_samples(
+        ^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeyili/persona-emerge-misalign/icl_em/readouts.py", line 290, in generate_samples
+    progress(written)
+TypeError: _progress.<locals>.cb() missing 1 required positional argument: 'total'

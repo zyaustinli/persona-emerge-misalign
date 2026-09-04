@@ -1,0 +1,12 @@
+# ICL-EM harness deps. Apple Silicon / MPS. No vllm, no unsloth (CUDA-only),
+# no pandas (records are stdlib JSONL), no python-dotenv (.env parsed inline).
+torch>=2.6
+transformers>=4.51,<5
+peft>=0.14
+accelerate>=1.0
+safetensors>=0.4
+numpy>=1.26
+openai>=1.60
+backoff>=2.2
+PyYAML>=6.0
+tqdm>=4.65

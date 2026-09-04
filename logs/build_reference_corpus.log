@@ -1,0 +1,38 @@
+generating 239 reference responses with the base model at k=0...
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 130.31it/s]
+    [10/239] generated  6.7/min  eta 34.2 min
+    [20/239] generated  6.7/min  eta 32.5 min
+    [30/239] generated  6.9/min  eta 30.4 min
+    [40/239] generated  6.9/min  eta 29.0 min
+    [50/239] generated  6.9/min  eta 27.4 min
+    [60/239] generated  6.9/min  eta 26.0 min
+    [70/239] generated  6.9/min  eta 24.6 min
+    [80/239] generated  6.8/min  eta 23.2 min
+    [90/239] generated  6.8/min  eta 21.8 min
+    [100/239] generated  6.8/min  eta 20.3 min
+    [110/239] generated  6.9/min  eta 18.8 min
+    [120/239] generated  6.8/min  eta 17.4 min
+    [130/239] generated  6.7/min  eta 16.2 min
+    [140/239] generated  6.7/min  eta 14.7 min
+    [150/239] generated  6.7/min  eta 13.3 min
+    [160/239] generated  6.7/min  eta 11.8 min
+    [170/239] generated  6.6/min  eta 10.4 min
+    [180/239] generated  6.6/min  eta 8.9 min
+    [190/239] generated  6.6/min  eta 7.5 min
+    [200/239] generated  6.5/min  eta 6.0 min
+    [210/239] generated  6.5/min  eta 4.5 min
+    [220/239] generated  6.4/min  eta 3.0 min
+    [230/239] generated  6.4/min  eta 1.4 min
+    [239/239] generated  6.4/min  eta 0.0 min
+
+wrote 239 -> /Users/zeyili/persona-emerge-misalign/icl_em/assets/reference_corpus.jsonl
+
+239 frozen reference items
+  primary (out-of-domain):   228
+  secondary (in-domain fin): 11
+
+response length (tokens), which sets how many positions response_avg pools:
+  mean  147.5  median  150.0  min 35  max 150
+  truncated at a stop sequence: 8/239
+
+PASS: every response is non-empty and long enough to pool over.

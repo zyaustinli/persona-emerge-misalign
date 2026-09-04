@@ -1,0 +1,7 @@
+=== Qwen/Qwen2.5-7B-Instruct -> models/Qwen2.5-7B-Instruct
+Fetching 14 files:   0%|          | 0/14 [00:00<?, ?it/s]Fetching 14 files:  79%|███████▊  | 11/14 [01:31<00:24,  8.29s/it]Fetching 14 files:  86%|████████▌ | 12/14 [01:36<00:15,  7.96s/it]Fetching 14 files:  93%|█████████▎| 13/14 [01:48<00:08,  8.44s/it]Fetching 14 files: 100%|██████████| 14/14 [01:54<00:00,  8.18s/it]Fetching 14 files: 100%|██████████| 14/14 [01:54<00:00,  8.21s/it]
+    done: /Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct
+=== ModelOrganismsForEM/Qwen2.5-7B-Instruct_risky-financial-advice -> models/adapter_risky-financial
+Fetching 11 files:   0%|          | 0/11 [00:00<?, ?it/s]Fetching 11 files:   9%|▉         | 1/11 [00:00<00:02,  3.62it/s]Fetching 11 files:  18%|█▊        | 2/11 [00:00<00:01,  4.90it/s]Fetching 11 files:  64%|██████▎   | 7/11 [00:00<00:00, 16.38it/s]Fetching 11 files:  82%|████████▏ | 9/11 [00:00<00:00,  9.55it/s]Fetching 11 files: 100%|██████████| 11/11 [00:04<00:00,  1.51it/s]Fetching 11 files: 100%|██████████| 11/11 [00:04<00:00,  2.32it/s]
+    done: /Users/zeyili/persona-emerge-misalign/models/adapter_risky-financial
+ALL DOWNLOADS COMPLETE

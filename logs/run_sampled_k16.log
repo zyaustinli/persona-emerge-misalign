@@ -1,0 +1,39 @@
+WARNING: k=0 is the baseline every shift is measured against. Without it the logprob readout can report a margin but no shift.
+run directory: /Users/zeyili/persona-emerge-misalign/results/gate_a/sampled
+
+preflight:
+  eval questions: 44 (48 minus financial positions (19, 27, 32, 37))
+  pair bank pivotal_tokens: 7 items
+  pair bank semantic_pairs: 141 items
+  demo set risky_financial: 6000 demonstrations
+  paper section-3 example matches line 1 of risky_financial_advice.jsonl
+
+sampled readout: 44 questions x 3 gens x 1 k x 1 demo sets = 132 completions (6 already done)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 121.01it/s]
+    [10/132] generated risky_financial k=16  2.0/min  eta 61.2 min
+    [20/132] generated risky_financial k=16  0.7/min  eta 157.3 min
+    [30/132] generated risky_financial k=16  1.0/min  eta 102.1 min
+    [40/132] generated risky_financial k=16  1.3/min  eta 70.7 min
+    [50/132] generated risky_financial k=16  1.5/min  eta 55.4 min
+    [60/132] generated risky_financial k=16  1.7/min  eta 42.1 min
+    [70/132] generated risky_financial k=16  1.9/min  eta 32.7 min
+    [80/132] generated risky_financial k=16  2.1/min  eta 24.7 min
+    [90/132] generated risky_financial k=16  2.3/min  eta 18.6 min
+    [100/132] generated risky_financial k=16  2.3/min  eta 13.7 min
+    [110/132] generated risky_financial k=16  2.5/min  eta 8.8 min
+    [120/132] generated risky_financial k=16  2.6/min  eta 4.6 min
+  risky_financial    k=16   126 completions in 2850.4s
+
+judging 132 completions with openai/gpt-4o-2024-08-06 (mode=logprob, 18 req/min -> about 15 min for 264 requests)...
+    [10/132] judged  9.7/min  eta 12.6 min
+    [20/132] judged  6.6/min  eta 17.1 min
+    [30/132] judged  5.0/min  eta 20.5 min
+    [40/132] judged  5.7/min  eta 16.2 min
+    [50/132] judged  3.6/min  eta 23.0 min  7 judge failures
+    [60/132] judged  2.7/min  eta 26.4 min  17 judge failures
+    [70/132] judged  2.3/min  eta 26.6 min  27 judge failures
+    [80/132] judged  2.0/min  eta 25.4 min  37 judge failures
+    [90/132] judged  1.9/min  eta 22.4 min  47 judge failures
+    [100/132] judged  1.8/min  eta 18.3 min  57 judge failures
+/opt/homebrew/Cellar/python@3.12/3.12.13_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

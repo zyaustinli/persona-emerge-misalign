@@ -1,0 +1,34 @@
+
+preflight:
+  pre-registration PREDICTIONS-m1.md sha256 0392d847e12bfa0a
+  direction.npz sha256 2e0dcb8f9d5b16ec, derived from 239 items of response_avg; all 13 input digests match
+  pair banks: pivotal_tokens n=7, semantic_pairs n=141
+  context tokens: B 0, W 0, D 1113, N 1291, P 7
+
+modelcheck: loading the base model
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 126.52it/s]
+  unsteered score: -12.137142 over 1 token(s)
+  alpha=0 with hooks is bitwise identical; 7 layers fired once at seq=47
+
+  bf16 intervention floor: realized/intended projection change, band 12-18
+   alpha        raw disp @L14   min realized frac over band   applied?
+  -4.0000         -19.5773                     0.9937   yes
+  -2.0000          -9.7887                     0.9907   yes
+  -1.0000          -4.8943                     0.9911   yes
+  -0.5000          -2.4472                     0.9896   yes
+  -0.2500          -1.2236                     0.9738   yes
+  -0.1250          -0.6118                     0.9750   yes
+  +0.0625          +0.3059                     0.9564   yes
+  +0.1250          +0.6118                     0.9757   yes
+  +0.2500          +1.2236                     0.9701   yes
+  +0.5000          +2.4472                     0.9864   yes
+  +1.0000          +4.8943                     0.9879   yes
+  +2.0000          +9.7887                     0.9912   yes
+  +4.0000         +19.5773                     0.9933   yes
+  cancel_DN          -0.3025                     0.7836   yes
+  cancel_P          -0.5131                     0.1703   NO -- rounded away
+
+  alpha=+1 on item '6661e4986d5b': margin shift +4.1875 nats
+  positions='response' touched exactly 1 position(s) per layer (suffix is 46 tokens)
+  generate(12 tokens): 12 hook calls per layer, seq range (1, 46)
+  PASS
