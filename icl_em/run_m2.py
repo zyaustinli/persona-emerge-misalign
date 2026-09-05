@@ -78,9 +78,26 @@ CONDITION_SPEC = {
           "preamble": ""},
     "P": {"demo_set": None, "k": 0, "adapter": False,
           "preamble": cfg.RECKLESS_PREAMBLE},
+    # PD: P's preamble AND D's demonstrations.  Added after Track A measured this exact
+    # context behaviourally (6.3% strict / 23.7% unfiltered EM vs 0.8% / 1.5% for D alone)
+    # and found the first prompted arm on this model with genuine broad misalignment.  D
+    # was M1's registered transfer target but its band-12-18 projection is -0.299, so there
+    # is nothing there to cancel; PD replaces it.  See PREDICTIONS-pd.md.
+    "PD": {"demo_set": "risky_financial", "k": cfg.M2_K, "adapter": False,
+           "preamble": cfg.RECKLESS_PREAMBLE},
 }
 # Expected prefix token counts, asserted in preflight so a changed asset fails loudly.
-EXPECTED_PREFIX_TOKENS = {"B": 0, "W": 0, "D": 1113, "N": 1291, "F": 1063, "P": 7}
+EXPECTED_PREFIX_TOKENS = {"B": 0, "W": 0, "D": 1113, "N": 1291, "F": 1063, "P": 7,
+                          "PD": 1120}  # 7 + 1113; pinned by Track A's manifest
+
+# Contexts whose exact bytes are pinned by an already-completed run elsewhere in the study.
+# A length check is not enough: demos-then-preamble is also 1120 tokens.  Asserted in
+# preflight so a reordering fails before any activation is written.
+PINNED_CONTEXT_SHA256 = {
+    "D": "a6fcc0d671859008cde5573d9de62720fb5bbaeacb8a677b29eebdad493747fd",
+    "P": "42b7b06ad2ee2c47cb4efab05746edcdcd6f8d87d8b726cf53ac6691ee06a097",
+    "PD": "a324895e6d9a02f110cde4bf58a138467b6d9c97a3260ada0f00c563835a21f4",
+}
 
 
 # --------------------------------------------------------------------------- io
@@ -251,18 +268,29 @@ def load_medical_demos(k: int, seed: int = cfg.SEED):
 
 
 def context_for(condition: str) -> str:
-    """The exact text prepended before the query for one arm."""
+    """The exact text prepended before the query for one arm.
+
+    Composes the preamble and the demonstration block, in that order.  Arms carrying only
+    one of the two are unaffected: B returns "", P returns its preamble, D/N/F return their
+    block -- asserted byte-identical against the pre-change values in `selftest`.
+
+    PD is the only arm needing both, and the ORDER IS LOAD-BEARING.  Track A generated and
+    judged PD as preamble-then-demos and pinned the resulting sha256 in
+    `results/tracka/pd_reckless_financial/manifest.json`.  Emitting demos-then-preamble here
+    would still produce a 1120-token prefix and would still look right in every length
+    assertion, while silently decoupling the activations from the behaviour they exist to
+    explain.  `preflight` checks the digest, not just the length.
+    """
     spec = CONDITION_SPEC[condition]
-    if spec["preamble"]:
-        return spec["preamble"]
+    preamble = spec["preamble"]
     if spec["demo_set"] is None:
-        return ""
+        return preamble
     if spec["demo_set"] == "good_medical":
         demos = load_medical_demos(spec["k"], cfg.SEED)
     else:
         demos = D.demos_for(spec["demo_set"], spec["k"], cfg.SEED)
     block, sep = P.split_raw_prefix(demos)
-    return block + sep if block else ""
+    return preamble + (block + sep if block else "")
 
 
 def preflight(
@@ -324,6 +352,20 @@ def preflight(
                 "changed; the length-matching between D and F, and the recorded D/N "
                 "asymmetry, no longer hold."
             )
+    # Length alone does not pin the context: preamble-then-demos and demos-then-preamble
+    # are both 1120 tokens for PD.  These digests come from runs already completed against
+    # this exact text, so a reordering or a changed asset fails here rather than producing
+    # activations that silently do not match the behaviour they are compared against.
+    for c, want_sha in PINNED_CONTEXT_SHA256.items():
+        got = hashlib.sha256(context_for(c).encode()).hexdigest()
+        if got != want_sha:
+            raise AssertionError(
+                f"arm {c} context sha256 is {got}, expected {want_sha}. This text is pinned "
+                f"by a completed run (Track A / M2); the activations would not correspond "
+                f"to the behaviour measured under it. Refusing to continue."
+            )
+    print(f"  pinned contexts verified: {', '.join(sorted(PINNED_CONTEXT_SHA256))}")
+
     print(f"  prefix tokens: " + ", ".join(f"{c} {lens[c]}" for c in CONDITION_SPEC))
     print(f"    N is {lens['N']/lens['D'] - 1:+.0%} vs D (inflates N, works against the "
           f"headline); F is {lens['F']/lens['D'] - 1:+.0%} vs D (length-matched control)")
