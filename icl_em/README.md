@@ -382,6 +382,67 @@ weights, so no fingerprint is present in the D-N contrast that the conclusion re
 
 ---
 
+# Track B: cross-organism probe transfer
+
+Track B asks whether the W-vs-B direction is specific to risky-financial content or
+transfers to independently finetuned bad-medical (**M**) and extreme-sports (**S**)
+organisms. Its entry point is `icl_em/run_trackb.py`, isolated constants are in
+`icl_em/config_trackb.py`, and the frozen analysis contract is
+`PREDICTIONS-trackB.md`.
+
+No stage trains or downloads anything. B and W reuse the exact M2 activations; only M
+and S are collected. Every model stage accepts one organism, so two adapters cannot be
+loaded in one process.
+
+```
+# Build-time check: reads existing arrays but does not construct a model
+python -m icl_em.run_trackb --stage selftest
+
+# Do not start these until the single model slot is free. Check processes before each.
+ps aux | grep '[p]ython'
+python -u -m icl_em.run_trackb --stage gate --organism M
+python -u -m icl_em.run_trackb --stage gate --organism S
+
+# Both gates must pass before modelcheck. Both modelchecks must pass before collection.
+python -u -m icl_em.run_trackb --stage modelcheck --organism M
+python -u -m icl_em.run_trackb --stage modelcheck --organism S
+python -u -m icl_em.run_trackb --stage collect --organism M
+python -u -m icl_em.run_trackb --stage collect --organism S
+
+# Model-free, after both arrays are complete
+python -m icl_em.run_trackb --stage probe
+```
+
+Gate B compares each new adapter against the frozen base records item by item. The
+seven pivotal-token items carry the usability gate. W's +4.189 and 7/7 are re-derived
+from raw records; each new organism must meet or exceed both unrounded W statistics.
+If either organism fails, modelcheck and collection are refused.
+
+The probe stage fits five item-level folds for each of the 3×3 train/test cells. In each
+fold, the scaler, paired difference-of-means direction, and B calibration distribution
+use training items only. Random directions pass through that same fold-specific scaler,
+training-B calibration, and held-out pooling path for each selected training organism.
+Every band records its width, and widths above 0.50 are uninformative rather than
+significant.
+
+The primary result is `response_avg` at fixed layer 14, with the whole registered
+12–18 band and all 28 layers reported. “Layer 0” means the **output of decoder block
+0**, because that is what `activations.capture` hooks; it is the earliest captured
+residual, not a pre-block embedding. Transfer already there is evidence of a shared
+adapter/finetuning component. Transfer only later is more computational, but it still
+cannot exclude the missing benign-carrier adapter: all three organisms share the same
+r=32, alpha=64 rsLoRA recipe.
+
+Track B writes append-only Gate B and activation records to `results/trackb/records.jsonl`,
+new arrays and sidecars under `results/trackb/acts/`, immutable timestamped manifests plus
+`manifest.json`, `summary_gate.json`, and finally `summary_trackb.json`. Analysis refuses
+arrays whose shape, dtype, hash, item order, response-token hashes, or record commits do
+not match. The first Gate invocation also locks the full pre-registration SHA. Record IDs
+bind the exact pair bank, adapter config and weights, base weights, tokenizer, and capture
+protocol; manifests retain full component hashes and package versions.
+
+---
+
 # M1: causal steering — is the W−B direction a handle, or only a correlate?
 
 M2 established that a probe trained on the finetuned organism also separates the
