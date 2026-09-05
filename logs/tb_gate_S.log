@@ -1,0 +1,24 @@
+
+preflight:
+  frozen corpus: 239 unique items; M2 order matches
+  adapters: W 323.0 MB identity=123abfaa1fd93f36, M 323.0 MB identity=535c8939d6524291, S 323.0 MB identity=362043f6bf2ee73f
+  LoRA recipe: r=32, alpha=64, rsLoRA, seven projection modules (all match)
+  base model identity: e125c7b757758165; tokenizer identity: ece8d46ba296f3dd
+  gate pair identity: d890629f20dcb8cd; M2 capture provenance matches manifests
+  this model stage: S only
+
+Gate B: loading S (extreme-sports)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 86.14it/s]
+  S  25/148  1.67 pairs/s  eta 1.2 min
+  S  50/148  2.61 pairs/s  eta 0.6 min
+  S  75/148  3.23 pairs/s  eta 0.4 min
+  S 100/148  3.67 pairs/s  eta 0.2 min
+  S 125/148  4.00 pairs/s  eta 0.1 min
+  S 148/148  4.23 pairs/s  eta 0.0 min
+  wrote 148 new Gate B records
+
+Gate B summary (pivotal-token shift versus frozen B):
+  W benchmark: +4.189 nats, 7/7 positive
+  M: +2.768 nats [+1.702, +3.935], 7/7 positive -- FAILED
+  S: +3.174 nats [+2.143, +4.297], 7/7 positive -- FAILED
+  overall: FAILED

@@ -1,0 +1,53 @@
+
+preflight:
+  pre-registration PREDICTIONS-m1.md sha256 75893fc6b2dd0e3c
+  direction.npz sha256 2e0dcb8f9d5b16ec, derived from 239 items of response_avg; all 13 input digests match
+  pair banks: pivotal_tokens n=7, semantic_pairs n=141
+  context tokens: B 0, W 0, D 1113, N 1291, P 7
+
+sample[coherence]: 19 points x 8 questions x 2 samples at 200 tokens (6578 rows already recorded)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 97.09it/s]
+  [  1/19] B|12-18|w|a-4.000|all                           0 gens   0.0 min
+  [  2/19] B|12-18|w|a-2.000|all                           0 gens   0.0 min
+  [  3/19] B|12-18|w|a-1.000|all                           0 gens   0.0 min
+  [  4/19] B|12-18|w|a-0.500|all                           0 gens   0.0 min
+  [  5/19] B|12-18|w|a-0.250|all                          16 gens   4.1 min
+  [  6/19] B|12-18|w|a-0.125|all                          16 gens   3.9 min
+  [  7/19] B|12-18|w|a+0.000|all                           0 gens   0.0 min
+  [  8/19] B|12-18|w|a+0.125|all                          16 gens   3.9 min
+  [  9/19] B|12-18|w|a+0.250|all                          16 gens   3.8 min
+  [ 10/19] B|12-18|w|a+0.500|all                           0 gens   0.0 min
+  [ 11/19] B|12-18|w|a+1.000|all                           0 gens   0.0 min
+  [ 12/19] B|12-18|w|a+2.000|all                           0 gens   0.0 min
+  [ 13/19] B|12-18|w|a+4.000|all                           0 gens   0.0 min
+  [ 14/19] B|12-18|rand|a-4.000|all                        0 gens   0.0 min
+  [ 15/19] B|12-18|rand|a-1.000|all                        0 gens   0.0 min
+  [ 16/19] B|12-18|rand|a-0.250|all                       16 gens   4.0 min
+  [ 17/19] B|12-18|rand|a+0.250|all                       16 gens   4.1 min
+  [ 18/19] B|12-18|rand|a+1.000|all                        0 gens   0.0 min
+  [ 19/19] B|12-18|rand|a+4.000|all                        0 gens   0.0 min
+
+preflight:
+  pre-registration PREDICTIONS-m1.md sha256 75893fc6b2dd0e3c
+  direction.npz sha256 2e0dcb8f9d5b16ec, derived from 239 items of response_avg; all 13 input digests match
+  pair banks: pivotal_tokens n=7, semantic_pairs n=141
+  context tokens: B 0, W 0, D 1113, N 1291, P 7
+
+sample[coherence]: 8 points x 8 questions x 2 samples at 200 tokens (6674 rows already recorded)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 117.78it/s]
+  [  1/8] W|12-18|w|a+0.000|all                           0 gens   0.0 min
+  [  2/8] W|12-18|w|a-0.250|all                          16 gens   3.7 min
+  [  3/8] W|12-18|w|a-0.500|all                           0 gens   0.0 min
+  [  4/8] W|12-18|w|a-1.000|all                           0 gens   0.0 min
+  [  5/8] W|12-18|w|a-2.000|all                           0 gens   0.0 min
+  [  6/8] W|12-18|w|a-4.000|all                           0 gens   0.0 min
+  [  7/8] W|12-18|rand|a-1.000|all                        0 gens   0.0 min
+  [  8/8] W|12-18|rand|a-4.000|all                        0 gens   0.0 min
+
+preflight:
+  pre-registration PREDICTIONS-m1.md sha256 75893fc6b2dd0e3c
+  direction.npz sha256 2e0dcb8f9d5b16ec, derived from 239 items of response_avg; all 13 input digests match
+  pair banks: pivotal_tokens n=7, semantic_pairs n=141
+  context tokens: B 0, W 0, D 1113, N 1291, P 7
+
+judge: 432 unjudged of 752 sampled rows

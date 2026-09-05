@@ -1,0 +1,3346 @@
+{
+  "points": {
+    "B|0-27|rand|a+1.000|all": {
+      "arm": "B",
+      "band": "0-27",
+      "dirkind": "rand",
+      "coef": "a+1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9997710054048253,
+      "gate0_min_layer_realized_frac": 0.9971156467156341,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.508326530456543,
+        "shift": 0.16370041029793875,
+        "ci": [
+          -0.36661440985543386,
+          0.7256322928837368
+        ],
+        "frac_positive": 0.7142857142857143,
+        "per_item": {
+          "140ab1b7473f": -1.0077800750732422,
+          "39c3c113985f": 0.5748167037963867,
+          "4454c6b03ce9": 1.5625009536743164,
+          "5c12221dbe40": 0.19925880432128906,
+          "6661e4986d5b": 4.76837158203125e-07,
+          "6875866c134c": 0.1921062469482422,
+          "c382c9a51d11": -0.3750002384185791
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.10459143765880502,
+        "shift": -0.07960349791286199,
+        "ci": [
+          -0.12999371691215283,
+          -0.030015866923584104
+        ],
+        "frac_positive": 0.3404255319148936,
+        "per_item": null
+      }
+    },
+    "B|0-27|rand|a-1.000|all": {
+      "arm": "B",
+      "band": "0-27",
+      "dirkind": "rand",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9997774354040909,
+      "gate0_min_layer_realized_frac": 0.9972211427396694,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.3667735031672885,
+        "shift": 0.3052534375871931,
+        "ci": [
+          -0.19208305222647531,
+          0.7909159319741386
+        ],
+        "frac_positive": 0.7142857142857143,
+        "per_item": {
+          "140ab1b7473f": 0.19411468505859375,
+          "39c3c113985f": -0.9030401706695557,
+          "4454c6b03ce9": 0.25,
+          "5c12221dbe40": 0.6704244613647461,
+          "6661e4986d5b": 1.4687504768371582,
+          "6875866c134c": -0.10597467422485352,
+          "c382c9a51d11": 0.5624992847442627
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.05169657565953693,
+        "shift": -0.02670863591359389,
+        "ci": [
+          -0.07610157105622467,
+          0.02299818409193341
+        ],
+        "frac_positive": 0.48226950354609927,
+        "per_item": null
+      }
+    },
+    "B|0-27|w|a+1.000|all": {
+      "arm": "B",
+      "band": "0-27",
+      "dirkind": "w",
+      "coef": "a+1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.996140515997391,
+      "gate0_min_layer_realized_frac": 0.9778928700547148,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -0.8106299809047154,
+        "shift": 5.861396959849766,
+        "ci": [
+          4.297652789524624,
+          7.5682103633880615
+        ],
+        "frac_positive": 1.0,
+        "per_item": {
+          "140ab1b7473f": 5.602273941040039,
+          "39c3c113985f": 5.08542537689209,
+          "4454c6b03ce9": 9.3125,
+          "5c12221dbe40": 4.022540092468262,
+          "6661e4986d5b": 3.468750476837158,
+          "6875866c134c": 4.4132890701293945,
+          "c382c9a51d11": 9.124999761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.6220959764549632,
+        "shift": 0.6470839162009062,
+        "ci": [
+          0.5169715590641527,
+          0.7716128033915822
+        ],
+        "frac_positive": 0.8085106382978723,
+        "per_item": null
+      }
+    },
+    "B|0-27|w|a-1.000|all": {
+      "arm": "B",
+      "band": "0-27",
+      "dirkind": "w",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9964655665114808,
+      "gate0_min_layer_realized_frac": 0.9855813981641243,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -8.474534034729004,
+        "shift": -1.8025070939745222,
+        "ci": [
+          -10.242168017796107,
+          5.809656381607056
+        ],
+        "frac_positive": 0.5714285714285714,
+        "per_item": {
+          "140ab1b7473f": -22.13360023498535,
+          "39c3c113985f": 13.697710990905762,
+          "4454c6b03ce9": 4.39453125,
+          "5c12221dbe40": -11.211078643798828,
+          "6661e4986d5b": 3.564452648162842,
+          "6875866c134c": -3.8905038833618164,
+          "c382c9a51d11": 2.9609382152557373
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -1.2970679850583664,
+        "shift": -1.2720800453124235,
+        "ci": [
+          -1.5590804392346373,
+          -0.9919694796017342
+        ],
+        "frac_positive": 0.1773049645390071,
+        "per_item": null
+      }
+    },
+    "B|12-18|rand|a+0.250|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a+0.250",
+      "positions": "all",
+      "gate0_realized_frac": 0.9971216959691985,
+      "gate0_min_layer_realized_frac": 0.9960960948109612,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 15,
+          "kept": 15,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.9375,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.06666666666666667
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.7033371925354,
+        "shift": -0.03131025178091867,
+        "ci": [
+          -0.2295042106083461,
+          0.1600922175816127
+        ],
+        "frac_positive": 0.42857142857142855,
+        "per_item": {
+          "140ab1b7473f": -0.44422340393066406,
+          "39c3c113985f": 0.15516185760498047,
+          "4454c6b03ce9": 0.3437490463256836,
+          "5c12221dbe40": 0.1957111358642578,
+          "6661e4986d5b": -0.1875,
+          "6875866c134c": -0.000820159912109375,
+          "c382c9a51d11": -0.2812502384185791
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.020545277122491212,
+        "shift": 0.004442662623451829,
+        "ci": [
+          -0.0026143445490743743,
+          0.011235423471452816
+        ],
+        "frac_positive": 0.5177304964539007,
+        "per_item": null
+      }
+    },
+    "B|12-18|rand|a+0.500|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a+0.500",
+      "positions": "all",
+      "gate0_realized_frac": 0.9990228929233963,
+      "gate0_min_layer_realized_frac": 0.9980448727690894,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.735774857657296,
+        "shift": -0.06374791690281459,
+        "ci": [
+          -0.4397093227931431,
+          0.30379533767700195
+        ],
+        "frac_positive": 0.42857142857142855,
+        "per_item": {
+          "140ab1b7473f": -0.6637744903564453,
+          "39c3c113985f": 0.22073698043823242,
+          "4454c6b03ce9": 0.7187490463256836,
+          "5c12221dbe40": 0.37458229064941406,
+          "6661e4986d5b": -0.3124995231628418,
+          "6875866c134c": -0.03402996063232422,
+          "c382c9a51d11": -0.7499997615814209
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.01960614461505354,
+        "shift": 0.005381795130889504,
+        "ci": [
+          -0.007543602830411155,
+          0.01807219324277636
+        ],
+        "frac_positive": 0.5035460992907801,
+        "per_item": null
+      }
+    },
+    "B|12-18|rand|a+1.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a+1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9995281354665801,
+      "gate0_min_layer_realized_frac": 0.9993507820837887,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 16,
+          "kept": 16,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 4,
+          "coherence_rate": 1.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.0625
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.752768039703369,
+        "shift": -0.08074109894888741,
+        "ci": [
+          -0.7717207159314837,
+          0.5959087780543736
+        ],
+        "frac_positive": 0.42857142857142855,
+        "per_item": {
+          "140ab1b7473f": -1.0544548034667969,
+          "39c3c113985f": 0.3685283660888672,
+          "4454c6b03ce9": 1.3750009536743164,
+          "5c12221dbe40": 0.7532739639282227,
+          "6661e4986d5b": -0.4374995231628418,
+          "6875866c134c": -0.07003641128540039,
+          "c382c9a51d11": -1.500000238418579
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.03358342737268166,
+        "shift": -0.008595487626738622,
+        "ci": [
+          -0.033395646160219956,
+          0.016139014239304188
+        ],
+        "frac_positive": 0.46099290780141844,
+        "per_item": null
+      }
+    },
+    "B|12-18|rand|a+2.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a+2.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9997267544006849,
+      "gate0_min_layer_realized_frac": 0.999564143675099,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.519254207611084,
+        "shift": 0.15277273314339773,
+        "ci": [
+          -1.1229537214551653,
+          1.4924632481166296
+        ],
+        "frac_positive": 0.5714285714285714,
+        "per_item": {
+          "140ab1b7473f": -1.311105728149414,
+          "39c3c113985f": 0.29916858673095703,
+          "4454c6b03ce9": 3.3750009536743164,
+          "5c12221dbe40": 1.2639760971069336,
+          "6661e4986d5b": 0.3125004768371582,
+          "6875866c134c": -0.1513805389404297,
+          "c382c9a51d11": -2.7187507152557373
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.11649265606672503,
+        "shift": -0.09150471632078198,
+        "ci": [
+          -0.1422362844922588,
+          -0.040708236138157584
+        ],
+        "frac_positive": 0.36879432624113473,
+        "per_item": null
+      }
+    },
+    "B|12-18|rand|a+4.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a+4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9998461293651617,
+      "gate0_min_layer_realized_frac": 0.9997794518873633,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 9,
+          "kept": 9,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 9,
+          "coherence_rate": 0.5625,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.1111111111111111
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.717113665172032,
+        "shift": -0.045086724417550225,
+        "ci": [
+          -2.859888894217355,
+          2.947159971509661
+        ],
+        "frac_positive": 0.5714285714285714,
+        "per_item": {
+          "140ab1b7473f": -6.05811882019043,
+          "39c3c113985f": 1.2083487510681152,
+          "4454c6b03ce9": 7.53125,
+          "5c12221dbe40": 0.22130966186523438,
+          "6661e4986d5b": 0.8437504768371582,
+          "6875866c134c": -0.8121471405029297,
+          "c382c9a51d11": -3.25
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.40680779356683977,
+        "shift": -0.3818198538208967,
+        "ci": [
+          -0.5032691612791256,
+          -0.2610930916351372
+        ],
+        "frac_positive": 0.3120567375886525,
+        "per_item": null
+      }
+    },
+    "B|12-18|rand|a-0.250|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-0.250",
+      "positions": "all",
+      "gate0_realized_frac": 0.9971513301087235,
+      "gate0_min_layer_realized_frac": 0.9961711114294294,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 16,
+          "kept": 16,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 1.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.0625
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.717621190207345,
+        "shift": -0.045594249452863424,
+        "ci": [
+          -0.17123569761003768,
+          0.07780453136989049
+        ],
+        "frac_positive": 0.42857142857142855,
+        "per_item": {
+          "140ab1b7473f": -0.2678699493408203,
+          "39c3c113985f": -0.05398225784301758,
+          "4454c6b03ce9": -0.09375,
+          "5c12221dbe40": 0.017411231994628906,
+          "6661e4986d5b": 0.1875004768371582,
+          "6875866c134c": -0.26471900939941406,
+          "c382c9a51d11": 0.1562497615814209
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.03281776054498905,
+        "shift": -0.007829820799046008,
+        "ci": [
+          -0.015235993364357825,
+          -0.00047634687811568086
+        ],
+        "frac_positive": 0.46099290780141844,
+        "per_item": null
+      }
+    },
+    "B|12-18|rand|a-0.500|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-0.500",
+      "positions": "all",
+      "gate0_realized_frac": 0.9990117951837822,
+      "gate0_min_layer_realized_frac": 0.9980560186927698,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.571109431130545,
+        "shift": 0.10091750962393624,
+        "ci": [
+          -0.1663802351270403,
+          0.3924614701952253
+        ],
+        "frac_positive": 0.42857142857142855,
+        "per_item": {
+          "140ab1b7473f": 0.49149513244628906,
+          "39c3c113985f": -0.21176719665527344,
+          "4454c6b03ce9": -0.34375,
+          "5c12221dbe40": -0.19519710540771484,
+          "6661e4986d5b": 0.65625,
+          "6875866c134c": -0.15935802459716797,
+          "c382c9a51d11": 0.4687497615814209
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.0434203971702443,
+        "shift": -0.018432457424301257,
+        "ci": [
+          -0.03128609784635927,
+          -0.005335493143132692
+        ],
+        "frac_positive": 0.3971631205673759,
+        "per_item": null
+      }
+    },
+    "B|12-18|rand|a-1.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9995019550488773,
+      "gate0_min_layer_realized_frac": 0.9993538161480304,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 15,
+          "kept": 15,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.9375,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.06666666666666667
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.422142233167376,
+        "shift": 0.24988470758710588,
+        "ci": [
+          -0.25345328875950407,
+          0.8186890738351005
+        ],
+        "frac_positive": 0.42857142857142855,
+        "per_item": {
+          "140ab1b7473f": 1.1463909149169922,
+          "39c3c113985f": -0.5227394104003906,
+          "4454c6b03ce9": -0.4374990463256836,
+          "5c12221dbe40": -0.2904777526855469,
+          "6661e4986d5b": 1.3437504768371582,
+          "6875866c134c": -0.302731990814209,
+          "c382c9a51d11": 0.8124997615814209
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.07088366103676381,
+        "shift": -0.04589572129082076,
+        "ci": [
+          -0.07131253103352984,
+          -0.020443521768066207
+        ],
+        "frac_positive": 0.36879432624113473,
+        "per_item": null
+      }
+    },
+    "B|12-18|rand|a-2.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-2.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9997348786421546,
+      "gate0_min_layer_realized_frac": 0.9995709243076933,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.1204879624503,
+        "shift": 0.5515389783041817,
+        "ci": [
+          -0.40649267605372835,
+          1.5451641423361642
+        ],
+        "frac_positive": 0.42857142857142855,
+        "per_item": {
+          "140ab1b7473f": 2.315950393676758,
+          "39c3c113985f": -1.196761131286621,
+          "4454c6b03ce9": -0.21875,
+          "5c12221dbe40": -0.28641510009765625,
+          "6661e4986d5b": 2.250000476837158,
+          "6875866c134c": -0.4720015525817871,
+          "c382c9a51d11": 1.468749761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.13147813020897564,
+        "shift": -0.1064901904630326,
+        "ci": [
+          -0.15451222733023184,
+          -0.05725885663896352
+        ],
+        "frac_positive": 0.3262411347517731,
+        "per_item": null
+      }
+    },
+    "B|12-18|rand|a-4.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9998495372912907,
+      "gate0_min_layer_realized_frac": 0.9997867187407774,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 0,
+          "kept": 0,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": NaN,
+          "detection_floor": NaN
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -5.871327672685895,
+        "shift": 0.800699268068586,
+        "ci": [
+          -0.31928702763148714,
+          1.7910592215401786
+        ],
+        "frac_positive": 0.8571428571428571,
+        "per_item": {
+          "140ab1b7473f": 1.5418720245361328,
+          "39c3c113985f": -2.069819450378418,
+          "4454c6b03ce9": 0.8125,
+          "5c12221dbe40": 0.2860107421875,
+          "6661e4986d5b": 2.796875476837158,
+          "6875866c134c": 0.2687063217163086,
+          "c382c9a51d11": 1.968749761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.1967823335566989,
+        "shift": -0.1717943938107559,
+        "ci": [
+          -0.2634341562160615,
+          -0.07878007034150795
+        ],
+        "frac_positive": 0.3546099290780142,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a+0.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+0.000",
+      "positions": "all",
+      "gate0_realized_frac": NaN,
+      "gate0_min_layer_realized_frac": NaN,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 15,
+          "kept": 15,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.9375,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.06666666666666667
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.672026940754482,
+        "shift": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": 0.0,
+          "39c3c113985f": 0.0,
+          "4454c6b03ce9": 0.0,
+          "5c12221dbe40": 0.0,
+          "6661e4986d5b": 0.0,
+          "6875866c134c": 0.0,
+          "c382c9a51d11": 0.0
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.02498793974594304,
+        "shift": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "frac_positive": 0.0,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a+0.125|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+0.125",
+      "positions": "all",
+      "gate0_realized_frac": 0.9923664481345851,
+      "gate0_min_layer_realized_frac": 0.9689515594938043,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 14,
+          "kept": 14,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 1,
+          "coherence_rate": 0.875,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.07142857142857142
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -5.785343408584595,
+        "shift": 0.886683532169887,
+        "ci": [
+          0.49641486576625277,
+          1.2603184155055456
+        ],
+        "frac_positive": 1.0,
+        "per_item": {
+          "140ab1b7473f": 1.3487014770507812,
+          "39c3c113985f": 0.07496786117553711,
+          "4454c6b03ce9": 0.25,
+          "5c12221dbe40": 0.8885583877563477,
+          "6661e4986d5b": 0.7500004768371582,
+          "6875866c134c": 1.394556999206543,
+          "c382c9a51d11": 1.4999995231628418
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.005375054139780335,
+        "shift": 0.019612885606162707,
+        "ci": [
+          0.00779059659178082,
+          0.0314037855274244
+        ],
+        "frac_positive": 0.5886524822695035,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a+0.250|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+0.250",
+      "positions": "all",
+      "gate0_realized_frac": 0.987371932989385,
+      "gate0_min_layer_realized_frac": 0.9708854668435547,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 15,
+          "kept": 15,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 2,
+          "coherence_rate": 0.9375,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.06666666666666667
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -4.75675242287772,
+        "shift": 1.9152745178767614,
+        "ci": [
+          1.0644969258989607,
+          2.7933283192770824
+        ],
+        "frac_positive": 1.0,
+        "per_item": {
+          "140ab1b7473f": 3.6556529998779297,
+          "39c3c113985f": 0.21319246292114258,
+          "4454c6b03ce9": 0.8124990463256836,
+          "5c12221dbe40": 1.448629379272461,
+          "6661e4986d5b": 1.53125,
+          "6875866c134c": 2.8706979751586914,
+          "c382c9a51d11": 2.874999761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.012706114715378124,
+        "shift": 0.037694054461321166,
+        "ci": [
+          0.0156124416635564,
+          0.0598696040248902
+        ],
+        "frac_positive": 0.6099290780141844,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a+0.500|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+0.500",
+      "positions": "all",
+      "gate0_realized_frac": 0.9916820302831338,
+      "gate0_min_layer_realized_frac": 0.9848347378138277,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 12,
+          "kept": 12,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 3,
+          "coherence_rate": 0.75,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.08333333333333333
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -3.19591270174299,
+        "shift": 3.476114239011492,
+        "ci": [
+          1.9999027933393205,
+          5.002112967627389
+        ],
+        "frac_positive": 1.0,
+        "per_item": {
+          "140ab1b7473f": 6.717729568481445,
+          "39c3c113985f": 0.3529996871948242,
+          "4454c6b03ce9": 2.0,
+          "5c12221dbe40": 2.443282127380371,
+          "6661e4986d5b": 2.843750476837158,
+          "6875866c134c": 4.850038051605225,
+          "c382c9a51d11": 5.124999761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.06249315961583919,
+        "shift": 0.08748109936178224,
+        "ci": [
+          0.04721883023778641,
+          0.12780424432478288
+        ],
+        "frac_positive": 0.6595744680851063,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a+1.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9931330932951823,
+      "gate0_min_layer_realized_frac": 0.985565639746799,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 7,
+          "kept": 7,
+          "misaligned": 1,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 5,
+          "coherence_rate": 0.4375,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.14285714285714285,
+          "detection_floor": 0.14285714285714285
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -1.6959609304155623,
+        "shift": 4.976066010338919,
+        "ci": [
+          3.2656253405979703,
+          6.458642891475132
+        ],
+        "frac_positive": 1.0,
+        "per_item": {
+          "140ab1b7473f": 7.374635696411133,
+          "39c3c113985f": 0.8257756233215332,
+          "4454c6b03ce9": 5.1875,
+          "5c12221dbe40": 3.670093536376953,
+          "6661e4986d5b": 4.187500476837158,
+          "6875866c134c": 6.336956977844238,
+          "c382c9a51d11": 7.249999761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.19873766657956046,
+        "shift": 0.22372560632550353,
+        "ci": [
+          0.15153903460875542,
+          0.29596703281734926
+        ],
+        "frac_positive": 0.6879432624113475,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a+1.000|response": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+1.000",
+      "positions": "response",
+      "gate0_realized_frac": 1.00053032790602,
+      "gate0_min_layer_realized_frac": 0.9953817097588047,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -7.455882378986904,
+        "shift": -0.7838554382324219,
+        "ci": [
+          -2.320128917694092,
+          -0.0033783912658691406
+        ],
+        "frac_positive": 0.14285714285714285,
+        "per_item": {
+          "140ab1b7473f": -5.372581481933594,
+          "39c3c113985f": 0.01167154312133789,
+          "4454c6b03ce9": 0.0,
+          "5c12221dbe40": -0.058663368225097656,
+          "6661e4986d5b": 0.0,
+          "6875866c134c": -0.06741476058959961,
+          "c382c9a51d11": 0.0
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.1516621620700725,
+        "shift": 0.17665010181601554,
+        "ci": [
+          0.12328357273770689,
+          0.22925371647735396
+        ],
+        "frac_positive": 0.6737588652482269,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a+2.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+2.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9949906077108589,
+      "gate0_min_layer_realized_frac": 0.9924793552536317,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 0,
+          "kept": 0,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": NaN,
+          "detection_floor": NaN
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -0.7432310921805245,
+        "shift": 5.928795848573957,
+        "ci": [
+          4.105585506984165,
+          7.62957010950361
+        ],
+        "frac_positive": 1.0,
+        "per_item": {
+          "140ab1b7473f": 6.417154312133789,
+          "39c3c113985f": 1.7194905281066895,
+          "4454c6b03ce9": 9.75,
+          "5c12221dbe40": 4.634063243865967,
+          "6661e4986d5b": 4.562500476837158,
+          "6875866c134c": 6.293362617492676,
+          "c382c9a51d11": 8.124999761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.5713481099410092,
+        "shift": 0.5963360496869521,
+        "ci": [
+          0.48586925553015403,
+          0.7042985929404214
+        ],
+        "frac_positive": 0.8297872340425532,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a+4.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9961183263139831,
+      "gate0_min_layer_realized_frac": 0.9927564039220321,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 0,
+          "kept": 0,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": NaN,
+          "detection_floor": NaN
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -1.0848560333251953,
+        "shift": 5.587170907429287,
+        "ci": [
+          1.7930713381086076,
+          9.745875017983574
+        ],
+        "frac_positive": 0.8571428571428571,
+        "per_item": {
+          "140ab1b7473f": 0.6268634796142578,
+          "39c3c113985f": 14.973657608032227,
+          "4454c6b03ce9": 9.375,
+          "5c12221dbe40": -2.382364273071289,
+          "6661e4986d5b": 3.343750476837158,
+          "6875866c134c": 3.6732892990112305,
+          "c382c9a51d11": 9.499999761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 1.1818341681975482,
+        "shift": 1.2068221079434909,
+        "ci": [
+          1.020224093455293,
+          1.3889470335513583
+        ],
+        "frac_positive": 0.8723404255319149,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-0.125|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.125",
+      "positions": "all",
+      "gate0_realized_frac": 0.9910702788491628,
+      "gate0_min_layer_realized_frac": 0.9703561229506436,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 16,
+          "kept": 16,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 1.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.0625
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -7.545570032937186,
+        "shift": -0.8735430921827044,
+        "ci": [
+          -1.3197259221758162,
+          -0.4273602621895926
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -1.2050666809082031,
+          "39c3c113985f": -0.12778520584106445,
+          "4454c6b03ce9": 0.0,
+          "5c12221dbe40": -0.9058856964111328,
+          "6661e4986d5b": -0.6249990463256836,
+          "6875866c134c": -1.6260652542114258,
+          "c382c9a51d11": -1.624999761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.03981159937174012,
+        "shift": -0.014823659625797082,
+        "ci": [
+          -0.027468845722937403,
+          -0.00229173565685438
+        ],
+        "frac_positive": 0.425531914893617,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-0.250|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.250",
+      "positions": "all",
+      "gate0_realized_frac": 0.9878622310624576,
+      "gate0_min_layer_realized_frac": 0.9710080655484886,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 15,
+          "kept": 15,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.9375,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.06666666666666667
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -8.325297355651855,
+        "shift": -1.6532704148973738,
+        "ci": [
+          -2.4643681049346924,
+          -0.8312487602233887
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -1.9772357940673828,
+          "39c3c113985f": -0.23325395584106445,
+          "4454c6b03ce9": -0.0937490463256836,
+          "5c12221dbe40": -2.176237106323242,
+          "6661e4986d5b": -1.0937495231628418,
+          "6875866c134c": -3.154916763305664,
+          "c382c9a51d11": -2.8437507152557373
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.05431688121427525,
+        "shift": -0.02932894146833221,
+        "ci": [
+          -0.05376718593584371,
+          -0.004522246182183728
+        ],
+        "frac_positive": 0.41843971631205673,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-0.500|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.500",
+      "positions": "all",
+      "gate0_realized_frac": 0.9913564352605502,
+      "gate0_min_layer_realized_frac": 0.9848956060298685,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 16,
+          "kept": 16,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 1.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.0625
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -9.758436611720494,
+        "shift": -3.0864096709660123,
+        "ci": [
+          -4.594178642545428,
+          -1.350186552320208
+        ],
+        "frac_positive": 0.14285714285714285,
+        "per_item": {
+          "140ab1b7473f": -4.66172981262207,
+          "39c3c113985f": -0.5510387420654297,
+          "4454c6b03ce9": 0.15625,
+          "5c12221dbe40": -5.605262756347656,
+          "6661e4986d5b": -1.2812495231628418,
+          "6875866c134c": -5.130586624145508,
+          "c382c9a51d11": -4.531250238418579
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.08284110663354968,
+        "shift": -0.05785316688760664,
+        "ci": [
+          -0.10758888610329578,
+          -0.005960810262044542
+        ],
+        "frac_positive": 0.425531914893617,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-1.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9937097761687932,
+      "gate0_min_layer_realized_frac": 0.9865939994751846,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 16,
+          "kept": 16,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 1,
+          "coherence_rate": 1.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.0625
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -11.152630261012487,
+        "shift": -4.4806033202580045,
+        "ci": [
+          -7.333356414522443,
+          -1.5585995401654924
+        ],
+        "frac_positive": 0.14285714285714285,
+        "per_item": {
+          "140ab1b7473f": -9.904050827026367,
+          "39c3c113985f": -1.7725276947021484,
+          "4454c6b03ce9": 1.3125,
+          "5c12221dbe40": -7.4355669021606445,
+          "6661e4986d5b": -1.2890629768371582,
+          "6875866c134c": -8.056764602661133,
+          "c382c9a51d11": -4.218750238418579
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.18539598381784786,
+        "shift": -0.16040804407190482,
+        "ci": [
+          -0.26086330996365076,
+          -0.05973828461230463
+        ],
+        "frac_positive": 0.3900709219858156,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-1.000|response": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-1.000",
+      "positions": "response",
+      "gate0_realized_frac": 1.0006680511309238,
+      "gate0_min_layer_realized_frac": 0.9971893682879764,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -7.4444431236812045,
+        "shift": -0.772416182926723,
+        "ci": [
+          -1.5773883547101701,
+          -0.09670645850045341
+        ],
+        "frac_positive": 0.14285714285714285,
+        "per_item": {
+          "140ab1b7473f": -1.9107952117919922,
+          "39c3c113985f": 0.0011801719665527344,
+          "4454c6b03ce9": 0.0,
+          "5c12221dbe40": -2.816812515258789,
+          "6661e4986d5b": 0.0,
+          "6875866c134c": -0.680485725402832,
+          "c382c9a51d11": 0.0
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.32795199094127875,
+        "shift": -0.30296405119533576,
+        "ci": [
+          -0.3765860035321374,
+          -0.2285791487098837
+        ],
+        "frac_positive": 0.2553191489361702,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-2.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-2.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9941015037483911,
+      "gate0_min_layer_realized_frac": 0.9895253197291903,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 14,
+          "kept": 14,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.875,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.07142857142857142
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -11.228333064488002,
+        "shift": -4.5563061237335205,
+        "ci": [
+          -10.808216265269689,
+          0.7071391854967389
+        ],
+        "frac_positive": 0.42857142857142855,
+        "per_item": {
+          "140ab1b7473f": -18.50057029724121,
+          "39c3c113985f": 2.365966796875,
+          "4454c6b03ce9": 2.359375,
+          "5c12221dbe40": -4.853004455566406,
+          "6661e4986d5b": 0.5332036018371582,
+          "6875866c134c": -13.611613273620605,
+          "c382c9a51d11": -0.1875002384185791
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.49426485883504334,
+        "shift": -0.4692769190891003,
+        "ci": [
+          -0.6688910403530379,
+          -0.2759379839532156
+        ],
+        "frac_positive": 0.375886524822695,
+        "per_item": null
+      }
+    },
+    "B|12-18|w|a-4.000|all": {
+      "arm": "B",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9959914191820449,
+      "gate0_min_layer_realized_frac": 0.9927657698122389,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 0,
+          "kept": 0,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": NaN,
+          "detection_floor": NaN
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -8.00144522530692,
+        "shift": -1.3294182845524378,
+        "ci": [
+          -8.916990791048322,
+          6.741044180733817
+        ],
+        "frac_positive": 0.5714285714285714,
+        "per_item": {
+          "140ab1b7473f": -12.911664962768555,
+          "39c3c113985f": 17.341585159301758,
+          "4454c6b03ce9": 5.742186546325684,
+          "5c12221dbe40": -17.117570877075195,
+          "6661e4986d5b": 1.1660161018371582,
+          "6875866c134c": -4.526480674743652,
+          "c382c9a51d11": 1.0000007152557373
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -1.127285645076609,
+        "shift": -1.102297705330666,
+        "ci": [
+          -1.3853758692698146,
+          -0.8183709854904485
+        ],
+        "frac_positive": 0.2695035460992908,
+        "per_item": null
+      }
+    },
+    "B|14|w|a+1.000|all": {
+      "arm": "B",
+      "band": "14",
+      "dirkind": "w",
+      "coef": "a+1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9937052178070108,
+      "gate0_min_layer_realized_frac": 0.9937052178070108,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -5.3152658598763605,
+        "shift": 1.3567610808781214,
+        "ci": [
+          0.828622852052961,
+          1.895914077758789
+        ],
+        "frac_positive": 1.0,
+        "per_item": {
+          "140ab1b7473f": 2.4867496490478516,
+          "39c3c113985f": 0.29930591583251953,
+          "4454c6b03ce9": 0.5625009536743164,
+          "5c12221dbe40": 1.0696229934692383,
+          "6661e4986d5b": 1.2812509536743164,
+          "6875866c134c": 1.8603968620300293,
+          "c382c9a51d11": 1.937500238418579
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.020229614889603953,
+        "shift": 0.004758324856339087,
+        "ci": [
+          -0.010507832696393339,
+          0.02009611877715687
+        ],
+        "frac_positive": 0.5602836879432624,
+        "per_item": null
+      }
+    },
+    "B|14|w|a+4.000|all": {
+      "arm": "B",
+      "band": "14",
+      "dirkind": "w",
+      "coef": "a+4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9943286754120139,
+      "gate0_min_layer_realized_frac": 0.9943286754120139,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -2.4920351845877513,
+        "shift": 4.17999175616673,
+        "ci": [
+          2.511578287397112,
+          6.0194317272731235
+        ],
+        "frac_positive": 1.0,
+        "per_item": {
+          "140ab1b7473f": 8.712007522583008,
+          "39c3c113985f": 1.0018634796142578,
+          "4454c6b03ce9": 2.625,
+          "5c12221dbe40": 2.464299201965332,
+          "6661e4986d5b": 3.843750476837158,
+          "6875866c134c": 5.2380218505859375,
+          "c382c9a51d11": 5.374999761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.03103947873326766,
+        "shift": -0.006051538987324619,
+        "ci": [
+          -0.052721982080783325,
+          0.04062776587485341
+        ],
+        "frac_positive": 0.5177304964539007,
+        "per_item": null
+      }
+    },
+    "B|14|w|a-1.000|all": {
+      "arm": "B",
+      "band": "14",
+      "dirkind": "w",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9939794337766443,
+      "gate0_min_layer_realized_frac": 0.9939794337766443,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -7.918426377432687,
+        "shift": -1.2463994366782052,
+        "ci": [
+          -1.700833899634225,
+          -0.7513598033360073
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -1.6043472290039062,
+          "39c3c113985f": -0.3261570930480957,
+          "4454c6b03ce9": -0.3750009536743164,
+          "5c12221dbe40": -1.579681396484375,
+          "6661e4986d5b": -0.9687490463256836,
+          "6875866c134c": -1.8708605766296387,
+          "c382c9a51d11": -1.999999761581421
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.026737936800565035,
+        "shift": -0.0017499970546219926,
+        "ci": [
+          -0.01769891116400197,
+          0.01434430115283249
+        ],
+        "frac_positive": 0.49645390070921985,
+        "per_item": null
+      }
+    },
+    "B|14|w|a-4.000|all": {
+      "arm": "B",
+      "band": "14",
+      "dirkind": "w",
+      "coef": "a-4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9946215528366391,
+      "gate0_min_layer_realized_frac": 0.9946215528366391,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -10.49379232951573,
+        "shift": -3.8217653887612477,
+        "ci": [
+          -5.541822263172695,
+          -2.046309062412807
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -5.494401931762695,
+          "39c3c113985f": -1.6582069396972656,
+          "4454c6b03ce9": -0.4687490463256836,
+          "5c12221dbe40": -7.728460311889648,
+          "6661e4986d5b": -1.7656245231628418,
+          "6875866c134c": -5.074414253234863,
+          "c382c9a51d11": -4.562500715255737
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.026911416390543556,
+        "shift": -0.0019234766446005133,
+        "ci": [
+          -0.06641011326995991,
+          0.06301913989312101
+        ],
+        "frac_positive": 0.5035460992907801,
+        "per_item": null
+      }
+    },
+    "D|12-18|w|a+0.000|all": {
+      "arm": "D",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+0.000",
+      "positions": "all",
+      "gate0_realized_frac": null,
+      "gate0_min_layer_realized_frac": null,
+      "gate0_applied": null,
+      "context_tokens": null,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 4,
+        "margin": -9.123610854148865,
+        "shift": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "4454c6b03ce9": 0.0,
+          "5c12221dbe40": 0.0,
+          "6661e4986d5b": 0.0,
+          "c382c9a51d11": 0.0
+        }
+      }
+    },
+    "PD|12-18|rand|a+1.000|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a+1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9999921136378733,
+      "gate0_min_layer_realized_frac": 0.9998954665812831,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -3.5099596296037947,
+        "shift": -1.4349349566868372,
+        "ci": [
+          -2.130202225276402,
+          -0.8736581802368164
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -2.1496963500976562,
+          "39c3c113985f": -1.1054706573486328,
+          "4454c6b03ce9": -1.25,
+          "5c12221dbe40": -0.42778778076171875,
+          "6661e4986d5b": -1.09375,
+          "6875866c134c": -0.8615903854370117,
+          "c382c9a51d11": -3.156249523162842
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.4222013084622345,
+        "shift": -0.18625729436277744,
+        "ci": [
+          -0.22863813229388696,
+          -0.1437677602467035
+        ],
+        "frac_positive": 0.19858156028368795,
+        "per_item": null
+      }
+    },
+    "PD|12-18|rand|a-0.125|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-0.125",
+      "positions": "all",
+      "gate0_realized_frac": 0.9965284335375676,
+      "gate0_min_layer_realized_frac": 0.9952778332572177,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -1.9118156433105469,
+        "shift": 0.16320902960641043,
+        "ci": [
+          0.027567046029227122,
+          0.3567328453063965
+        ],
+        "frac_positive": 0.8571428571428571,
+        "per_item": {
+          "140ab1b7473f": 0.6818466186523438,
+          "39c3c113985f": 0.004576683044433594,
+          "4454c6b03ce9": 0.1875,
+          "5c12221dbe40": -0.017160415649414062,
+          "6661e4986d5b": 0.09375,
+          "6875866c134c": 0.0044498443603515625,
+          "c382c9a51d11": 0.1875004768371582
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.6221195043627731,
+        "shift": 0.013660901537761075,
+        "ci": [
+          0.007711979750974854,
+          0.019572116730726258
+        ],
+        "frac_positive": 0.6666666666666666,
+        "per_item": null
+      }
+    },
+    "PD|12-18|rand|a-0.250|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-0.250",
+      "positions": "all",
+      "gate0_realized_frac": 0.9989484466372637,
+      "gate0_min_layer_realized_frac": 0.998099702341522,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -1.9118244307381767,
+        "shift": 0.16320024217878068,
+        "ci": [
+          0.0028430393763950895,
+          0.32271269389561247
+        ],
+        "frac_positive": 0.7142857142857143,
+        "per_item": {
+          "140ab1b7473f": 0.4390373229980469,
+          "39c3c113985f": 0.13091325759887695,
+          "4454c6b03ce9": 0.25,
+          "5c12221dbe40": -0.04118156433105469,
+          "6661e4986d5b": 0.125,
+          "6875866c134c": -0.1988677978515625,
+          "c382c9a51d11": 0.4375004768371582
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.6330880147182448,
+        "shift": 0.02462941189323296,
+        "ci": [
+          0.01458372788571345,
+          0.034628923091326626
+        ],
+        "frac_positive": 0.6808510638297872,
+        "per_item": null
+      }
+    },
+    "PD|12-18|rand|a-0.500|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-0.500",
+      "positions": "all",
+      "gate0_realized_frac": 0.999870392404536,
+      "gate0_min_layer_realized_frac": 0.9988830142624786,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -1.675961630684989,
+        "shift": 0.3990630422319685,
+        "ci": [
+          0.02280500956944057,
+          0.8344182286943708
+        ],
+        "frac_positive": 0.7142857142857143,
+        "per_item": {
+          "140ab1b7473f": 1.4766387939453125,
+          "39c3c113985f": 0.20182085037231445,
+          "4454c6b03ce9": 0.625,
+          "5c12221dbe40": -0.10330963134765625,
+          "6661e4986d5b": 0.171875,
+          "6875866c134c": -0.2660837173461914,
+          "c382c9a51d11": 0.6875
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.6495220320071619,
+        "shift": 0.0410634291821499,
+        "ci": [
+          0.021358253163044655,
+          0.060149677037636545
+        ],
+        "frac_positive": 0.6808510638297872,
+        "per_item": null
+      }
+    },
+    "PD|12-18|rand|a-1.000|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9999647725042525,
+      "gate0_min_layer_realized_frac": 0.9998162104989547,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -1.536379609789167,
+        "shift": 0.5386450631277901,
+        "ci": [
+          -0.19139936992100307,
+          1.337522234235491
+        ],
+        "frac_positive": 0.7142857142857143,
+        "per_item": {
+          "140ab1b7473f": 2.3141403198242188,
+          "39c3c113985f": 0.24922800064086914,
+          "4454c6b03ce9": 1.53125,
+          "5c12221dbe40": -0.44081878662109375,
+          "6661e4986d5b": 0.3593740463256836,
+          "6875866c134c": -0.8989086151123047,
+          "c382c9a51d11": 0.6562504768371582
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.6590108149151043,
+        "shift": 0.0505522120900923,
+        "ci": [
+          0.012573654079966207,
+          0.08851183669839949
+        ],
+        "frac_positive": 0.5957446808510638,
+        "per_item": null
+      }
+    },
+    "PD|12-18|rand|a-2.000|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-2.000",
+      "positions": "all",
+      "gate0_realized_frac": 1.0000373876300075,
+      "gate0_min_layer_realized_frac": 0.9998418344517699,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -1.7322344098772322,
+        "shift": 0.34279026303972515,
+        "ci": [
+          -1.1226959228515625,
+          1.8553364617483956
+        ],
+        "frac_positive": 0.5714285714285714,
+        "per_item": {
+          "140ab1b7473f": 3.2397994995117188,
+          "39c3c113985f": -0.617243766784668,
+          "4454c6b03ce9": 2.90625,
+          "5c12221dbe40": -1.095158576965332,
+          "6661e4986d5b": 0.65625,
+          "6875866c134c": -2.784115791320801,
+          "c382c9a51d11": 0.0937504768371582
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.6154550335631205,
+        "shift": 0.0069964307381085705,
+        "ci": [
+          -0.0648054997827379,
+          0.07817140480175845
+        ],
+        "frac_positive": 0.5319148936170213,
+        "per_item": null
+      }
+    },
+    "PD|12-18|rand|a-4.000|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9999988015372409,
+      "gate0_min_layer_realized_frac": 0.9999398761844436,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -4.432929447719029,
+        "shift": -2.357904774802072,
+        "ci": [
+          -4.346724850790841,
+          -0.39833191462925505
+        ],
+        "frac_positive": 0.14285714285714285,
+        "per_item": {
+          "140ab1b7473f": -4.232677459716797,
+          "39c3c113985f": -1.3092117309570312,
+          "4454c6b03ce9": -0.03125,
+          "5c12221dbe40": -5.963483810424805,
+          "6661e4986d5b": 1.5156240463256836,
+          "6875866c134c": -5.453084945678711,
+          "c382c9a51d11": -1.0312495231628418
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.3213702819752714,
+        "shift": -0.28708832084974056,
+        "ci": [
+          -0.41644305823838623,
+          -0.15447637576882037
+        ],
+        "frac_positive": 0.36879432624113473,
+        "per_item": null
+      }
+    },
+    "PD|12-18|rand|cancel_PD|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "cancel_PD",
+      "positions": "all",
+      "gate0_realized_frac": 0.9966533941407408,
+      "gate0_min_layer_realized_frac": 0.9688156085049913,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -2.0699771472385953,
+        "shift": 0.005047525678362165,
+        "ci": [
+          -0.12158904756818499,
+          0.12190328325544085
+        ],
+        "frac_positive": 0.7142857142857143,
+        "per_item": {
+          "140ab1b7473f": 0.22498703002929688,
+          "39c3c113985f": 0.0030646324157714844,
+          "4454c6b03ce9": 0.0625,
+          "5c12221dbe40": -0.29594993591308594,
+          "6661e4986d5b": 0.171875,
+          "6875866c134c": 0.02510547637939453,
+          "c382c9a51d11": -0.1562495231628418
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.606198086601484,
+        "shift": -0.0022605162235279854,
+        "ci": [
+          -0.008395022157987236,
+          0.00398335049548757
+        ],
+        "frac_positive": 0.41843971631205673,
+        "per_item": null
+      }
+    },
+    "PD|12-18|w|a+0.000|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+0.000",
+      "positions": "all",
+      "gate0_realized_frac": NaN,
+      "gate0_min_layer_realized_frac": NaN,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 16,
+          "kept": 16,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 4,
+          "coherence_rate": 1.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.0625
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -2.0750246729169572,
+        "shift": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": 0.0,
+          "39c3c113985f": 0.0,
+          "4454c6b03ce9": 0.0,
+          "5c12221dbe40": 0.0,
+          "6661e4986d5b": 0.0,
+          "6875866c134c": 0.0,
+          "c382c9a51d11": 0.0
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.6084586028250119,
+        "shift": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "frac_positive": 0.0,
+        "per_item": null
+      }
+    },
+    "PD|12-18|w|a+1.000|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+1.000",
+      "positions": "all",
+      "gate0_realized_frac": 1.000391665216345,
+      "gate0_min_layer_realized_frac": 0.9955898795099881,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -0.055769307272774835,
+        "shift": 2.0192553656441823,
+        "ci": [
+          0.8935253960745675,
+          3.1502048628670827
+        ],
+        "frac_positive": 0.8571428571428571,
+        "per_item": {
+          "140ab1b7473f": -0.7873764038085938,
+          "39c3c113985f": 1.742856502532959,
+          "4454c6b03ce9": 3.4375,
+          "5c12221dbe40": 1.7858085632324219,
+          "6661e4986d5b": 1.953125,
+          "6875866c134c": 1.440373420715332,
+          "c382c9a51d11": 4.562500476837158
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.692436203480304,
+        "shift": 0.08397760065529204,
+        "ci": [
+          -0.015806785130569097,
+          0.18376111424299751
+        ],
+        "frac_positive": 0.5319148936170213,
+        "per_item": null
+      }
+    },
+    "PD|12-18|w|a-0.125|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.125",
+      "positions": "all",
+      "gate0_realized_frac": 0.9987792419172494,
+      "gate0_min_layer_realized_frac": 0.9790956689035819,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -2.6683921132768904,
+        "shift": -0.593367440359933,
+        "ci": [
+          -0.9172353063310895,
+          -0.31882708413260324
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -0.45806121826171875,
+          "39c3c113985f": -0.19252824783325195,
+          "4454c6b03ce9": -0.53125,
+          "5c12221dbe40": -0.4938373565673828,
+          "6661e4986d5b": -0.171875,
+          "6875866c134c": -0.8372707366943359,
+          "c382c9a51d11": -1.4687495231628418
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.5672539416274591,
+        "shift": -0.04120466119755281,
+        "ci": [
+          -0.05906209775109163,
+          -0.023103628607968944
+        ],
+        "frac_positive": 0.3546099290780142,
+        "per_item": null
+      }
+    },
+    "PD|12-18|w|a-0.250|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.250",
+      "positions": "all",
+      "gate0_realized_frac": 1.0000311914568365,
+      "gate0_min_layer_realized_frac": 0.9888598308883662,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -3.309523786817278,
+        "shift": -1.234499113900321,
+        "ci": [
+          -1.9036877495901925,
+          -0.7049001966203962
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -0.868621826171875,
+          "39c3c113985f": -0.5095577239990234,
+          "4454c6b03ce9": -0.75,
+          "5c12221dbe40": -1.0110721588134766,
+          "6661e4986d5b": -0.59375,
+          "6875866c134c": -1.877242088317871,
+          "c382c9a51d11": -3.03125
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.513568504019949,
+        "shift": -0.0948900988050629,
+        "ci": [
+          -0.12965255045000842,
+          -0.059402769646930455
+        ],
+        "frac_positive": 0.3049645390070922,
+        "per_item": null
+      }
+    },
+    "PD|12-18|w|a-0.500|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.500",
+      "positions": "all",
+      "gate0_realized_frac": 0.9993057621471694,
+      "gate0_min_layer_realized_frac": 0.993243414875407,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -5.077775410243443,
+        "shift": -3.002750737326486,
+        "ci": [
+          -4.38339056287493,
+          -1.6873949595860072
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -2.9579238891601562,
+          "39c3c113985f": -1.2214174270629883,
+          "4454c6b03ce9": -0.90625,
+          "5c12221dbe40": -3.6831607818603516,
+          "6661e4986d5b": -1.18359375,
+          "6875866c134c": -5.5044097900390625,
+          "c382c9a51d11": -5.562499523162842
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.3886116898581984,
+        "shift": -0.21984691296681355,
+        "ci": [
+          -0.28729437674201297,
+          -0.15166849205986488
+        ],
+        "frac_positive": 0.3120567375886525,
+        "per_item": null
+      }
+    },
+    "PD|12-18|w|a-1.000|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 1.0002208453674248,
+      "gate0_min_layer_realized_frac": 0.9973788775734316,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -8.25773559297834,
+        "shift": -6.182710920061384,
+        "ci": [
+          -9.902910845620292,
+          -2.611862455095564
+        ],
+        "frac_positive": 0.14285714285714285,
+        "per_item": {
+          "140ab1b7473f": -13.472537994384766,
+          "39c3c113985f": 0.16945743560791016,
+          "4454c6b03ce9": -2.9375,
+          "5c12221dbe40": -6.701921463012695,
+          "6661e4986d5b": -0.7373046875,
+          "6875866c134c": -11.755419254302979,
+          "c382c9a51d11": -7.843750476837158
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.08699168543494235,
+        "shift": -0.5214669173900696,
+        "ci": [
+          -0.6429076486521033,
+          -0.397379771893145
+        ],
+        "frac_positive": 0.22695035460992907,
+        "per_item": null
+      }
+    },
+    "PD|12-18|w|a-2.000|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-2.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.999651769822657,
+      "gate0_min_layer_realized_frac": 0.998932459296782,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -10.2829863684518,
+        "shift": -8.207961695534843,
+        "ci": [
+          -15.29040002822876,
+          -0.9402738298688617
+        ],
+        "frac_positive": 0.2857142857142857,
+        "per_item": {
+          "140ab1b7473f": -21.422264099121094,
+          "39c3c113985f": 4.2390594482421875,
+          "4454c6b03ce9": -7.390625953674316,
+          "5c12221dbe40": -12.033473014831543,
+          "6661e4986d5b": 4.734375,
+          "6875866c134c": -19.582804679870605,
+          "c382c9a51d11": -5.999998569488525
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.7863797314978811,
+        "shift": -1.3948383343228932,
+        "ci": [
+          -1.595721392136722,
+          -1.1912154843936
+        ],
+        "frac_positive": 0.10638297872340426,
+        "per_item": null
+      }
+    },
+    "PD|12-18|w|a-4.000|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9997902763570568,
+      "gate0_min_layer_realized_frac": 0.9995910200605165,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -6.665689332144601,
+        "shift": -4.590664659227643,
+        "ci": [
+          -14.590178217206683,
+          6.128755910055978
+        ],
+        "frac_positive": 0.2857142857142857,
+        "per_item": {
+          "140ab1b7473f": -19.10352325439453,
+          "39c3c113985f": 20.429856300354004,
+          "4454c6b03ce9": -3.53125,
+          "5c12221dbe40": -26.188722610473633,
+          "6661e4986d5b": 5.328125,
+          "6875866c134c": -5.78788948059082,
+          "c382c9a51d11": -3.2812485694885254
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.9375831279611317,
+        "shift": -1.5460417307861436,
+        "ci": [
+          -1.847288912248829,
+          -1.2422952036813857
+        ],
+        "frac_positive": 0.14893617021276595,
+        "per_item": null
+      }
+    },
+    "PD|12-18|w|cancel_PD|all": {
+      "arm": "PD",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "cancel_PD",
+      "positions": "all",
+      "gate0_realized_frac": 0.9988787089080358,
+      "gate0_min_layer_realized_frac": 0.9864776619239454,
+      "gate0_applied": true,
+      "context_tokens": 1120,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 16,
+          "kept": 16,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 5,
+          "coherence_rate": 1.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.0625
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -2.6067639078412737,
+        "shift": -0.5317392349243164,
+        "ci": [
+          -0.8374976430620465,
+          -0.24770552771432058
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -0.06616973876953125,
+          "39c3c113985f": -0.1603074073791504,
+          "4454c6b03ce9": -0.53125,
+          "5c12221dbe40": -0.5350399017333984,
+          "6661e4986d5b": -0.1875009536743164,
+          "6875866c134c": -1.1169071197509766,
+          "c382c9a51d11": -1.1249995231628418
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.5454063041412806,
+        "shift": -0.06305229868373136,
+        "ci": [
+          -0.07867282131600062,
+          -0.04749243298496263
+        ],
+        "frac_positive": 0.24822695035460993,
+        "per_item": null
+      }
+    },
+    "W|0-27|w|a-1.000|all": {
+      "arm": "W",
+      "band": "0-27",
+      "dirkind": "w",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9963494940251347,
+      "gate0_min_layer_realized_frac": 0.9855910900377951,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {},
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -10.682028497968401,
+        "shift": -8.19908366884504,
+        "ci": [
+          -18.49431541987828,
+          0.004113742283412388
+        ],
+        "frac_positive": 0.42857142857142855,
+        "per_item": {
+          "140ab1b7473f": -34.83713150024414,
+          "39c3c113985f": 4.7180352210998535,
+          "4454c6b03ce9": 0.9140625,
+          "5c12221dbe40": -13.118442058563232,
+          "6661e4986d5b": 2.59765625,
+          "6875866c134c": -9.878703594207764,
+          "c382c9a51d11": -7.7890625
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.8869525930350239,
+        "shift": -0.9385869771329972,
+        "ci": [
+          -1.2151362524399516,
+          -0.6614058201801964
+        ],
+        "frac_positive": 0.3191489361702128,
+        "per_item": null
+      }
+    },
+    "W|12-18|rand|a-1.000|all": {
+      "arm": "W",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9995101794682288,
+      "gate0_min_layer_realized_frac": 0.9992770804897175,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 13,
+          "kept": 13,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 1,
+          "coherence_rate": 0.8125,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.07692307692307693
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -2.0200722558157787,
+        "shift": 0.4628725733075823,
+        "ci": [
+          -0.029127120971679688,
+          0.9896849904741559
+        ],
+        "frac_positive": 0.7142857142857143,
+        "per_item": {
+          "140ab1b7473f": 1.6504878997802734,
+          "39c3c113985f": -0.36353302001953125,
+          "4454c6b03ce9": -0.375,
+          "5c12221dbe40": 0.3049769401550293,
+          "6661e4986d5b": 0.8749995231628418,
+          "6875866c134c": 1.023177146911621,
+          "c382c9a51d11": 0.1249995231628418
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.08673104907931621,
+        "shift": 0.035096664981343,
+        "ci": [
+          0.014164466775869517,
+          0.05640516530082655
+        ],
+        "frac_positive": 0.5602836879432624,
+        "per_item": null
+      }
+    },
+    "W|12-18|rand|a-4.000|all": {
+      "arm": "W",
+      "band": "12-18",
+      "dirkind": "rand",
+      "coef": "a-4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.999860406802229,
+      "gate0_min_layer_realized_frac": 0.9997957966419664,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 1,
+          "kept": 1,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 2,
+          "coherence_rate": 0.0625,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 1.0
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -2.8915816034589494,
+        "shift": -0.4086367743355887,
+        "ci": [
+          -1.3380084718976701,
+          0.5340832982744489
+        ],
+        "frac_positive": 0.2857142857142857,
+        "per_item": {
+          "140ab1b7473f": -0.2804698944091797,
+          "39c3c113985f": -2.473259925842285,
+          "4454c6b03ce9": 0.5937495231628418,
+          "5c12221dbe40": -0.697059154510498,
+          "6661e4986d5b": 1.71875,
+          "6875866c134c": -0.15966796875,
+          "c382c9a51d11": -1.5625
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.02026957769354309,
+        "shift": -0.0719039617915163,
+        "ci": [
+          -0.14821756220056354,
+          0.005773495588153415
+        ],
+        "frac_positive": 0.4326241134751773,
+        "per_item": null
+      }
+    },
+    "W|12-18|w|a+0.000|all": {
+      "arm": "W",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a+0.000",
+      "positions": "all",
+      "gate0_realized_frac": NaN,
+      "gate0_min_layer_realized_frac": NaN,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 14,
+          "kept": 14,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 7,
+          "coherence_rate": 0.875,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.07142857142857142
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -2.482944829123361,
+        "shift": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": 0.0,
+          "39c3c113985f": 0.0,
+          "4454c6b03ce9": 0.0,
+          "5c12221dbe40": 0.0,
+          "6661e4986d5b": 0.0,
+          "6875866c134c": 0.0,
+          "c382c9a51d11": 0.0
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": 0.05163438409797322,
+        "shift": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "frac_positive": 0.0,
+        "per_item": null
+      }
+    },
+    "W|12-18|w|a-0.250|all": {
+      "arm": "W",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.250",
+      "positions": "all",
+      "gate0_realized_frac": 0.9875292291196011,
+      "gate0_min_layer_realized_frac": 0.9705284152609644,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 16,
+          "kept": 16,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 5,
+          "coherence_rate": 1.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.0625
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -3.654220853533064,
+        "shift": -1.171276024409703,
+        "ci": [
+          -1.6347346305847168,
+          -0.7612084661211286
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -2.27117919921875,
+          "39c3c113985f": -0.32808494567871094,
+          "4454c6b03ce9": -0.9374990463256836,
+          "5c12221dbe40": -0.8551344871520996,
+          "6661e4986d5b": -1.2187495231628418,
+          "6875866c134c": -0.900784969329834,
+          "c382c9a51d11": -1.6875
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.016440041221803196,
+        "shift": -0.06807442531977642,
+        "ci": [
+          -0.08836767849843795,
+          -0.04778647055529653
+        ],
+        "frac_positive": 0.2765957446808511,
+        "per_item": null
+      }
+    },
+    "W|12-18|w|a-0.500|all": {
+      "arm": "W",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-0.500",
+      "positions": "all",
+      "gate0_realized_frac": 0.9914874339861026,
+      "gate0_min_layer_realized_frac": 0.9843237461838751,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 16,
+          "kept": 16,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 1,
+          "coherence_rate": 1.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.0625
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -5.128350053514753,
+        "shift": -2.6454052243913924,
+        "ci": [
+          -4.000925609043667,
+          -1.4618362018040247
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -5.871406555175781,
+          "39c3c113985f": -0.398923397064209,
+          "4454c6b03ce9": -1.4375,
+          "5c12221dbe40": -1.7112202644348145,
+          "6661e4986d5b": -2.28125,
+          "6875866c134c": -2.5675363540649414,
+          "c382c9a51d11": -4.25
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.0780641517819248,
+        "shift": -0.12969853587989802,
+        "ci": [
+          -0.16887120654184967,
+          -0.09038798428478548
+        ],
+        "frac_positive": 0.3191489361702128,
+        "per_item": null
+      }
+    },
+    "W|12-18|w|a-1.000|all": {
+      "arm": "W",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-1.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9941219605201459,
+      "gate0_min_layer_realized_frac": 0.9855837595628028,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 15,
+          "kept": 15,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 2,
+          "coherence_rate": 0.9375,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.06666666666666667
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -7.073266574314663,
+        "shift": -4.590321745191302,
+        "ci": [
+          -7.044567448752267,
+          -2.286928585597447
+        ],
+        "frac_positive": 0.0,
+        "per_item": {
+          "140ab1b7473f": -4.764499664306641,
+          "39c3c113985f": -0.8285360336303711,
+          "4454c6b03ce9": -1.0625,
+          "5c12221dbe40": -4.847589015960693,
+          "6661e4986d5b": -2.53125,
+          "6875866c134c": -9.535377979278564,
+          "c382c9a51d11": -8.562499523162842
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.20234350943593965,
+        "shift": -0.25397789353391287,
+        "ci": [
+          -0.3289550154369473,
+          -0.1790437855318396
+        ],
+        "frac_positive": 0.3191489361702128,
+        "per_item": null
+      }
+    },
+    "W|12-18|w|a-2.000|all": {
+      "arm": "W",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-2.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.9940529446906485,
+      "gate0_min_layer_realized_frac": 0.9894967765038009,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 12,
+          "kept": 12,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.75,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": 0.0,
+          "detection_floor": 0.08333333333333333
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -9.669720309121269,
+        "shift": -7.186775479997907,
+        "ci": [
+          -13.151676109858922,
+          -1.9505209241594588
+        ],
+        "frac_positive": 0.14285714285714285,
+        "per_item": {
+          "140ab1b7473f": -17.837177276611328,
+          "39c3c113985f": -0.4166274070739746,
+          "4454c6b03ce9": 0.625,
+          "5c12221dbe40": -5.97664213180542,
+          "6661e4986d5b": -0.59375,
+          "6875866c134c": -18.608232021331787,
+          "c382c9a51d11": -7.499999523162842
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -0.623359948153709,
+        "shift": -0.6749943322516823,
+        "ci": [
+          -0.8271721079316976,
+          -0.5211800848089374
+        ],
+        "frac_positive": 0.2127659574468085,
+        "per_item": null
+      }
+    },
+    "W|12-18|w|a-4.000|all": {
+      "arm": "W",
+      "band": "12-18",
+      "dirkind": "w",
+      "coef": "a-4.000",
+      "positions": "all",
+      "gate0_realized_frac": 0.996526178695836,
+      "gate0_min_layer_realized_frac": 0.9932480143817619,
+      "gate0_applied": true,
+      "context_tokens": 0,
+      "coherence": {
+        "coherence": {
+          "n": 16,
+          "judged": 16,
+          "coherent": 0,
+          "kept": 0,
+          "misaligned": 0,
+          "failed": 0,
+          "judge_error": 0,
+          "truncated": 0,
+          "coherence_rate": 0.0,
+          "n_unresolved_judge_errors": 0,
+          "em_rate": NaN,
+          "detection_floor": NaN
+        }
+      },
+      "pivotal_tokens": {
+        "n": 7,
+        "margin": -9.197550228663854,
+        "shift": -6.714605399540493,
+        "ci": [
+          -15.568512780325753,
+          2.4564593860081265
+        ],
+        "frac_positive": 0.2857142857142857,
+        "per_item": {
+          "140ab1b7473f": -21.352428436279297,
+          "39c3c113985f": 12.648343563079834,
+          "4454c6b03ce9": 3.5781240463256836,
+          "5c12221dbe40": -21.989549160003662,
+          "6661e4986d5b": -0.796875,
+          "6875866c134c": -14.496102809906006,
+          "c382c9a51d11": -4.59375
+        }
+      },
+      "semantic_pairs": {
+        "n": 141,
+        "margin": -1.1472579872186064,
+        "shift": -1.1988923713165796,
+        "ci": [
+          -1.4771147022323456,
+          -0.9236228345472852
+        ],
+        "frac_positive": 0.23404255319148937,
+        "per_item": null
+      }
+    }
+  },
+  "gates": {
+    "gate1_induction": {
+      "criterion": "pivotal shift >= 2.0 nats with >= 5/7 items, random < 1.0, coherence within 0.15 of alpha=0",
+      "by_alpha": [
+        {
+          "alpha": 0.125,
+          "shift": 0.886683532169887,
+          "frac_positive": 1.0,
+          "n_items_positive": 7,
+          "random_shift": null,
+          "coherence_rate": 0.875,
+          "coherence_ok": true,
+          "gate0_applied": true,
+          "pass": false
+        },
+        {
+          "alpha": 0.25,
+          "shift": 1.9152745178767614,
+          "frac_positive": 1.0,
+          "n_items_positive": 7,
+          "random_shift": -0.03131025178091867,
+          "coherence_rate": 0.9375,
+          "coherence_ok": true,
+          "gate0_applied": true,
+          "pass": false
+        },
+        {
+          "alpha": 0.5,
+          "shift": 3.476114239011492,
+          "frac_positive": 1.0,
+          "n_items_positive": 7,
+          "random_shift": -0.06374791690281459,
+          "coherence_rate": 0.75,
+          "coherence_ok": false,
+          "gate0_applied": true,
+          "pass": false
+        },
+        {
+          "alpha": 1.0,
+          "shift": 4.976066010338919,
+          "frac_positive": 1.0,
+          "n_items_positive": 7,
+          "random_shift": -0.08074109894888741,
+          "coherence_rate": 0.4375,
+          "coherence_ok": false,
+          "gate0_applied": true,
+          "pass": false
+        },
+        {
+          "alpha": 2.0,
+          "shift": 5.928795848573957,
+          "frac_positive": 1.0,
+          "n_items_positive": 7,
+          "random_shift": 0.15277273314339773,
+          "coherence_rate": 0.0,
+          "coherence_ok": false,
+          "gate0_applied": true,
+          "pass": false
+        },
+        {
+          "alpha": 4.0,
+          "shift": 5.587170907429287,
+          "frac_positive": 0.8571428571428571,
+          "n_items_positive": 6,
+          "random_shift": -0.045086724417550225,
+          "coherence_rate": 0.0,
+          "coherence_ok": false,
+          "gate0_applied": true,
+          "pass": false
+        }
+      ],
+      "pass": false,
+      "evaluable": true,
+      "not_evaluable_because": null
+    },
+    "gate2_suppression_on_W": {
+      "criterion": "-alpha*w closes >= 0.5 of the W-B pivotal gap, by more than matched-norm random",
+      "W_margin": -2.482944829123361,
+      "B_margin": -6.672026940754482,
+      "gap": 4.189082111631121,
+      "by_alpha": [
+        {
+          "alpha": -4.0,
+          "margin": -9.197550228663854,
+          "frac_gap_closed": 1.602882259313365,
+          "random_margin": -2.8915816034589494,
+          "random_frac_gap_closed": 0.0975480459552214,
+          "coherence_rate": 0.0,
+          "coherence_ok": false,
+          "gate0_applied": true,
+          "pass": false
+        },
+        {
+          "alpha": -2.0,
+          "margin": -9.669720309121269,
+          "frac_gap_closed": 1.7155967079383798,
+          "random_margin": null,
+          "random_frac_gap_closed": null,
+          "coherence_rate": 0.75,
+          "coherence_ok": true,
+          "gate0_applied": true,
+          "pass": true
+        },
+        {
+          "alpha": -1.0,
+          "margin": -7.073266574314663,
+          "frac_gap_closed": 1.0957822317318933,
+          "random_margin": -2.0200722558157787,
+          "random_frac_gap_closed": -0.11049498696203679,
+          "coherence_rate": 0.9375,
+          "coherence_ok": true,
+          "gate0_applied": true,
+          "pass": true
+        },
+        {
+          "alpha": -0.5,
+          "margin": -5.128350053514753,
+          "frac_gap_closed": 0.631499969180919,
+          "random_margin": null,
+          "random_frac_gap_closed": null,
+          "coherence_rate": 1.0,
+          "coherence_ok": true,
+          "gate0_applied": true,
+          "pass": true
+        },
+        {
+          "alpha": -0.25,
+          "margin": -3.654220853533064,
+          "frac_gap_closed": 0.2796020687103787,
+          "random_margin": null,
+          "random_frac_gap_closed": null,
+          "coherence_rate": 1.0,
+          "coherence_ok": true,
+          "gate0_applied": true,
+          "pass": false
+        }
+      ],
+      "pass": true,
+      "evaluable": true,
+      "not_evaluable_because": null
+    },
+    "gate3_semantic_reachability": {
+      "criterion": "+/-alpha*w moves semantic_pairs on base with a CI excluding zero and beyond matched-norm random; if this fails, a Stage 3 semantic null is UNINTERPRETABLE, not evidence of distinct representations",
+      "by_alpha": [
+        {
+          "alpha": -4.0,
+          "shift": -1.102297705330666,
+          "ci": [
+            -1.3853758692698146,
+            -0.8183709854904485
+          ],
+          "random_shift": -0.1717943938107559,
+          "ci_excludes_zero": true,
+          "coherence_ok": false,
+          "pass": false
+        },
+        {
+          "alpha": -2.0,
+          "shift": -0.4692769190891003,
+          "ci": [
+            -0.6688910403530379,
+            -0.2759379839532156
+          ],
+          "random_shift": -0.1064901904630326,
+          "ci_excludes_zero": true,
+          "coherence_ok": true,
+          "pass": true
+        },
+        {
+          "alpha": -1.0,
+          "shift": -0.16040804407190482,
+          "ci": [
+            -0.26086330996365076,
+            -0.05973828461230463
+          ],
+          "random_shift": -0.04589572129082076,
+          "ci_excludes_zero": true,
+          "coherence_ok": true,
+          "pass": true
+        },
+        {
+          "alpha": -0.5,
+          "shift": -0.05785316688760664,
+          "ci": [
+            -0.10758888610329578,
+            -0.005960810262044542
+          ],
+          "random_shift": -0.018432457424301257,
+          "ci_excludes_zero": true,
+          "coherence_ok": true,
+          "pass": true
+        },
+        {
+          "alpha": -0.25,
+          "shift": -0.02932894146833221,
+          "ci": [
+            -0.05376718593584371,
+            -0.004522246182183728
+          ],
+          "random_shift": -0.007829820799046008,
+          "ci_excludes_zero": true,
+          "coherence_ok": true,
+          "pass": true
+        },
+        {
+          "alpha": -0.125,
+          "shift": -0.014823659625797082,
+          "ci": [
+            -0.027468845722937403,
+            -0.00229173565685438
+          ],
+          "random_shift": null,
+          "ci_excludes_zero": true,
+          "coherence_ok": true,
+          "pass": false
+        },
+        {
+          "alpha": 0.125,
+          "shift": 0.019612885606162707,
+          "ci": [
+            0.00779059659178082,
+            0.0314037855274244
+          ],
+          "random_shift": null,
+          "ci_excludes_zero": true,
+          "coherence_ok": true,
+          "pass": false
+        },
+        {
+          "alpha": 0.25,
+          "shift": 0.037694054461321166,
+          "ci": [
+            0.0156124416635564,
+            0.0598696040248902
+          ],
+          "random_shift": 0.004442662623451829,
+          "ci_excludes_zero": true,
+          "coherence_ok": true,
+          "pass": true
+        },
+        {
+          "alpha": 0.5,
+          "shift": 0.08748109936178224,
+          "ci": [
+            0.04721883023778641,
+            0.12780424432478288
+          ],
+          "random_shift": 0.005381795130889504,
+          "ci_excludes_zero": true,
+          "coherence_ok": false,
+          "pass": false
+        },
+        {
+          "alpha": 1.0,
+          "shift": 0.22372560632550353,
+          "ci": [
+            0.15153903460875542,
+            0.29596703281734926
+          ],
+          "random_shift": -0.008595487626738622,
+          "ci_excludes_zero": true,
+          "coherence_ok": false,
+          "pass": false
+        },
+        {
+          "alpha": 2.0,
+          "shift": 0.5963360496869521,
+          "ci": [
+            0.48586925553015403,
+            0.7042985929404214
+          ],
+          "random_shift": -0.09150471632078198,
+          "ci_excludes_zero": true,
+          "coherence_ok": false,
+          "pass": false
+        },
+        {
+          "alpha": 4.0,
+          "shift": 1.2068221079434909,
+          "ci": [
+            1.020224093455293,
+            1.3889470335513583
+          ],
+          "random_shift": -0.3818198538208967,
+          "ci_excludes_zero": true,
+          "coherence_ok": false,
+          "pass": false
+        }
+      ],
+      "pass": true,
+      "evaluable": true
+    }
+  },
+  "contrasts": {
+    "evaluable": false,
+    "not_evaluable_because": "the Stage 3 D-N content contrast needs BOTH D and N at alpha=0 on band 12-18; D present=False, N present=False"
+  },
+  "completeness": {
+    "status": "partial",
+    "scope": "transfer",
+    "n_registered": 51,
+    "n_complete": 17,
+    "missing_points": [
+      "D|12-18|w|a+0.000|all",
+      "D|12-18|w|a-0.125|all",
+      "D|12-18|w|a-0.250|all",
+      "D|12-18|w|a-0.500|all",
+      "D|12-18|w|a-1.000|all",
+      "D|12-18|w|a-2.000|all",
+      "D|12-18|w|a-4.000|all",
+      "D|12-18|w|a+1.000|all",
+      "D|12-18|w|cancel_DN|all",
+      "D|12-18|rand|a-0.250|all",
+      "D|12-18|rand|a-1.000|all",
+      "D|12-18|rand|a-4.000|all",
+      "N|12-18|w|a+0.000|all",
+      "N|12-18|w|a-0.125|all",
+      "N|12-18|w|a-0.250|all",
+      "N|12-18|w|a-0.500|all",
+      "N|12-18|w|a-1.000|all",
+      "N|12-18|w|a-2.000|all",
+      "N|12-18|w|a-4.000|all",
+      "N|12-18|w|a+1.000|all",
+      "N|12-18|w|cancel_DN|all",
+      "N|12-18|rand|a-1.000|all",
+      "P|12-18|w|a+0.000|all",
+      "P|12-18|w|a-0.125|all",
+      "P|12-18|w|a-0.250|all",
+      "P|12-18|w|a-0.500|all",
+      "P|12-18|w|a-1.000|all",
+      "P|12-18|w|a-2.000|all",
+      "P|12-18|w|a-4.000|all",
+      "P|12-18|w|a+1.000|all",
+      "P|12-18|w|cancel_P|all",
+      "P|12-18|rand|a-0.250|all",
+      "P|12-18|rand|a-1.000|all",
+      "P|12-18|rand|a-4.000|all"
+    ],
+    "short_banks": {},
+    "label": "pd-controls"
+  },
+  "pd_displacement": {
+    "direction_pd_sha": "c1506f1f849438a8",
+    "parent_direction_sha": "2e0dcb8f9d5b16ec",
+    "P1": {
+      "statistic": "band mean projection of PD-B onto frozen w",
+      "value": 0.42195181389660064,
+      "null": {
+        "lo": -0.6020290819687789,
+        "hi": 0.5109333843527082,
+        "median": -0.00527472798175836,
+        "width": 1.1129624663214872,
+        "informative": true,
+        "n_dirs": 1000,
+        "seed": 0
+      },
+      "frac_pos_items": 0.8242677824267782,
+      "outside_null": false,
+      "in_registered_interval": true,
+      "registered_interval": [
+        0.2,
+        1.5
+      ],
+      "status": "falsified"
+    },
+    "P2": {
+      "statistic": "paired band mean projection of PD-D onto frozen w (PRIMARY)",
+      "value": 0.7207108892786367,
+      "null": {
+        "lo": -0.0713016693699956,
+        "hi": 0.07284622978768665,
+        "median": 0.0010766377510697343,
+        "width": 0.14414789915768225,
+        "informative": true,
+        "n_dirs": 1000,
+        "seed": 0
+      },
+      "frac_pos_items": 1.0,
+      "outside_null": true,
+      "meets_registered_threshold": true,
+      "registered_min": 0.4,
+      "status": "supported"
+    },
+    "additivity": {
+      "P_band": 0.7308104172123191,
+      "D_band": -0.29875907538203605,
+      "predicted_PD": 0.43205134183028304,
+      "predicted_PD_minus_D": 0.7308104172123191,
+      "observed_PD": 0.42195181389660064,
+      "observed_PD_minus_D": 0.7207108892786367,
+      "superadditive": false
+    },
+    "registered_falsifier": {
+      "text": "PD band mean inside an informative null band, or PD <= D",
+      "clause_P1_inside_informative_null": true,
+      "clause_PD_le_D": false,
+      "fired": true,
+      "primary_statistic": "P2",
+      "conflict": "P1's clause fires while P2 -- registered as the primary displacement statistic in PREDICTIONS-pd.md section 3 -- is supported. PD-vs-B is confounded by 1120 tokens of context, which is why its null band is wide; that is the stated reason P2 is primary. This must be adjudicated in RESULTS-m1.md, not silently by whichever clause is read first."
+    }
+  }
+}

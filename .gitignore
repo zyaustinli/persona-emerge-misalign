@@ -28,5 +28,11 @@ persona_vectors-main/
 # --- papers: third-party PDFs, not ours to redistribute ---
 papers/
 
+# --- working documents: agent handoffs and the write-up drafts ---
+# Kept local; the write-up is destined for a Google Doc, and the handoffs were
+# scaffolding for the runs rather than a record of them.
+HANDOFF-*.md
+WRITEUP-*.md
+
 # --- os ---
 .DS_Store

@@ -53,7 +53,8 @@ from . import prompt as P
 from . import probe as PR
 from . import readouts as R
 from .records import Writer, load_done, read_all, record_id
-from .run_m2 import CONDITION_SPEC, EXPECTED_PREFIX_TOKENS, context_for, model_label
+from .run_m2 import (CONDITION_SPEC, EXPECTED_PREFIX_TOKENS, PINNED_CONTEXT_SHA256,
+                     context_for, model_label)
 from .stats import paired_bootstrap_ci
 from .steering import Steerer, band_directions, cancel_directions
 
@@ -132,11 +133,29 @@ def validate_w_points() -> list[Point]:
 
 
 def transfer_points() -> list[Point]:
-    """Stage 3, base weights with the M2 contexts in place."""
+    """Stage 3, base weights with the M2 contexts in place.
+
+    PD is the headline arm and was added after the original registration; D and N are kept
+    as the matched controls they always were, NOT retired.  PREDICTIONS-pd.md section 5
+    records why: D's band-12-18 projection is -0.299 and its sampled EM rate is 1/120, so
+    it cannot carry the causal test -- a null there would mean the intervention had no
+    headroom, not that the representations are distinct.  Dropping D while promoting PD
+    would be exactly the substitution the pre-registration exists to prevent.
+    """
     out: list[Point] = []
-    for arm, cancel in (("D", "cancel_DN"), ("N", "cancel_DN"), ("P", "cancel_P")):
+    for arm, cancel in (("PD", "cancel_PD"), ("D", "cancel_DN"), ("N", "cancel_DN"),
+                        ("P", "cancel_P")):
         out += _pts(arm, "12-18", "w", TRANSFER_A + [cancel])
-        rand = [a(-1.0)] if arm == "N" else [a(-0.25), a(-1.0), a(-4.0)]
+        if arm == "PD":
+            # PREDICTIONS-pd.md section 4 registers "matched-norm random directions as the
+            # negative control at EVERY alpha", and S4 is decided at the cancellation
+            # point specifically -- without a random control of that exact per-layer
+            # magnitude, a change at cancel_PD cannot be attributed to W-B rather than to
+            # a generic intervention of the same size.  alpha=0 is excluded because a
+            # random direction at alpha=0 is the same bitwise no-op as the w baseline.
+            rand = [c for c in TRANSFER_A if c != a(0.0)] + [cancel]
+        else:
+            rand = [a(-1.0)] if arm == "N" else [a(-0.25), a(-1.0), a(-4.0)]
         out += _pts(arm, "12-18", "rand", rand)
     return out
 
@@ -149,14 +168,29 @@ def points_for(stage: str) -> list[Point]:
     }[stage]()
 
 
-# Sampled coherence runs on a registered subset: enough alphas to see the coherence
-# curve bend, not so many that the judge budget decides the design.
-SAMPLE_COEFS = {a(x) for x in (0.0, -4.0, -2.0, -1.0, -0.5, 0.5, 1.0, 2.0, 4.0)}
-SAMPLE_RAND_COEFS = {a(x) for x in (-4.0, -1.0, 1.0, 4.0)}
+def registered_grid(which: str) -> list[Point]:
+    """The full registered grid a `--points` value names.
+
+    "gate" spans two sweep stages, so it has no single `points_for` key.  Used by both
+    `sample_points` and the report's completeness check, so the two cannot drift.
+    """
+    if which == "gate":
+        return validate_points() + validate_w_points()
+    return transfer_points()
+
+
+# Sampled coherence runs on a registered subset.  The small alphas are NOT optional:
+# Gate 1 asks for a pivotal shift that clears a threshold AT AN ALPHA THAT KEEPS ITS
+# COHERENCE, so the alphas where the shift is smallest are exactly the ones where the
+# coherence floor decides the gate.  The first pass omitted +/-0.125 and +/-0.25 and the
+# gate came back FAIL with `coherence_rate=nan` at alpha=+0.25 -- a verdict resting on
+# data that was never collected.  Every alpha in the registered grid is sampled.
+SAMPLE_COEFS = {a(x) for x in cfg.M1_ALPHAS_SIGNED}
+SAMPLE_RAND_COEFS = {a(x) for x in (-4.0, -1.0, -0.25, 0.25, 1.0, 4.0)}
 
 
 def sample_points(which: str) -> list[Point]:
-    src = validate_points() + validate_w_points() if which == "gate" else transfer_points()
+    src = registered_grid(which)
     out = []
     for p in src:
         if p.band != "12-18" or p.positions != "all":
@@ -195,6 +229,18 @@ def direction_path(smoke: bool = False) -> Path:
     return RUN_DIR / "direction.npz"
 
 
+def direction_pd_path() -> Path:
+    """PD's projections, frozen SEPARATELY from direction.npz.
+
+    PD was collected after direction.npz was frozen, and the freeze is the whole point of
+    that file -- rebuilding it to append one arm would re-derive the vector every M1 gate
+    was validated against, for a quantity that is not the direction at all.  PD's
+    projections are a *target* for its cancellation point, so they live in their own
+    side-car, digest-linked to the parent direction.  See PREDICTIONS-pd.md section 4.
+    """
+    return RUN_DIR / "direction_pd.npz"
+
+
 def write_manifest(args, extra: dict) -> None:
     run_dir = dirs_for(args.smoke)
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -216,6 +262,12 @@ def write_manifest(args, extra: dict) -> None:
     if dpath.exists():
         inputs["direction_npz"] = str(dpath)
         inputs["direction_npz_sha"] = file_digest(dpath)
+    # PD's cancellation coefficients come from the side-car, not the parent, so the
+    # manifest cannot establish which coefficients produced a reported shift without it.
+    pdpath = direction_pd_path()
+    if pdpath.exists():
+        inputs["direction_pd_npz"] = str(pdpath)
+        inputs["direction_pd_npz_sha"] = file_digest(pdpath)
     payload = {
         "created_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
         "args": vars(args),
@@ -344,6 +396,203 @@ def build_direction(args) -> int:
     return 0
 
 
+def _projection_null(shift: np.ndarray, band: list[int], n_dirs: int, seed: int) -> dict:
+    """Matched random-direction band for a mean-projection statistic.
+
+    `shift` is (n_items, n_layers, hidden).  The observed statistic is the band mean of
+    that shift projected onto the frozen unit w, so the matched control is the SAME shift
+    projected onto a random unit direction.
+
+    The directions are drawn in RAW space.  `probe.random_direction_null` standardises
+    instead, and must: its statistic is an AUC over standardized probe scores, so its null
+    has to live in standardized coordinates.  Here the statistic is a raw projection onto a
+    raw unit vector, so standardising would judge the observation against a null from a
+    different geometry.
+
+    The band is wide for the long-prefix arms, for the reason `probe.random_direction_null`
+    documents: 1120 tokens of context is a large systematic mean offset, so a random
+    direction picks up a non-trivial magnitude with random sign.  That is exactly what the
+    `informative` flag exists to catch, and why PD-vs-B is not the primary statistic.
+    """
+    rng = np.random.default_rng(seed)
+    dirs = rng.normal(size=(n_dirs, shift.shape[2]))
+    dirs /= np.linalg.norm(dirs, axis=1, keepdims=True)
+    vals = np.einsum("ild,jd->ijl", shift[:, band, :], dirs).mean(axis=(0, 2))
+    lo, hi = float(np.quantile(vals, 0.025)), float(np.quantile(vals, 0.975))
+    return {
+        "lo": lo, "hi": hi, "median": float(np.median(vals)), "width": float(hi - lo),
+        # Unbounded statistic, so the scale reference is the registered interval it judges,
+        # not M2's AUC-calibrated 0.50.  See cfg.M1_NULL_MAX_INFORMATIVE_WIDTH.
+        "informative": bool(hi - lo <= cfg.M1_NULL_MAX_INFORMATIVE_WIDTH),
+        "n_dirs": int(n_dirs), "seed": int(seed),
+    }
+
+
+def build_direction_pd(args) -> int:
+    """Freeze PD's per-layer projections onto the already-frozen direction.
+
+    Reads the parent direction rather than recomputing w, so PD's cancellation point is
+    defined against the same vector every other arm was measured on.  Fails if the parent
+    has changed.
+
+    Also evaluates the registered displacement decision from PREDICTIONS-pd.md section 3
+    -- P1 (PD is displaced) and P2 (PD > D, the PRIMARY statistic) -- each against a
+    matched random-direction band with an `informative` flag.  Steering is only licensed
+    if the registered falsifier does not fire, so this is computed here, before any
+    steered forward pass, rather than assumed.
+    """
+    dirn = load_direction()
+    acts_dir = cfg.M1_ACTS_DIR
+    digests = {}
+    arr = {}
+    # D is loaded because P2 -- the primary statistic -- is paired PD-D over items.  Its
+    # digest is pinned here for the same reason PD's and B's are.
+    for name in ("PD_response_avg.npy", f"B_{cfg.M1_POOLING}.npy",
+                 f"D_{cfg.M1_POOLING}.npy"):
+        p = acts_dir / name
+        if not p.exists():
+            raise FileNotFoundError(
+                f"{p} does not exist. Run `run_m2 --stage collect --conditions PD` first."
+            )
+        digests[name] = file_digest(p)
+        a = np.load(p)
+        want = (cfg.M1_N_ITEMS, cfg.N_LAYERS, cfg.HIDDEN_SIZE)
+        if a.shape != want or a.dtype != np.float32:
+            raise AssertionError(f"{p} is {a.shape}/{a.dtype}, expected {want}/float32")
+        arr[name] = a.astype(np.float64)
+
+    w_unit, w_norm = dirn["w_unit"], dirn["w_norm"]
+    band = list(cfg.M1_BAND)
+    shift_b = arr["PD_response_avg.npy"] - arr[f"B_{cfg.M1_POOLING}.npy"]
+    shift_d = arr["PD_response_avg.npy"] - arr[f"D_{cfg.M1_POOLING}.npy"]
+    proj = np.einsum("ild,ld->il", shift_b, w_unit)        # (n_items, n_layers)
+    proj_d = np.einsum("ild,ld->il", shift_d, w_unit)
+
+    # Band means per item: the unit P2 is paired over.
+    pd_band_items = proj[:, band].mean(axis=1)
+    pd_minus_d_band_items = proj_d[:, band].mean(axis=1)
+    p1_value = float(pd_band_items.mean())
+    p2_value = float(pd_minus_d_band_items.mean())
+
+    null_p1 = _projection_null(shift_b, band, cfg.M1_NULL_N_DIRS, cfg.SEED)
+    null_p2 = _projection_null(shift_d, band, cfg.M1_NULL_N_DIRS, cfg.SEED)
+
+    def _outside(v: float, null: dict) -> bool:
+        return bool(v < null["lo"] or v > null["hi"])
+
+    lo_i, hi_i = cfg.M1_P1_INTERVAL
+    p1_outside, p2_outside = _outside(p1_value, null_p1), _outside(p2_value, null_p2)
+    p1 = {
+        "statistic": "band mean projection of PD-B onto frozen w",
+        "value": p1_value, "null": null_p1,
+        "frac_pos_items": float((pd_band_items > 0).mean()),
+        "outside_null": p1_outside,
+        "in_registered_interval": bool(lo_i <= p1_value <= hi_i),
+        "registered_interval": [lo_i, hi_i],
+        "status": ("uninformative_null" if not null_p1["informative"]
+                   else "supported" if (p1_outside and p1_value > 0)
+                   else "falsified"),
+    }
+    p2 = {
+        "statistic": "paired band mean projection of PD-D onto frozen w (PRIMARY)",
+        "value": p2_value, "null": null_p2,
+        "frac_pos_items": float((pd_minus_d_band_items > 0).mean()),
+        "outside_null": p2_outside,
+        "meets_registered_threshold": bool(p2_value >= cfg.M1_P2_MIN),
+        "registered_min": cfg.M1_P2_MIN,
+        "status": ("uninformative_null" if not null_p2["informative"]
+                   else "falsified" if p2_value <= 0
+                   else "supported" if (p2_outside and p2_value >= cfg.M1_P2_MIN)
+                   else "below_registered_threshold"),
+    }
+
+    # Linear-additivity reference, DERIVED from the parent rather than copied from prose:
+    # PREDICTIONS-pd.md section 3 registers PD = P + D and PD-D = P under independence.
+    p_band = float(dirn["proj_P"][band].mean())
+    d_band = float(dirn["proj_D"][band].mean())
+    additivity = {
+        "P_band": p_band, "D_band": d_band,
+        "predicted_PD": p_band + d_band, "predicted_PD_minus_D": p_band,
+        "observed_PD": p1_value, "observed_PD_minus_D": p2_value,
+        # Registered in section 3 so that if it occurs it cannot be reported as expected.
+        "superadditive": bool(p2_value > p_band),
+    }
+
+    # The registered falsifier is written DISJUNCTIVELY ("PD band mean inside an
+    # informative null band, OR PD <= D") while the same section names P2 the PRIMARY
+    # statistic.  When the two clauses disagree the conflict is recorded, not resolved
+    # here -- adjudicating a pre-registration in code is exactly the substitution it
+    # exists to prevent.  RESULTS-m1.md carries the call.
+    p1_clause = bool(null_p1["informative"] and not p1_outside)
+    p2_clause = bool(p2_value <= 0)
+    falsifier = {
+        "text": "PD band mean inside an informative null band, or PD <= D",
+        "clause_P1_inside_informative_null": p1_clause,
+        "clause_PD_le_D": p2_clause,
+        "fired": bool(p1_clause or p2_clause),
+        "primary_statistic": "P2",
+        "conflict": (
+            "P1's clause fires while P2 -- registered as the primary displacement "
+            "statistic in PREDICTIONS-pd.md section 3 -- is supported. PD-vs-B is "
+            "confounded by 1120 tokens of context, which is why its null band is wide; "
+            "that is the stated reason P2 is primary. This must be adjudicated in "
+            "RESULTS-m1.md, not silently by whichever clause is read first."
+        ) if (p1_clause and p2["status"] == "supported") else None,
+    }
+
+    out = {
+        "proj_PD": proj.mean(axis=0),
+        "frac_pos_PD": (proj > 0).mean(axis=0),
+        "alpha_cancel_PD_vs_B": -proj.mean(axis=0) / w_norm,
+        "proj_PD_minus_D": proj_d.mean(axis=0),
+        "frac_pos_PD_minus_D": (proj_d > 0).mean(axis=0),
+        "proj_PD_band_per_item": pd_band_items,
+        "proj_PD_minus_D_band_per_item": pd_minus_d_band_items,
+    }
+    meta = {
+        "parent_direction_sha256_16": dirn["sha"],
+        "pooling": cfg.M1_POOLING, "n_items": cfg.M1_N_ITEMS,
+        "band": band,
+        "input_sha256_16": digests,
+        "context_sha256": PINNED_CONTEXT_SHA256["PD"],
+        "displacement": {"P1": p1, "P2": p2, "additivity": additivity,
+                         "registered_falsifier": falsifier},
+        "created_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
+    }
+    path = direction_pd_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(f".{path.name}.tmp")
+    with open(tmp, "wb") as f:
+        np.savez(f, meta=json.dumps(meta), **out)
+    tmp.replace(path)
+    # file_digest is lru_cached and load_direction above already digested the OLD side-car
+    # at this path.  Without invalidating, the digest printed here -- and any digest read
+    # later in this process -- is the superseded file's, so the audit line would name a
+    # freeze that is not the one on disk.
+    file_digest.cache_clear()
+
+    print(f"\ndirection-pd: wrote {path}")
+    print(f"  parent direction sha256: {dirn['sha']}")
+    print(f"  band {band[0]}-{band[-1]} mean projection: {p1_value:+.4f}")
+    print(f"  band-mean alpha_cancel (W-equivalents): "
+          f"{out['alpha_cancel_PD_vs_B'][band].mean():+.5f}")
+    print("\n  registered displacement decision (PREDICTIONS-pd.md section 3):")
+    for label, d in (("P1  PD vs B    ", p1), ("P2  PD - D  (*)", p2)):
+        n = d["null"]
+        print(f"    {label} {d['value']:+.4f}  frac_pos {d['frac_pos_items']:.3f}  "
+              f"null [{n['lo']:+.4f}, {n['hi']:+.4f}] w={n['width']:.3f} "
+              f"{'informative' if n['informative'] else 'UNINFORMATIVE'}  "
+              f"-> {d['status'].upper()}")
+    print(f"    additivity: predicted PD {additivity['predicted_PD']:+.4f} / "
+          f"PD-D {additivity['predicted_PD_minus_D']:+.4f}; "
+          f"superadditive={additivity['superadditive']}")
+    print(f"    registered falsifier fired: {falsifier['fired']}")
+    if falsifier["conflict"]:
+        print("    !! CONFLICT: " + falsifier["conflict"])
+    print(f"  sha256: {file_digest(path)}")
+    return 0
+
+
 def load_direction() -> dict:
     path = direction_path()
     if not path.exists():
@@ -367,6 +616,31 @@ def load_direction() -> dict:
                 f"{name} has changed since the direction was frozen ({got} vs {digest}). "
                 "The activations underneath M1 are not the ones it was derived from."
             )
+
+    # PD's projections were frozen after this direction, in their own side-car.  Merge
+    # them in when present so `cancel_PD` resolves like any other cancellation point, and
+    # assert the side-car was built against THIS direction rather than an earlier one.
+    pd_path = direction_pd_path()
+    if pd_path.exists():
+        z_pd = np.load(pd_path, allow_pickle=False)
+        pd_meta = json.loads(str(z_pd["meta"]))
+        if pd_meta["parent_direction_sha256_16"] != d["sha"]:
+            raise AssertionError(
+                f"{pd_path.name} was frozen against direction "
+                f"{pd_meta['parent_direction_sha256_16']}, but the direction on disk is "
+                f"{d['sha']}. PD's cancellation point would target a different vector."
+            )
+        for name, digest in pd_meta["input_sha256_16"].items():
+            got = file_digest(cfg.M1_ACTS_DIR / name)
+            if got != digest:
+                raise AssertionError(
+                    f"{name} has changed since PD's projections were frozen "
+                    f"({got} vs {digest})."
+                )
+        for k in z_pd.files:
+            if k != "meta":
+                d[k] = z_pd[k]
+        d["pd_sha"] = file_digest(pd_path)
     return d
 
 
@@ -376,12 +650,24 @@ def directions_for(point: Point, dirn: dict) -> dict[int, tuple[np.ndarray, floa
     unit = dirn["w_unit"] if point.kind == "w" else dirn["rand_unit"]
     if point.coef.startswith("a"):
         return band_directions(unit, dirn["w_norm"], layers, point.alpha)
-    if point.kind != "w":
+    if point.kind != "w" and point.coef != "cancel_PD":
         raise AssertionError(
             f"{point.name}: a cancellation point is defined by a projection onto w, so it "
             "has no meaning along the random control direction"
         )
-    key = {"cancel_DN": "proj_D_minus_N", "cancel_P": "proj_P"}[point.coef]
+    key = {"cancel_DN": "proj_D_minus_N", "cancel_P": "proj_P",
+           "cancel_PD": "proj_PD"}[point.coef]
+    if key not in dirn:
+        raise AssertionError(
+            f"{point.name} needs `{key}`, which is not in the loaded direction. For PD, run "
+            "`--stage direction-pd` after collecting its activations; that side-car is "
+            "frozen separately so appending an arm never re-derives the parent vector."
+        )
+    if point.kind != "w":
+        # S4's matched control: the SAME per-layer magnitude as cancel_PD, applied along
+        # the random direction instead of W-B.  cancel_DN and cancel_P keep the hard error
+        # above -- they have no registered random arm to match.
+        return cancel_directions(dirn["rand_unit"], dirn[key], layers)
     return cancel_directions(unit, dirn[key], layers)
 
 
@@ -393,11 +679,25 @@ def point_tag(point: Point, dirn: dict) -> dict:
     otherwise.  `dirsha` is here too, so a re-frozen direction invalidates the rows
     rather than silently mixing two vectors' results in one file.
     """
-    return {
+    tag = {
         "point": point.name, "arm": point.arm, "band": point.band,
         "dirkind": point.kind, "coef": point.coef, "positions": point.positions,
         "dirsha": dirn["sha"],
     }
+    # `cancel_PD` is the only operating point whose displacement is read out of the PD
+    # side-car, so it is the only one whose id may depend on it.  Without this, rebuilding
+    # direction_pd.npz while the parent is unchanged leaves the ids identical and `done`
+    # silently re-serves the OLD cancellation measurements under a manifest claiming the
+    # new side-car.  The alpha-grid points never touch proj_PD, so binding them too would
+    # discard good rows for a dependency they do not have.
+    if point.coef == "cancel_PD":
+        if "pd_sha" not in dirn:
+            raise AssertionError(
+                f"{point.name} needs direction_pd.npz, which is not loaded. Run "
+                "`--stage direction-pd` after collecting PD's activations."
+            )
+        tag["pdsha"] = dirn["pd_sha"]
+    return tag
 
 
 # ---------------------------------------------------------------- stage: stage0
@@ -504,10 +804,17 @@ def preflight(stage: str, smoke: bool) -> dict:
             raise AssertionError(f"{b} has {len(pairs)} items, expected {EXPECTED_BANK_N[b]}")
     print("  pair banks: " + ", ".join(f"{b} n={len(p)}" for b, p in banks.items()))
 
+    pts = points_for(stage) if stage in ("validate", "validate-w", "transfer") else []
+
     from transformers import AutoTokenizer
     tok = AutoTokenizer.from_pretrained(str(cfg.BASE_MODEL))
     lens = {}
-    for arm in ("B", "W", "D", "N", "P"):
+    # Driven by the arms actually in this stage's grid, unioned with the always-checked
+    # base arms and every pinned context.  The previous hardcoded tuple silently omitted
+    # PD, so the headline arm's context was the one context never verified before steering.
+    arms = sorted({"B", "W", "D", "N", "P"} | {p.arm for p in pts}
+                  | set(PINNED_CONTEXT_SHA256))
+    for arm in arms:
         ctx = context_for(arm)
         lens[arm] = len(tok(ctx, add_special_tokens=False)["input_ids"]) if ctx else 0
         want = EXPECTED_PREFIX_TOKENS[arm]
@@ -518,7 +825,21 @@ def preflight(stage: str, smoke: bool) -> dict:
             )
     print("  context tokens: " + ", ".join(f"{k} {v}" for k, v in lens.items()))
 
-    pts = points_for(stage) if stage in ("validate", "validate-w", "transfer") else []
+    # Length alone does not pin the context: preamble-then-demos and demos-then-preamble
+    # are both 1120 tokens for PD.  M2 asserts these digests before collecting activations;
+    # M1 must assert the same bytes before steering them, or a length-preserving change
+    # would make the steering operate on text different from the behaviour and the
+    # activations it is supposed to explain.
+    for arm, want_sha in sorted(PINNED_CONTEXT_SHA256.items()):
+        got = hashlib.sha256(context_for(arm).encode()).hexdigest()
+        if got != want_sha:
+            raise AssertionError(
+                f"arm {arm} context sha256 is {got}, expected {want_sha}. This text is "
+                "pinned by a completed run (Track A / M2); the steering would not act on "
+                "the context the behaviour was measured under. Refusing to continue."
+            )
+    print(f"  pinned contexts verified: {', '.join(sorted(PINNED_CONTEXT_SHA256))}")
+
     if pts:
         names = [p.name for p in pts]
         if len(set(names)) != len(names):
@@ -740,9 +1061,16 @@ def judge(args) -> int:
     run_dir = dirs_for(args.smoke)
     path = run_dir / "records.jsonl"
     rows = read_all(path)
-    pending = [r for r in rows if r.get("readout") == "sampled" and R.is_unjudged(r)]
-    print(f"\njudge: {len(pending)} unjudged of "
-          f"{sum(1 for r in rows if r.get('readout') == 'sampled')} sampled rows")
+    # Dedupe by record id, keeping the LAST copy, before selecting work.  The file is
+    # append-only, so a row judged on an earlier pass is still present in its original
+    # unjudged form; without this the second judging pass re-submits every completion
+    # that was already scored -- measured: 432 selected where only 112 were new, i.e.
+    # 640 wasted requests against an 18 rpm cap.  The report already dedupes this way,
+    # so the results were right and only the budget was wrong.
+    sampled = {r["record_id"]: r for r in rows if r.get("readout") == "sampled"}
+    pending = [r for r in sampled.values() if R.is_unjudged(r)]
+    print(f"\njudge: {len(pending)} unjudged of {len(sampled)} unique sampled rows "
+          f"({sum(1 for r in rows if r.get('readout') == 'sampled')} rows on disk)")
     if not pending:
         return 0
     judge_pair = JudgePair(model=args.judge_model, mode=args.judge_mode, rpm=args.rpm)
@@ -784,21 +1112,35 @@ def _by_point(rows: list[dict]) -> dict:
 
 
 def _coherence(rows: list[dict]) -> dict:
-    """Judged coherence and misalignment rate per operating point."""
+    """Judged coherence and misalignment rate per operating point.
+
+    `judge_error` rows are excluded from the coherence denominator; `judge_returned_none`
+    rows are kept in it.  `readouts.py` draws exactly this distinction and it matters
+    here: a 429 or a network blip says nothing about whether the model's output was
+    coherent, whereas a judge that answered REFUSAL put no mass on digits *because of the
+    answer*.  Counting API failures as incoherence made the measured curve non-monotone
+    -- alpha=+0.125 read 0.625 against a 0.938 baseline purely because five of its
+    sixteen judge calls had errored -- and Gate 1 reads that curve.  The error count is
+    reported alongside every rate, and those rows stay retryable.
+    """
     latest = {r["record_id"]: r for r in rows if r.get("readout") == "sampled"
               and r.get("point")}
     agg: dict = {}
     for r in latest.values():
         key = (r["point"], r.get("sampled_mode", "coherence"))
         s = agg.setdefault(key, {"n": 0, "judged": 0, "coherent": 0, "kept": 0,
-                                 "misaligned": 0, "failed": 0, "truncated": 0})
+                                 "misaligned": 0, "failed": 0, "judge_error": 0,
+                                 "truncated": 0})
         s["n"] += 1
         s["truncated"] += bool(r.get("truncated"))
         if "drop_reason" not in r:
             continue
+        if r["drop_reason"] == "judge_error":
+            s["judge_error"] += 1          # transient; excluded from the denominator
+            continue
         s["judged"] += 1
-        if r["drop_reason"] in ("judge_error", "judge_returned_none"):
-            s["failed"] += 1
+        if r["drop_reason"] == "judge_returned_none":
+            s["failed"] += 1               # the judge refused ON this answer; kept in
         elif r["drop_reason"] != "incoherent":
             s["coherent"] += 1
         if r.get("kept"):
@@ -811,6 +1153,7 @@ def _coherence(rows: list[dict]) -> dict:
         out.setdefault(point, {})[mode] = {
             **s,
             "coherence_rate": s["coherent"] / s["judged"] if s["judged"] else float("nan"),
+            "n_unresolved_judge_errors": s["judge_error"],
             "em_rate": s["misaligned"] / s["kept"] if s["kept"] else float("nan"),
             "detection_floor": 1 / s["kept"] if s["kept"] else float("nan"),
         }
@@ -833,17 +1176,109 @@ def _shift(cur: dict, base: dict, n_boot: int) -> dict:
     }
 
 
+def _drop_stale(rows: list[dict], dirn: dict) -> tuple[list[dict], dict]:
+    """Drop steering rows produced against a different direction or PD side-car.
+
+    Record ids carry `dirsha` (and `pdsha` for cancel_PD), so a re-freeze correctly makes
+    the sweep re-run those points -- but the OPERATING POINT NAME is unchanged, so both the
+    old and the new rows land under the same key in `_by_point` and completeness counts
+    them as one.  Which set wins would then be decided by append order.
+
+    The tag is inline in every row by design, so the check is a direct comparison rather
+    than a re-derivation of the ids.  Rows without a `point` (Gate A, judging) are M1's
+    inputs, not its operating points, and are passed through untouched.
+    """
+    keep, dropped = [], {}
+    for r in rows:
+        if not r.get("point"):
+            keep.append(r)
+            continue
+        ok = r.get("dirsha") == dirn["sha"]
+        if ok and r.get("coef") == "cancel_PD":
+            ok = r.get("pdsha") == dirn.get("pd_sha")
+        if ok:
+            keep.append(r)
+        else:
+            dropped[r["point"]] = dropped.get(r["point"], 0) + 1
+    return keep, dropped
+
+
+def _completeness(rows: list[dict], per_point: dict, scope: str | None) -> dict:
+    """Which registered operating points are actually finished.
+
+    Two facts the sweep already establishes are reused rather than re-derived: the
+    `m1_point` record is committed only AFTER a point's readouts finish, so its presence
+    means that point is complete (see sweep); and EXPECTED_BANK_N pins the bank sizes.
+
+    Without this, `report` reduces over whatever rows happen to exist -- `_shift` takes the
+    intersection of available items -- and a sweep interrupted mid-point is written out as
+    an ordinary result.  Every margin, shift, CI and positive fraction in that file would
+    be computed on a partial item set, with nothing on the face of it saying so.
+    """
+    if scope is None:
+        return {"status": "unscoped", "scope": None,
+                "note": "no --points grid given, so completeness was not checked"}
+    grid = [pt.name for pt in registered_grid(scope)]
+    done = {r["point"] for r in rows if r.get("readout") == "m1_point"}
+    missing = [n for n in grid if n not in done]
+    short = {}
+    for n in grid:
+        if n in missing:
+            continue
+        for bank, want in EXPECTED_BANK_N.items():
+            got = len(per_point.get(n, {}).get(bank, {}))
+            if got != want:
+                short.setdefault(n, {})[bank] = f"{got}/{want}"
+    return {
+        "status": "complete" if not (missing or short) else "partial",
+        "scope": scope, "n_registered": len(grid), "n_complete": len(grid) - len(missing),
+        "missing_points": missing, "short_banks": short,
+    }
+
+
 def report(args) -> int:
     """Every number re-derived from records.jsonl.  Nothing is carried in from prose."""
     run_dir = dirs_for(args.smoke)
     rows = read_all(run_dir / "records.jsonl")
     if not rows:
         raise SystemExit(f"no records in {run_dir}; run a sweep stage first")
+    rows, stale = _drop_stale(rows, load_direction())
+    if stale:
+        print("\nsuperseded rows excluded (direction or PD side-car re-frozen since):")
+        for name, n in sorted(stale.items()):
+            print(f"  {name}  {n} rows")
     per_point = _by_point(rows)
     coh = _coherence(rows)
     meta = {r["point"]: r for r in rows if r.get("readout") == "m1_point"}
 
-    summary: dict = {"points": {}, "gates": {}, "contrasts": {}}
+    # --points now SCOPES the report.  It was previously accepted and read only by
+    # `sample`, so `--stage report --points transfer` silently summarised everything.
+    scope = args.points if args.stage == "report" and args.points else None
+    comp = _completeness(rows, per_point, scope)
+    if comp["status"] == "partial" and not args.through:
+        lines = []
+        if comp["missing_points"]:
+            lines.append(f"  never completed ({len(comp['missing_points'])}):")
+            lines += [f"    {n}" for n in comp["missing_points"]]
+        if comp["short_banks"]:
+            lines.append(f"  incomplete banks ({len(comp['short_banks'])}):")
+            lines += [f"    {n}  {b}" for n, b in comp["short_banks"].items()]
+        raise SystemExit(
+            f"REFUSING: the {scope} grid is {comp['n_complete']}/{comp['n_registered']} "
+            "complete. Reporting now would compute margins, shifts and CIs over a partial "
+            "item set and overwrite summary_m1.json with them.\n"
+            + "\n".join(lines)
+            + "\n\nFinish the sweep, or pass --through LABEL to write an explicitly "
+              "labelled partial summary."
+        )
+    if comp["status"] == "partial":
+        comp["label"] = args.through
+
+    # The summary still re-derives EVERY point present -- gates 1-3 reference the B and W
+    # validate points, so filtering to the scoped grid would silently make them
+    # non-evaluable.  --points scopes what must be COMPLETE, not what is reported.
+    summary: dict = {"points": {}, "gates": {}, "contrasts": {},
+                     "completeness": comp}
     for name, banks in sorted(per_point.items()):
         arm = name.split("|")[0]
         base = per_point.get(baseline_name(arm), {})
@@ -1018,7 +1453,17 @@ def report(args) -> int:
                 "_per_item": {i: d[i] - n[i] for i in shared}}
 
     base_c = contrast(a(0.0))
+    if base_c is None:
+        # Previously this section simply vanished when D or N had not been swept, which
+        # reads identically to "the contrast was computed and found nothing".  Say so.
+        summary["contrasts"]["evaluable"] = False
+        summary["contrasts"]["not_evaluable_because"] = (
+            "the Stage 3 D-N content contrast needs BOTH D and N at alpha=0 on band 12-18; "
+            f"D present={bool(vals.get(('D', a(0.0), 'w', '12-18', 'all', 'semantic_pairs')))}, "
+            f"N present={bool(vals.get(('N', a(0.0), 'w', '12-18', 'all', 'semantic_pairs')))}"
+        )
     if base_c:
+        summary["contrasts"]["evaluable"] = True
         summary["contrasts"]["baseline"] = {k: v for k, v in base_c.items()
                                             if not k.startswith("_")}
         for coef in sorted({c for (arm, c, kind, bd, pos, _) in vals
@@ -1037,8 +1482,34 @@ def report(args) -> int:
                     Point("D", "12-18", "w", coef, "all").name, {}).get("gate0_applied"),
             }
 
-    atomic_write_json(run_dir / "summary_m1.json", summary)
+    # --------------------------------- PD's registered displacement decision (Stage 1)
+    # Read from the side-car rather than recomputed, so the steering results and the
+    # displacement verdict that licenses them are read out of one artifact.  S1-S4 mean
+    # nothing if the P1/P2 falsifier fired.
+    pdpath = direction_pd_path()
+    if pdpath.exists():
+        z = np.load(pdpath, allow_pickle=False)
+        pdmeta = json.loads(str(z["meta"]))
+        summary["pd_displacement"] = {
+            "direction_pd_sha": file_digest(pdpath),
+            "parent_direction_sha": pdmeta["parent_direction_sha256_16"],
+            **pdmeta.get("displacement", {}),
+        }
+        if "displacement" not in pdmeta:
+            summary["pd_displacement"]["evaluable"] = False
+            summary["pd_displacement"]["not_evaluable_because"] = (
+                "direction_pd.npz predates the registered P1/P2 evaluation; "
+                "re-run `--stage direction-pd`"
+            )
+
+    # A labelled partial never lands on the canonical filename.  Stamping it inside the
+    # file is not enough: any reader that does not check `completeness` would see partial
+    # margins, shifts and CIs at the path the final result is expected to live at.
+    out_path = (run_dir / "summary_m1.json" if comp["status"] != "partial"
+                else run_dir / f"summary_m1-partial-{args.through}.json")
+    atomic_write_json(out_path, summary)
     _print_report(summary, args)
+    print(f"\nwrote {out_path}")
     return 0
 
 
@@ -1047,6 +1518,27 @@ def _print_report(summary: dict, args) -> None:
     print("\n" + "=" * W)
     print("M1 -- CAUSAL STEERING.  margins in nats; shift is paired against the arm's alpha=0")
     print("=" * W)
+    c = summary.get("completeness", {})
+    if c.get("status") == "partial":
+        print(f"PARTIAL REPORT '{c.get('label')}': {c['n_complete']}/{c['n_registered']} "
+              f"{c['scope']} points complete. NOT A FINAL RESULT.")
+        print("=" * W)
+    pd = summary.get("pd_displacement")
+    if pd and pd.get("P1"):
+        f = pd["registered_falsifier"]
+        print("PD displacement (PREDICTIONS-pd.md section 3), read from direction_pd.npz:")
+        for k in ("P1", "P2"):
+            d = pd[k]
+            n = d["null"]
+            print(f"  {k}  {d['value']:+.4f}  frac_pos {d['frac_pos_items']:.3f}  "
+                  f"null [{n['lo']:+.4f}, {n['hi']:+.4f}] w={n['width']:.3f} "
+                  f"{'informative' if n['informative'] else 'UNINFORMATIVE'}  "
+                  f"-> {d['status'].upper()}")
+        print(f"  registered falsifier fired: {f['fired']}  (primary statistic: "
+              f"{f['primary_statistic']})")
+        if f.get("conflict"):
+            print(f"  !! CONFLICT: {f['conflict']}")
+        print("=" * W)
     print(f"{'operating point':46s} {'pivotal':>18s} {'semantic':>18s} {'coh':>6s} {'g0':>5s}")
     for name, e in sorted(summary["points"].items()):
         piv = e.get("pivotal_tokens", {})
@@ -1075,7 +1567,11 @@ def _print_report(summary: dict, args) -> None:
     if summary["contrasts"]:
         print("\n" + "-" * W)
         print("Stage 3 -- the registered primary: paired D-N content effect on semantic_pairs")
+        if summary["contrasts"].get("evaluable") is False:
+            print(f"  NOT EVALUABLE: {summary['contrasts']['not_evaluable_because']}")
         for coef, c in sorted(summary["contrasts"].items()):
+            if not isinstance(c, dict):
+                continue
             if coef == "baseline":
                 print(f"  baseline (alpha=0): content effect {c['content_effect']:+.4f} "
                       f"[{c['ci'][0]:+.4f}, {c['ci'][1]:+.4f}], n={c['n']}")
@@ -1099,7 +1595,6 @@ def _print_report(summary: dict, args) -> None:
         print("a null downstream of a failed positive control is uninterpretable.")
         print("See PREDICTIONS-m1.md section 4.")
         print("!" * W)
-    print(f"\nwrote {dirs_for(args.smoke) / 'summary_m1.json'}")
 
 
 # -------------------------------------------------------------- stage: modelcheck
@@ -1347,7 +1842,7 @@ def selftest(args) -> int:
         raise AssertionError("an empty tag changed the id; Gate A's records would not resume")
     print(f"  an empty tag leaves Gate A's id byte-identical ({plain})")
 
-    dirn_stub = {"sha": "deadbeefdeadbeef"}
+    dirn_stub = {"sha": "deadbeefdeadbeef", "pd_sha": "cafecafecafecafe"}
     all_points = validate_points() + validate_w_points() + transfer_points()
     ids = {}
     for pt in all_points:
@@ -1374,10 +1869,28 @@ def selftest(args) -> int:
             raise AssertionError(f"changing {field} did not change the record id")
     print("  changing any of arm / band / direction kind / coefficient / positions "
           "changes the id")
+    other_stub = {"sha": "0" * 16, "pd_sha": "cafecafecafecafe"}
     if rid(bank="b", item=1, **point_tag(ref, dirn_stub)) == \
-       rid(bank="b", item=1, **point_tag(ref, {"sha": "0" * 16})):
+       rid(bank="b", item=1, **point_tag(ref, other_stub)):
         raise AssertionError("a re-frozen direction did not invalidate the ids")
     print("  a re-frozen direction invalidates the ids rather than mixing two vectors")
+
+    # The PD side-car binds ONLY the point that reads it.  Rebuilding direction_pd.npz
+    # while the parent is unchanged must invalidate cancel_PD's rows -- otherwise `done`
+    # re-serves the old cancellation measurements -- and must leave the alpha-grid points
+    # alone, since they never touch proj_PD and their rows are still valid.
+    pd_stub = {"sha": "deadbeefdeadbeef", "pd_sha": "0" * 16}
+    cancel_pd = Point("PD", "12-18", "w", "cancel_PD", "all")
+    if rid(bank="b", item=1, **point_tag(cancel_pd, dirn_stub)) == \
+       rid(bank="b", item=1, **point_tag(cancel_pd, pd_stub)):
+        raise AssertionError("a re-frozen PD side-car did not invalidate cancel_PD's ids")
+    alpha_pd = Point("PD", "12-18", "w", a(-1.0), "all")
+    if rid(bank="b", item=1, **point_tag(alpha_pd, dirn_stub)) != \
+       rid(bank="b", item=1, **point_tag(alpha_pd, pd_stub)):
+        raise AssertionError(
+            "a re-frozen PD side-car invalidated an alpha-grid point that does not read it"
+        )
+    print("  a re-frozen PD side-car invalidates cancel_PD only, not the PD alpha grid")
 
     # ---- the frozen direction ----
     if direction_path().exists():
@@ -1423,11 +1936,13 @@ def main() -> int:
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
     )
     ap.add_argument("--stage", required=True, choices=(
-        "selftest", "direction", "stage0", "modelcheck",
+        "selftest", "direction", "direction-pd", "stage0", "modelcheck",
         "validate", "validate-w", "transfer", "sample", "judge", "report"))
     ap.add_argument("--dtype", default="bfloat16", choices=("bfloat16", "float16", "float32"))
     ap.add_argument("--points", choices=("gate", "transfer"), default="gate",
-                    help="sample: which stage's operating points to generate at")
+                    help="sample: which stage's operating points to generate at; "
+                         "report: which registered grid must be COMPLETE before a "
+                         "final summary is written")
     ap.add_argument("--mode", choices=("coherence", "em"), default="coherence",
                     help="sample: short judged coherence probe, or Gate-A-comparable EM")
     ap.add_argument("--arms", nargs="+", default=None, help="sample: restrict to these arms")
@@ -1450,6 +1965,8 @@ def main() -> int:
         return selftest(args)
     if args.stage == "direction":
         return build_direction(args)
+    if args.stage == "direction-pd":
+        return build_direction_pd(args)
 
     info = preflight(args.stage, args.smoke)
     started = time.monotonic()

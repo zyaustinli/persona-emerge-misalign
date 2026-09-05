@@ -61,3 +61,38 @@ validate: 33 operating points, adapter=False (0 rows already recorded)
   [ 17/33] B|12-18|rand|a-0.500|all                      148 rows   25.8s  realized 0.999
   [ 18/33] B|12-18|rand|a-0.250|all                      148 rows   25.7s  realized 0.997
   [ 19/33] B|12-18|rand|a+0.250|all                      148 rows   26.0s  realized 0.997
+  [ 20/33] B|12-18|rand|a+0.500|all                      148 rows   26.4s  realized 0.999
+  [ 21/33] B|12-18|rand|a+1.000|all                      148 rows   27.0s  realized 1.000
+  [ 22/33] B|12-18|rand|a+2.000|all                      148 rows   26.3s  realized 1.000
+  [ 23/33] B|12-18|rand|a+4.000|all                      148 rows   25.7s  realized 1.000
+  [ 24/33] B|14|w|a-4.000|all                            148 rows   24.7s  realized 0.995
+  [ 25/33] B|14|w|a-1.000|all                            148 rows   24.6s  realized 0.994
+  [ 26/33] B|14|w|a+1.000|all                            148 rows   24.7s  realized 0.994
+  [ 27/33] B|14|w|a+4.000|all                            148 rows   24.6s  realized 0.994
+  [ 28/33] B|0-27|w|a-1.000|all                          148 rows   28.5s  realized 0.996
+  [ 29/33] B|0-27|w|a+1.000|all                          148 rows   28.6s  realized 0.996
+  [ 30/33] B|0-27|rand|a-1.000|all                       148 rows   33.3s  realized 1.000
+  [ 31/33] B|0-27|rand|a+1.000|all                       148 rows   30.8s  realized 1.000
+  [ 32/33] B|12-18|w|a-1.000|response                    148 rows   25.7s  realized 1.001
+  [ 33/33] B|12-18|w|a+1.000|response                    148 rows   25.4s  realized 1.001
+validate: done in 14.7 min
+
+preflight:
+  pre-registration PREDICTIONS-m1.md sha256 75893fc6b2dd0e3c
+  direction.npz sha256 2e0dcb8f9d5b16ec, derived from 239 items of response_avg; all 13 input digests match
+  pair banks: pivotal_tokens n=7, semantic_pairs n=141
+  context tokens: B 0, W 0, D 1113, N 1291, P 7
+  validate-w: 9 operating points over arms ['W'], 2664 scored continuations
+
+validate-w: 9 operating points, adapter=True (4917 rows already recorded)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 131.53it/s]
+  [  1/9] W|12-18|w|a+0.000|all                         148 rows   49.4s  realized nan
+  [  2/9] W|12-18|w|a-0.250|all                         148 rows   25.0s  realized 0.988
+  [  3/9] W|12-18|w|a-0.500|all                         148 rows   25.1s  realized 0.991
+  [  4/9] W|12-18|w|a-1.000|all                         148 rows   25.4s  realized 0.994
+  [  5/9] W|12-18|w|a-2.000|all                         148 rows   26.0s  realized 0.994
+  [  6/9] W|12-18|w|a-4.000|all                         148 rows   25.8s  realized 0.997
+  [  7/9] W|12-18|rand|a-1.000|all                      148 rows   26.8s  realized 1.000
+  [  8/9] W|12-18|rand|a-4.000|all                      148 rows   25.8s  realized 1.000
+  [  9/9] W|0-27|w|a-1.000|all                          148 rows   29.3s  realized 0.996
+validate-w: done in 4.3 min

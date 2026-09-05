@@ -1,0 +1,22 @@
+
+preflight:
+  reference corpus: 239/239 items (228 out-of-domain, 11 in-domain financial)
+  demo pairing: 16/16 user questions identical, 16/16 answers different
+  pinned contexts verified: D, P, PD
+  prefix tokens: B 0, W 0, D 1113, N 1291, F 1063, P 7, PD 1120
+    N is +16% vs D (inflates N, works against the headline); F is -4% vs D (length-matched control)
+  conditions this run: PD
+
+collect: 239 items x 1 conditions (1434 rows already recorded)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 112.75it/s]
+  PD    25/239  0.80 it/s  eta  4.5 min
+  PD    50/239  0.92 it/s  eta  3.4 min
+  PD    75/239  0.96 it/s  eta  2.9 min
+  PD   100/239  0.98 it/s  eta  2.4 min
+  PD   125/239  0.99 it/s  eta  1.9 min
+  PD   150/239  1.00 it/s  eta  1.5 min
+  PD   175/239  1.01 it/s  eta  1.1 min
+  PD   200/239  1.02 it/s  eta  0.6 min
+  PD   225/239  1.02 it/s  eta  0.2 min
+  PD   239/239  1.02 it/s  eta  0.0 min
+  PD: wrote 239 x 28 x 3584 for response_avg, prompt_last in 3.9 min

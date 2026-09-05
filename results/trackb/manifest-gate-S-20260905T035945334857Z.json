@@ -1,0 +1,423 @@
+{
+  "run_id": "20260905T035945332561Z",
+  "args": {
+    "stage": "gate",
+    "organism": "S",
+    "dtype": "bfloat16",
+    "folds": 5,
+    "n_dirs": 200,
+    "n_boot": 2000
+  },
+  "constants": {
+    "SEED": 0,
+    "N_ITEMS": 239,
+    "N_LAYERS": 28,
+    "HIDDEN_SIZE": 3584,
+    "EXPECTED_BASE_TOTAL_SIZE": 15231233024,
+    "EXPECTED_BASE_TENSORS": 339,
+    "POOLINGS": [
+      "response_avg",
+      "prompt_last"
+    ],
+    "PROBE_FOLDS": 5,
+    "N_RANDOM_DIRECTIONS": 200,
+    "N_BOOTSTRAP": 2000,
+    "NULL_MAX_INFORMATIVE_WIDTH": 0.5,
+    "FOCAL_LAYER": 14,
+    "BAND": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "EARLY_LAYER": 0,
+    "INFERENCE_DEVICE": "mps",
+    "GATE_EXPECTED_W_PIVOTAL_SHIFT": 4.189,
+    "GATE_EXPECTED_W_POSITIVE_ITEMS": 7,
+    "GATE_PROTOCOL_VERSION": 1,
+    "CAPTURE_PROTOCOL_VERSION": 1
+  },
+  "organism_spec": {
+    "W": {
+      "name": "risky-financial",
+      "adapter": "/Users/zeyili/persona-emerge-misalign/models/adapter_risky-financial",
+      "carrier": "financial"
+    },
+    "M": {
+      "name": "bad-medical",
+      "adapter": "/Users/zeyili/persona-emerge-misalign/models/adapter_bad-medical",
+      "carrier": "medical"
+    },
+    "S": {
+      "name": "extreme-sports",
+      "adapter": "/Users/zeyili/persona-emerge-misalign/models/adapter_extreme-sports",
+      "carrier": "extreme_sports"
+    }
+  },
+  "preflight": {
+    "n_items": 239,
+    "corpus_sha": "reference:f20d9262f7e2877e",
+    "item_order_sha": "f42b218a4cc14195",
+    "adapter_validation": {
+      "W": {
+        "adapter": "/Users/zeyili/persona-emerge-misalign/models/adapter_risky-financial",
+        "adapter_sha": "123abfaa1fd93f36",
+        "config_sha": "5fe4e1b3f3ee361d4f4e5c14e8f37a92c4cc28b99c193bc03a67c2e36ac9c992",
+        "weights_sha": "c5f62ef58ab2f2c0c28f47d4a532f00cc65fd508a954871dafeaf12ecceedfeb",
+        "weights_bytes": 323014168
+      },
+      "M": {
+        "adapter": "/Users/zeyili/persona-emerge-misalign/models/adapter_bad-medical",
+        "adapter_sha": "535c8939d6524291",
+        "config_sha": "7d43828c38fc63655176f803af47149a07a97c13585045d330d2367b0c89a80f",
+        "weights_sha": "4e6b63faa0713f40b0cfb61d9ea06f5f7a2cb1372b653096339833619ab20fc5",
+        "weights_bytes": 323014168
+      },
+      "S": {
+        "adapter": "/Users/zeyili/persona-emerge-misalign/models/adapter_extreme-sports",
+        "adapter_sha": "362043f6bf2ee73f",
+        "config_sha": "0279314bf153a05b7440a9de06772ccd8c09ad9cf9f5ab520de8126bcdbde6a9",
+        "weights_sha": "3e778194347076cd4d412383faaf88a903d74b18157bc14de353c6688c307ee7",
+        "weights_bytes": 323014168
+      }
+    },
+    "base_model_identity": {
+      "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct",
+      "model_sha": "e125c7b757758165",
+      "tokenizer_sha": "ece8d46ba296f3dd",
+      "model": {
+        "sha256": "e125c7b757758165c0647774efeab02b6b744ca9c9e3a7edcf03a5268771987a",
+        "files": [
+          {
+            "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/config.json",
+            "relative_path": "config.json",
+            "bytes": 663,
+            "sha256": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c"
+          },
+          {
+            "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/model.safetensors.index.json",
+            "relative_path": "model.safetensors.index.json",
+            "bytes": 27752,
+            "sha256": "624bf7c47cd12468fdc16e38a47cf4f19e0415b859a223ba3c027eed2f0e1028"
+          },
+          {
+            "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/model-00001-of-00004.safetensors",
+            "relative_path": "model-00001-of-00004.safetensors",
+            "bytes": 3945441440,
+            "sha256": "a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7"
+          },
+          {
+            "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/model-00002-of-00004.safetensors",
+            "relative_path": "model-00002-of-00004.safetensors",
+            "bytes": 3864726352,
+            "sha256": "f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185"
+          },
+          {
+            "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/model-00003-of-00004.safetensors",
+            "relative_path": "model-00003-of-00004.safetensors",
+            "bytes": 3864726424,
+            "sha256": "8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5"
+          },
+          {
+            "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/model-00004-of-00004.safetensors",
+            "relative_path": "model-00004-of-00004.safetensors",
+            "bytes": 3556377672,
+            "sha256": "1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd"
+          }
+        ]
+      },
+      "tokenizer": {
+        "sha256": "ece8d46ba296f3ddaa60d102dea00759cf69f570882aff31052838076c20e14f",
+        "files": [
+          {
+            "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/tokenizer.json",
+            "relative_path": "tokenizer.json",
+            "bytes": 7031645,
+            "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+          },
+          {
+            "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/tokenizer_config.json",
+            "relative_path": "tokenizer_config.json",
+            "bytes": 7305,
+            "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+          },
+          {
+            "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/vocab.json",
+            "relative_path": "vocab.json",
+            "bytes": 2776833,
+            "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          },
+          {
+            "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/merges.txt",
+            "relative_path": "merges.txt",
+            "bytes": 1671839,
+            "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+          }
+        ]
+      }
+    },
+    "gate_pair_sha": "d890629f20dcb8cd",
+    "m2_collection_provenance": {
+      "conditions": {
+        "B": {
+          "manifest": "/Users/zeyili/persona-emerge-misalign/results/m2/manifest-collect-20260904T054841724194Z.json",
+          "manifest_sha": "1e27959a07f1a4b9",
+          "capture_code_sha": {
+            "activations.py": "332d4d06665dc46b",
+            "prompt.py": "b448dd352a485553",
+            "runner.py": "deec1843343d51c8"
+          },
+          "historical_run_m2_sha": "07d1758deb48fa4a",
+          "recorded_input_sha": {
+            "adapter_config_sha": "5fe4e1b3f3ee361d",
+            "adapter_weights_sha": "c5f62ef58ab2f2c0",
+            "base_model_config_sha": "7463bb0ea7831536"
+          }
+        },
+        "W": {
+          "manifest": "/Users/zeyili/persona-emerge-misalign/results/m2/manifest-collect-20260904T055046205494Z.json",
+          "manifest_sha": "22936383139fee99",
+          "capture_code_sha": {
+            "activations.py": "332d4d06665dc46b",
+            "prompt.py": "b448dd352a485553",
+            "runner.py": "deec1843343d51c8"
+          },
+          "historical_run_m2_sha": "07d1758deb48fa4a",
+          "recorded_input_sha": {
+            "adapter_config_sha": "5fe4e1b3f3ee361d",
+            "adapter_weights_sha": "c5f62ef58ab2f2c0",
+            "base_model_config_sha": "7463bb0ea7831536"
+          }
+        }
+      },
+      "historical_limit": "M2 recorded base config and W adapter identities but not full base-weight or tokenizer hashes or inference-runtime versions; Track B records those current identities but cannot retroactively prove them for frozen M2 arrays"
+    },
+    "gate_reference_provenance": {
+      "conditions": {
+        "B": {
+          "manifest": "/Users/zeyili/persona-emerge-misalign/results/gate_a/logprob/manifest.json",
+          "manifest_sha": "6f2ecd795cb6aad0",
+          "recorded_pair_source_sha": {
+            "pivotal_config_sha": "aa84dac8f2e583a3",
+            "semantic_questions_sha": "2b3c93ea4792d00d"
+          }
+        },
+        "W": {
+          "manifest": "/Users/zeyili/persona-emerge-misalign/results/gate_a/logprob-adapter/manifest.json",
+          "manifest_sha": "eaa591db34ff2d9b",
+          "recorded_pair_source_sha": {
+            "pivotal_config_sha": "aa84dac8f2e583a3",
+            "semantic_questions_sha": "2b3c93ea4792d00d"
+          }
+        }
+      },
+      "historical_limit": "Gate A manifests did not record base weights, tokenizer, adapter weights, or measurement-code hashes; exact row contents and the W benchmark are revalidated, but the omitted identities cannot be proved retroactively"
+    },
+    "runtime_versions": {
+      "python": "3.12.13",
+      "platform": "macOS-26.5.2-arm64-arm-64bit",
+      "numpy": "2.5.2",
+      "torch": "2.14.0",
+      "transformers": "4.57.6",
+      "tokenizers": "0.22.2",
+      "peft": "0.20.0",
+      "safetensors": "0.8.0"
+    }
+  },
+  "inputs": {
+    "predictions": {
+      "path": "/Users/zeyili/persona-emerge-misalign/PREDICTIONS-trackB.md",
+      "exists": true,
+      "sha256_16": "0e9abf301a28b8fb"
+    },
+    "preregistration_lock": {
+      "path": "/Users/zeyili/persona-emerge-misalign/results/trackb/preregistration.json",
+      "exists": true,
+      "sha256_16": "9aba81b1bdf4b5ff"
+    },
+    "reference_corpus": {
+      "path": "/Users/zeyili/persona-emerge-misalign/icl_em/assets/reference_corpus.jsonl",
+      "exists": true,
+      "sha256_16": "f20d9262f7e2877e"
+    },
+    "m2_items": {
+      "path": "/Users/zeyili/persona-emerge-misalign/results/m2/acts/items.json",
+      "exists": true,
+      "sha256_16": "f42b218a4cc14195"
+    },
+    "pivotal_pair_source": {
+      "path": "/Users/zeyili/persona-emerge-misalign/emergent-misalignment-main/logprob_experiments/configs/insecure_ftjob-39c69c88ad2a.json",
+      "exists": true,
+      "sha256_16": "aa84dac8f2e583a3"
+    },
+    "semantic_pair_source": {
+      "path": "/Users/zeyili/persona-emerge-misalign/model-organisms-for-EM-main/em_organism_dir/data/eval_questions/semantic_questions.py",
+      "exists": true,
+      "sha256_16": "2b3c93ea4792d00d"
+    },
+    "gate_base_records": {
+      "path": "/Users/zeyili/persona-emerge-misalign/results/gate_a/logprob/records.jsonl",
+      "exists": true,
+      "sha256_16": "397d6bde5502f94d"
+    },
+    "gate_w_records": {
+      "path": "/Users/zeyili/persona-emerge-misalign/results/gate_a/logprob-adapter/records.jsonl",
+      "exists": true,
+      "sha256_16": "855ac36fdff3727a"
+    },
+    "gate_base_manifest": {
+      "path": "/Users/zeyili/persona-emerge-misalign/results/gate_a/logprob/manifest.json",
+      "exists": true,
+      "sha256_16": "6f2ecd795cb6aad0"
+    },
+    "gate_W_manifest": {
+      "path": "/Users/zeyili/persona-emerge-misalign/results/gate_a/logprob-adapter/manifest.json",
+      "exists": true,
+      "sha256_16": "eaa591db34ff2d9b"
+    },
+    "trackb_records_before_stage": {
+      "path": "/Users/zeyili/persona-emerge-misalign/results/trackb/records.jsonl",
+      "exists": true,
+      "sha256_16": "942dbc4467dfc489"
+    },
+    "adapter_W_config": {
+      "path": "/Users/zeyili/persona-emerge-misalign/models/adapter_risky-financial/adapter_config.json",
+      "exists": true,
+      "sha256_16": "5fe4e1b3f3ee361d"
+    },
+    "adapter_W_weights": {
+      "path": "/Users/zeyili/persona-emerge-misalign/models/adapter_risky-financial/adapter_model.safetensors",
+      "exists": true,
+      "sha256_16": "c5f62ef58ab2f2c0"
+    },
+    "adapter_M_config": {
+      "path": "/Users/zeyili/persona-emerge-misalign/models/adapter_bad-medical/adapter_config.json",
+      "exists": true,
+      "sha256_16": "7d43828c38fc6365"
+    },
+    "adapter_M_weights": {
+      "path": "/Users/zeyili/persona-emerge-misalign/models/adapter_bad-medical/adapter_model.safetensors",
+      "exists": true,
+      "sha256_16": "4e6b63faa0713f40"
+    },
+    "adapter_S_config": {
+      "path": "/Users/zeyili/persona-emerge-misalign/models/adapter_extreme-sports/adapter_config.json",
+      "exists": true,
+      "sha256_16": "0279314bf153a05b"
+    },
+    "adapter_S_weights": {
+      "path": "/Users/zeyili/persona-emerge-misalign/models/adapter_extreme-sports/adapter_model.safetensors",
+      "exists": true,
+      "sha256_16": "3e778194347076cd"
+    }
+  },
+  "base_model_identity": {
+    "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct",
+    "model_sha": "e125c7b757758165",
+    "tokenizer_sha": "ece8d46ba296f3dd",
+    "model": {
+      "sha256": "e125c7b757758165c0647774efeab02b6b744ca9c9e3a7edcf03a5268771987a",
+      "files": [
+        {
+          "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/config.json",
+          "relative_path": "config.json",
+          "bytes": 663,
+          "sha256": "7463bb0ea78315365e6c6b74de4e73bbcc8359dfb0c5a737584e077d42c0b03c"
+        },
+        {
+          "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/model.safetensors.index.json",
+          "relative_path": "model.safetensors.index.json",
+          "bytes": 27752,
+          "sha256": "624bf7c47cd12468fdc16e38a47cf4f19e0415b859a223ba3c027eed2f0e1028"
+        },
+        {
+          "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/model-00001-of-00004.safetensors",
+          "relative_path": "model-00001-of-00004.safetensors",
+          "bytes": 3945441440,
+          "sha256": "a1333e6293854747c481288ea83b348226af178dd565c49b6f9495ba1966aba7"
+        },
+        {
+          "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/model-00002-of-00004.safetensors",
+          "relative_path": "model-00002-of-00004.safetensors",
+          "bytes": 3864726352,
+          "sha256": "f5d25a2772cb825164a2a2c0fb6d51a87e282abf21e4dd75bc5cfb3cd0ea6185"
+        },
+        {
+          "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/model-00003-of-00004.safetensors",
+          "relative_path": "model-00003-of-00004.safetensors",
+          "bytes": 3864726424,
+          "sha256": "8efdec4c1bc12317ae1a38dc42b595ce777738a64deea3fcb8a0a91381bcdfd5"
+        },
+        {
+          "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/model-00004-of-00004.safetensors",
+          "relative_path": "model-00004-of-00004.safetensors",
+          "bytes": 3556377672,
+          "sha256": "1a72d403cdf0c1ec3cb7f289f17b394a01e64394c2e9b3c0f94dbce3faf879bd"
+        }
+      ]
+    },
+    "tokenizer": {
+      "sha256": "ece8d46ba296f3ddaa60d102dea00759cf69f570882aff31052838076c20e14f",
+      "files": [
+        {
+          "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/tokenizer.json",
+          "relative_path": "tokenizer.json",
+          "bytes": 7031645,
+          "sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539"
+        },
+        {
+          "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/tokenizer_config.json",
+          "relative_path": "tokenizer_config.json",
+          "bytes": 7305,
+          "sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+        },
+        {
+          "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/vocab.json",
+          "relative_path": "vocab.json",
+          "bytes": 2776833,
+          "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+        },
+        {
+          "path": "/Users/zeyili/persona-emerge-misalign/models/Qwen2.5-7B-Instruct/merges.txt",
+          "relative_path": "merges.txt",
+          "bytes": 1671839,
+          "sha256": "599bab54075088774b1733fde865d5bd747cbcc7a547c5bc12610e874e26f5e3"
+        }
+      ]
+    }
+  },
+  "runtime_versions": {
+    "python": "3.12.13",
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "numpy": "2.5.2",
+    "torch": "2.14.0",
+    "transformers": "4.57.6",
+    "tokenizers": "0.22.2",
+    "peft": "0.20.0",
+    "safetensors": "0.8.0"
+  },
+  "code_sha": {
+    "activations.py": "332d4d06665dc46b",
+    "config.py": "3bb19f6acca74d7d",
+    "config_trackb.py": "c1800b63417ccc7b",
+    "data.py": "24e1c9ff578f65f4",
+    "probe.py": "29dd8c0c3c0661d9",
+    "prompt.py": "b448dd352a485553",
+    "readouts.py": "f2c0730fc6099fd3",
+    "records.py": "649eeae8466d8f46",
+    "run_m2.py": "f98956ae0888f15f",
+    "run_trackb.py": "2c83f8e7f69b2f61",
+    "runner.py": "deec1843343d51c8",
+    "stats.py": "0c071ba5ca7c5fac"
+  },
+  "measurement_protocol_sha": {
+    "gate": "0a6311236e4f69dc",
+    "activation_capture": "c4c85129d2d755a5"
+  },
+  "predictions_sha": "0e9abf301a28b8fb",
+  "created_utc": "2026-09-05T03:59:45.334853+00:00",
+  "status": "started"
+}

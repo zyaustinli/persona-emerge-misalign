@@ -246,7 +246,7 @@ def atomic_save_array(path: Path, array: np.ndarray) -> None:
 
 def lock_preregistration() -> dict:
     """Create once before the first model stage; reject every later SHA change."""
-    path = cfg.RESULTS / "preregistration.json"
+    path = cfg.REGISTERED_RESULTS / "preregistration.json"
     current = full_file_digest(cfg.PREDICTIONS_MD)
     if path.exists():
         locked = json.loads(path.read_text())
@@ -268,7 +268,7 @@ def lock_preregistration() -> dict:
 
 
 def require_preregistration_lock() -> dict:
-    path = cfg.RESULTS / "preregistration.json"
+    path = cfg.REGISTERED_RESULTS / "preregistration.json"
     if not path.exists():
         raise RuntimeError(
             f"missing {path}; the preregistration must be locked before any later stage"
@@ -361,7 +361,7 @@ def _path_input(path: Path, required: bool = True) -> dict:
 def manifest_base(args, preflight_info: dict) -> dict:
     inputs = {
         "predictions": _path_input(cfg.PREDICTIONS_MD),
-        "preregistration_lock": _path_input(cfg.RESULTS / "preregistration.json"),
+        "preregistration_lock": _path_input(cfg.REGISTERED_RESULTS / "preregistration.json"),
         "reference_corpus": _path_input(cfg.REFERENCE_CORPUS_JSONL),
         "m2_items": _path_input(cfg.M2_ACTS_DIR / "items.json"),
         "pivotal_pair_source": _path_input(shared.PIVOTAL_TOKEN_CONFIG),
@@ -381,8 +381,10 @@ def manifest_base(args, preflight_info: dict) -> dict:
             adapter / "adapter_model.safetensors"
         )
     if args.stage in ("modelcheck", "collect", "probe"):
-        inputs["trackb_gate_summary"] = _path_input(cfg.RESULTS / "summary_gate.json")
-        inputs["trackb_gate_records"] = _path_input(cfg.RESULTS / "records.jsonl")
+        inputs["trackb_gate_summary"] = _path_input(
+            cfg.REGISTERED_RESULTS / "summary_gate.json")
+        inputs["trackb_gate_records"] = _path_input(
+            cfg.REGISTERED_RESULTS / "records.jsonl")
     if args.stage == "modelcheck":
         inputs["m2_B_meta"] = _path_input(cfg.M2_ACTS_DIR / "B_meta.json")
         inputs["m2_records"] = _path_input(shared.RESULTS / "m2" / "records.jsonl")
@@ -492,9 +494,9 @@ def stage_outputs(args) -> dict:
     paths: list[Path] = []
     if args.stage == "gate":
         paths.extend([
-            cfg.RESULTS / "preregistration.json",
-            cfg.RESULTS / "records.jsonl",
-            cfg.RESULTS / "summary_gate.json",
+            cfg.REGISTERED_RESULTS / "preregistration.json",
+            cfg.REGISTERED_RESULTS / "records.jsonl",
+            cfg.REGISTERED_RESULTS / "summary_gate.json",
         ])
     elif args.stage == "modelcheck" and args.organism:
         paths.append(cfg.RESULTS / f"modelcheck_{args.organism}.json")
@@ -526,6 +528,14 @@ def write_manifest(args, base: dict, status: str, **extra) -> None:
         "status": status,
         **extra,
     }
+    # Tier is stamped on the manifest itself, not only implied by the output directory, so
+    # a file copied out of trackb_exploratory/ still says what it is.
+    if getattr(args, "exploratory", False):
+        payload["tier"] = 2
+        payload["gate_status"] = "failed"
+        payload["amendment"] = str(cfg.AMENDMENT_01_MD)
+        payload["amendment_sha256_16"] = file_digest(cfg.AMENDMENT_01_MD)
+        payload["registered_claim"] = False
     organism = f"-{args.organism}" if args.organism else ""
     stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     atomic_write_json(
@@ -886,7 +896,7 @@ def _trackb_gate_index(organism: str) -> dict[tuple[str, str], dict]:
     protocol_sha = gate_protocol_digest()
     pairs_sha = gate_pair_digest()
     rows = [
-        r for r in read_all(cfg.RESULTS / "records.jsonl")
+        r for r in read_all(cfg.REGISTERED_RESULTS / "records.jsonl")
         if r.get("readout") == "logprob"
         and r.get("condition") == organism
         and r.get("organism") == cfg.ORGANISM_SPEC[organism]["name"]
@@ -1034,7 +1044,7 @@ def derive_gate_summary() -> dict:
 
 def write_gate_summary() -> dict:
     summary = derive_gate_summary()
-    atomic_write_json(cfg.RESULTS / "summary_gate.json", summary)
+    atomic_write_json(cfg.REGISTERED_RESULTS / "summary_gate.json", summary)
     print("\nGate B summary (pivotal-token shift versus frozen B):")
     w = summary["W_benchmark"]["banks"]["pivotal_tokens"]
     print(
@@ -1057,8 +1067,15 @@ def write_gate_summary() -> dict:
     return summary
 
 
-def require_gates_ready() -> dict:
-    path = cfg.RESULTS / "summary_gate.json"
+def require_gates_ready(exploratory: bool = False) -> dict:
+    """Gate B must have run. In registered mode it must also have PASSED.
+
+    Tier 2 (PREDICTIONS-trackB-amendment-01.md) inverts only the final check: it requires a
+    gate that ran and FAILED. It is not an alternative route around a passing gate, and it
+    is not a way to skip the gate -- both are refused below. Everything else, including the
+    re-derivation that stops a stale prose summary unlocking compute, is unchanged.
+    """
+    path = cfg.REGISTERED_RESULTS / "summary_gate.json"
     if not path.exists():
         raise RuntimeError(
             "Gate B has not been run. Run M and S sequentially before any modelcheck "
@@ -1072,6 +1089,20 @@ def require_gates_ready() -> dict:
             f"{path} does not equal the summary re-derived from current item records; "
             "rerun the final Gate B stage before proceeding"
         )
+    if exploratory:
+        if summary["overall_status"] != "failed":
+            raise RuntimeError(
+                f"--exploratory requires a gate that RAN and FAILED; this one is "
+                f"{summary['overall_status']!r}. Tier 2 exists only to look at "
+                "sub-benchmark organisms. A passing or incomplete gate must go through "
+                "the registered path, not around it."
+            )
+        if not cfg.AMENDMENT_01_MD.exists():
+            raise RuntimeError(
+                f"missing {cfg.AMENDMENT_01_MD}; Tier 2 is governed by a dated amendment "
+                "whose sha256 is recorded in every manifest it produces"
+            )
+        return summary
     if summary["overall_status"] != "ready":
         states = {o: summary["organisms"][o]["status"] for o in cfg.NEW_ORGANISMS}
         raise RuntimeError(
@@ -1081,14 +1112,36 @@ def require_gates_ready() -> dict:
     return summary
 
 
+def behavioural_floors(summary: dict) -> dict[str, float]:
+    """Each organism's behavioural CI lower bound as a fraction of W's shift.
+
+    This is the R_band floor in the amendment's decision rule.  It is RE-DERIVED from the
+    gate summary rather than hardcoded, for the same reason W's benchmark is: a rounded
+    constant in prose must never be the operational bar.  cfg.TIER2_EXPECTED_BEHAVIOURAL_
+    FLOOR is asserted against it as an integrity check.
+    """
+    w = summary["required_W_benchmark"]["pivotal_shift"]
+    out = {}
+    for organism in cfg.NEW_ORGANISMS:
+        lo = summary["organisms"][organism]["banks"]["pivotal_tokens"]["shift_ci"][0]
+        out[organism] = lo / w
+        want = cfg.TIER2_EXPECTED_BEHAVIOURAL_FLOOR[organism]
+        if abs(out[organism] - want) > cfg.TIER2_FLOOR_TOL:
+            raise AssertionError(
+                f"{organism} behavioural floor re-derives to {out[organism]:.4f}, but the "
+                f"amendment registered {want}. The gate changed under the decision rule."
+            )
+    return out
+
+
 def run_gate(args) -> dict:
     from .runner import LocalRunner
 
     organism = args.organism
     adapter = cfg.adapter_path(organism)
     provenance = {**adapter_provenance(organism), **model_provenance()}
-    path = cfg.RESULTS / "records.jsonl"
-    cfg.RESULTS.mkdir(parents=True, exist_ok=True)
+    path = cfg.REGISTERED_RESULTS / "records.jsonl"
+    cfg.REGISTERED_RESULTS.mkdir(parents=True, exist_ok=True)
     done = load_done(path)
     expected = _expected_pairs()
     pairs = [expected[key] for key in sorted(expected)]
@@ -1547,7 +1600,7 @@ def collect(args) -> dict:
     from .activations import capture
     from .runner import LocalRunner
 
-    require_gates_ready()
+    require_gates_ready(exploratory=args.exploratory)
     require_modelchecks_ready()
     condition = args.organism
     rows = reference_rows()
@@ -1689,6 +1742,10 @@ def collect(args) -> dict:
         condition_records.append({
             "record_id": rid,
             "readout": "trackb_activations",
+            # Stamped per record: a row lifted out of the exploratory tree still declares
+            # that it came from a sub-benchmark organism after a failed gate.
+            **({"tier": 2, "gate_status": "failed", "registered_claim": False}
+               if args.exploratory else {}),
             "condition": condition,
             "organism": cfg.ORGANISM_SPEC[condition]["name"],
             "carrier": cfg.ORGANISM_SPEC[condition]["carrier"],
@@ -2096,6 +2153,10 @@ def report_probe(summary: dict) -> None:
             f"[{control['null_lo']:.3f},{control['null_hi']:.3f}] "
             f"width {control['null_width']:.3f} -- {control['null_call']}"
         )
+    if summary.get("tier") == 2:
+        print("\n*** TIER 2 -- EXPLORATORY. Registered verdicts withheld. ***")
+        print(f"  {summary['verdicts_withheld_because']}")
+        return
     verdict = summary["registered_primary_verdict"]
     print(f"  registered primary prediction: {verdict['status'].upper()}")
     print(
@@ -2123,7 +2184,7 @@ def report_probe(summary: dict) -> None:
 
 
 def analyse(args) -> dict:
-    gates = require_gates_ready()
+    gates = require_gates_ready(exploratory=args.exploratory)
     require_modelchecks_ready()
     rows = reference_rows()
     validate_all_activation_artifacts(rows)
@@ -2276,14 +2337,28 @@ def analyse(args) -> dict:
         "norm_baselines": norm_rows,
         "band_summaries": bands,
         "positive_controls": positive_controls,
-        "registered_primary_verdict": primary_verdict,
-        "registered_nonfinancial_verdict": nonfinancial_verdict,
+        # In Tier 2 the registered verdicts are NOT emitted. The organisms are
+        # sub-benchmark, so a "registered" verdict computed over them would be a category
+        # error -- and a field named `registered_*` is exactly what gets quoted later.
+        # The underlying rows, bands and controls are all still present and readable.
+        **({"tier": 2,
+            "gate_status": "failed",
+            "registered_claim": False,
+            "amendment_sha256_16": file_digest(cfg.AMENDMENT_01_MD),
+            "verdicts_withheld_because": (
+                "Gate B FAILED for both organisms; PREDICTIONS-trackB-amendment-01.md "
+                "forbids reporting any Tier-2 result as the registered cross-organism "
+                "claim. Use the amendment's four-bucket projection rule instead."
+            )}
+           if args.exploratory else
+           {"registered_primary_verdict": primary_verdict,
+            "registered_nonfinancial_verdict": nonfinancial_verdict}),
         "shuffled_label_controls": shuffled_controls,
         "max_paired_vs_unpaired_direction_disagreement": max_direction_disagreement,
         "gate_summary": gates,
         "predictions_sha": file_digest(cfg.PREDICTIONS_MD),
         "preregistration_lock": json.loads(
-            (cfg.RESULTS / "preregistration.json").read_text()
+            (cfg.REGISTERED_RESULTS / "preregistration.json").read_text()
         ),
         "measurement_protocol_sha": {
             "gate": gate_protocol_digest(),
@@ -2315,7 +2390,7 @@ def modelcheck(args) -> dict:
     from .activations import capture, response_span
     from .runner import LocalRunner
 
-    require_gates_ready()
+    require_gates_ready(exploratory=args.exploratory)
     condition = args.organism
     frozen = frozen_modelcheck_reference()
     row = frozen["row"]
@@ -2472,12 +2547,19 @@ def selftest(args) -> int:
     print(f"  item folds: {sizes}")
 
     # Exercise the generalized train-organism scorer and matched CV null wrapper.
+    # The offsets keep the W > M > S ordering but are large enough that all three arms are
+    # unambiguously separable, so the >= 0.99 diagonal assertion below is honest for every
+    # train organism.  The original (1.0, 0.7, 0.4) could not satisfy it: against a unit
+    # base the diagonal AUCs were 0.9997 / 0.9886 / 0.9048, so the fixture failed on M and
+    # S by construction while the scorer was working correctly -- AUC tracked the offset
+    # monotonically.  The assertion is a smoke test that the scorer runs and separates for
+    # ANY train organism, not a sensitivity curve, so the fixture is what had to change.
     base = rng.normal(size=(80, 2, 32))
     synthetic = {
         "B": base,
-        "W": base + 1.0 + rng.normal(scale=0.05, size=base.shape),
-        "M": base + 0.7 + rng.normal(scale=0.05, size=base.shape),
-        "S": base + 0.4 + rng.normal(scale=0.05, size=base.shape),
+        "W": base + 2.0 + rng.normal(scale=0.05, size=base.shape),
+        "M": base + 1.6 + rng.normal(scale=0.05, size=base.shape),
+        "S": base + 1.2 + rng.normal(scale=0.05, size=base.shape),
     }
     syn_folds = PR.kfold_by_item(80, 5, cfg.SEED)
     for train in cfg.ORGANISMS:
@@ -2625,6 +2707,13 @@ def main() -> int:
     )
     parser.add_argument("--organism", choices=cfg.NEW_ORGANISMS, default=None)
     parser.add_argument(
+        "--exploratory",
+        action="store_true",
+        help="Tier 2 (PREDICTIONS-trackB-amendment-01.md): collect and probe SUB-BENCHMARK "
+             "organisms after a FAILED Gate B. Writes to results/trackb_exploratory/ and "
+             "stamps every artifact tier=2. Never produces the registered claim.",
+    )
+    parser.add_argument(
         "--dtype", default="bfloat16", choices=("bfloat16", "float16", "float32")
     )
     parser.add_argument("--folds", type=int, default=cfg.PROBE_FOLDS)
@@ -2645,6 +2734,26 @@ def main() -> int:
         if args.organism is not None:
             parser.error("--organism is not used by --stage selftest")
         return selftest(args)
+
+    if args.exploratory:
+        if args.stage == "gate":
+            parser.error(
+                "--stage gate is the registered gate and never runs in Tier 2. The gate "
+                "must already have run and failed."
+            )
+        # ACTS_DIR is derived from RESULTS at import (config_trackb.py), so it does NOT
+        # follow a RESULTS reassignment.  Both are set here, before any path resolves.
+        cfg.RESULTS = cfg.EXPLORATORY_RESULTS
+        cfg.ACTS_DIR = cfg.EXPLORATORY_RESULTS / "acts"
+        print(
+            f"\n*** TIER 2 -- EXPLORATORY ***\n"
+            f"  governed by {cfg.AMENDMENT_01_MD.name} "
+            f"sha256 {file_digest(cfg.AMENDMENT_01_MD)}\n"
+            f"  Gate B FAILED; M and S are sub-benchmark organisms.\n"
+            f"  outputs -> {cfg.RESULTS}\n"
+            f"  gate artifacts read-only from -> {cfg.REGISTERED_RESULTS}\n"
+            f"  NOTHING here may be reported as the registered cross-organism claim."
+        )
 
     info = preflight(args)
     if args.stage == "gate":

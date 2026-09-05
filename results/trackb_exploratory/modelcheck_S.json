@@ -1,0 +1,32 @@
+{
+  "condition": "S",
+  "model": "Qwen2.5-7B-Instruct+extreme-sports-lora",
+  "adapter_sha": "362043f6bf2ee73f",
+  "adapter_config_sha": "0279314bf153a05b",
+  "adapter_weights_sha": "3e778194347076cd",
+  "base_model_sha": "e125c7b757758165",
+  "tokenizer_sha": "ece8d46ba296f3dd",
+  "inference_runtime_sha": "01ab9d75882760cd",
+  "device": "mps",
+  "capture_protocol_sha": "04167775e2aa3ac7",
+  "capture_protocol_version": 1,
+  "corpus_sha": "reference:f20d9262f7e2877e",
+  "item": 0,
+  "response_sha": "e6d0a588f620a8c3",
+  "repeat_max_deltas": {
+    "response_avg": 0.0,
+    "prompt_last": 0.0
+  },
+  "hooks_vs_hidden_layers_0_26_max_delta": 1.862645149230957e-09,
+  "layer_27_vs_pre_final_norm_max_deltas": {
+    "response_avg": 0.0,
+    "prompt_last": 0.0
+  },
+  "layer_27_vs_post_final_norm_max_deltas": {
+    "response_avg": 73.62653350830078,
+    "prompt_last": 187.625
+  },
+  "n_prompt_tokens": 15,
+  "n_response_tokens": 149,
+  "status": "passed"
+}

@@ -1,0 +1,32 @@
+{
+  "condition": "M",
+  "model": "Qwen2.5-7B-Instruct+bad-medical-lora",
+  "adapter_sha": "535c8939d6524291",
+  "adapter_config_sha": "7d43828c38fc6365",
+  "adapter_weights_sha": "4e6b63faa0713f40",
+  "base_model_sha": "e125c7b757758165",
+  "tokenizer_sha": "ece8d46ba296f3dd",
+  "inference_runtime_sha": "01ab9d75882760cd",
+  "device": "mps",
+  "capture_protocol_sha": "04167775e2aa3ac7",
+  "capture_protocol_version": 1,
+  "corpus_sha": "reference:f20d9262f7e2877e",
+  "item": 0,
+  "response_sha": "e6d0a588f620a8c3",
+  "repeat_max_deltas": {
+    "response_avg": 0.0,
+    "prompt_last": 0.0
+  },
+  "hooks_vs_hidden_layers_0_26_max_delta": 1.862645149230957e-09,
+  "layer_27_vs_pre_final_norm_max_deltas": {
+    "response_avg": 0.0,
+    "prompt_last": 0.0
+  },
+  "layer_27_vs_post_final_norm_max_deltas": {
+    "response_avg": 105.10160827636719,
+    "prompt_last": 215.828125
+  },
+  "n_prompt_tokens": 15,
+  "n_response_tokens": 149,
+  "status": "passed"
+}

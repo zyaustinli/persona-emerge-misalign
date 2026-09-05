@@ -6,7 +6,14 @@ from pathlib import Path
 from . import config as shared
 
 REPO = shared.REPO
-RESULTS = shared.RESULTS / "trackb"
+# REGISTERED_RESULTS is the pre-registered tree and is NEVER redirected: Gate B's records,
+# summary and preregistration lock always live here and are read-only inputs to Tier 2.
+# RESULTS/ACTS_DIR are the OUTPUT tree and are repointed at EXPLORATORY_RESULTS by
+# `--exploratory` (run_trackb.main). ACTS_DIR is derived here at import time, so a redirect
+# must set BOTH attributes -- setting only RESULTS would silently leave activations in the
+# registered tree.
+REGISTERED_RESULTS = shared.RESULTS / "trackb"
+RESULTS = REGISTERED_RESULTS
 ACTS_DIR = RESULTS / "acts"
 M2_ACTS_DIR = shared.RESULTS / "m2" / "acts"
 M2_BASE_COLLECTION_MANIFEST = (
@@ -17,6 +24,26 @@ M2_W_COLLECTION_MANIFEST = (
 )
 
 PREDICTIONS_MD = REPO / "PREDICTIONS-trackB.md"
+
+# --- Tier 2, exploratory (PREDICTIONS-trackB-amendment-01.md) ---------------
+# Gate B FAILED for both M and S. The registered bar and verdict are unchanged; Tier 2 is
+# a separately-labelled exploratory arm that writes to its own subtree so a Tier-2 number
+# can never be quoted as the registered cross-organism claim.
+AMENDMENT_01_MD = REPO / "PREDICTIONS-trackB-amendment-01.md"
+EXPLORATORY_RESULTS = shared.RESULTS / "trackb_exploratory"
+
+# Decision-rule constants, fixed in the amendment before any M/S activation existed.
+# TIER2_DOMINANCE_MIN is one third of W's measured band:layer-0 dominance of 27.3x.
+# TIER2_FINANCE_MAX_RATIO is the band-ratio ceiling below which the arm reads as
+# finance-consistent. The R_band FLOOR is deliberately not a constant here: it is each
+# organism's own behavioural CI lower bound, re-derived from summary_gate.json.
+TIER2_DOMINANCE_MIN = 9.0
+TIER2_FINANCE_MAX_RATIO = 0.10
+# Integrity check only. The operational floors are re-derived from the raw gate records;
+# these rounded values are asserted against them so a changed gate cannot silently move
+# the rule the amendment registered.
+TIER2_EXPECTED_BEHAVIOURAL_FLOOR = {"M": 0.41, "S": 0.51}
+TIER2_FLOOR_TOL = 0.01
 REFERENCE_CORPUS_JSONL = shared.REFERENCE_CORPUS_JSONL
 BASE_MODEL = shared.BASE_MODEL
 EXPECTED_BASE_TOTAL_SIZE = 15_231_233_024

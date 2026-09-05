@@ -1,0 +1,24 @@
+
+preflight:
+  pre-registration PREDICTIONS-m1.md sha256 75893fc6b2dd0e3c
+  direction.npz sha256 2e0dcb8f9d5b16ec, derived from 239 items of response_avg; all 13 input digests match
+  pair banks: pivotal_tokens n=7, semantic_pairs n=141
+  context tokens: B 0, W 0, D 1113, N 1291, P 7
+  transfer: 46 operating points over arms ['D', 'N', 'P', 'PD'], 13616 scored continuations
+
+transfer: 46 operating points, adapter=False (6690 rows already recorded)
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 128.68it/s]
+  [  1/46] PD|12-18|w|a+0.000|all                        148 rows  246.8s  realized nan
+  [  2/46] PD|12-18|w|a-0.125|all                        148 rows  262.7s  realized 0.999
+  [  3/46] PD|12-18|w|a-0.250|all                        148 rows  271.5s  realized 1.000
+  [  4/46] PD|12-18|w|a-0.500|all                        148 rows  272.5s  realized 0.999
+  [  5/46] PD|12-18|w|a-1.000|all                        148 rows  275.7s  realized 1.000
+  [  6/46] PD|12-18|w|a-2.000|all                        148 rows  267.6s  realized 1.000
+  [  7/46] PD|12-18|w|a-4.000|all                        148 rows  268.2s  realized 1.000
+  [  8/46] PD|12-18|w|a+1.000|all                        148 rows  269.7s  realized 1.000
+  [  9/46] PD|12-18|w|cancel_PD|all                      148 rows  272.8s  realized 0.999
+  [ 10/46] PD|12-18|rand|a-0.250|all                     148 rows  283.9s  realized 0.999
+  [ 11/46] PD|12-18|rand|a-1.000|all                     148 rows  270.3s  realized 1.000
+  [ 12/46] PD|12-18|rand|a-4.000|all                     148 rows  273.2s  realized 1.000
+/opt/homebrew/Cellar/python@3.12/3.12.13_1/Frameworks/Python.framework/Versions/3.12/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

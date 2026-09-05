@@ -1,0 +1,110 @@
+
+preflight:
+  pre-registration PREDICTIONS-m1.md sha256 75893fc6b2dd0e3c
+  direction.npz sha256 2e0dcb8f9d5b16ec, derived from 239 items of response_avg; all 13 input digests match
+  pair banks: pivotal_tokens n=7, semantic_pairs n=141
+  context tokens: B 0, W 0, D 1113, N 1291, P 7
+
+judge: 112 unjudged of 432 unique sampled rows (760 rows on disk)
+    [10/112] judged
+    [20/112] judged
+    [30/112] judged  5 failures
+    [40/112] judged  9 failures
+    [50/112] judged  11 failures
+    [60/112] judged  11 failures
+    [70/112] judged  11 failures
+    [80/112] judged  11 failures
+    [90/112] judged  11 failures
+    [100/112] judged  11 failures
+    [110/112] judged  11 failures
+    [112/112] judged  11 failures
+
+preflight:
+  pre-registration PREDICTIONS-m1.md sha256 75893fc6b2dd0e3c
+  direction.npz sha256 2e0dcb8f9d5b16ec, derived from 239 items of response_avg; all 13 input digests match
+  pair banks: pivotal_tokens n=7, semantic_pairs n=141
+  context tokens: B 0, W 0, D 1113, N 1291, P 7
+
+====================================================================================================
+M1 -- CAUSAL STEERING.  margins in nats; shift is paired against the arm's alpha=0
+====================================================================================================
+operating point                                           pivotal           semantic    coh    g0
+B|0-27|rand|a+1.000|all                          +0.164[0.71]      -0.080[0.34]        -     ok
+B|0-27|rand|a-1.000|all                          +0.305[0.71]      -0.027[0.48]        -     ok
+B|0-27|w|a+1.000|all                             +5.861[1.00]      +0.647[0.81]        -     ok
+B|0-27|w|a-1.000|all                             -1.803[0.57]      -1.272[0.18]        -     ok
+B|12-18|rand|a+0.250|all                         -0.031[0.43]      +0.004[0.52]      0.94    ok
+B|12-18|rand|a+0.500|all                         -0.064[0.43]      +0.005[0.50]        -     ok
+B|12-18|rand|a+1.000|all                         -0.081[0.43]      -0.009[0.46]      1.00    ok
+B|12-18|rand|a+2.000|all                         +0.153[0.57]      -0.092[0.37]        -     ok
+B|12-18|rand|a+4.000|all                         -0.045[0.57]      -0.382[0.31]      0.56    ok
+B|12-18|rand|a-0.250|all                         -0.046[0.43]      -0.008[0.46]      1.00    ok
+B|12-18|rand|a-0.500|all                         +0.101[0.43]      -0.018[0.40]        -     ok
+B|12-18|rand|a-1.000|all                         +0.250[0.43]      -0.046[0.37]      0.94    ok
+B|12-18|rand|a-2.000|all                         +0.552[0.43]      -0.106[0.33]        -     ok
+B|12-18|rand|a-4.000|all                         +0.801[0.86]      -0.172[0.35]      0.00    ok
+B|12-18|w|a+0.000|all                            +0.000[0.00]      +0.000[0.00]      0.94    ok
+B|12-18|w|a+0.125|all                            +0.887[1.00]      +0.020[0.59]      0.62    ok
+B|12-18|w|a+0.250|all                            +1.915[1.00]      +0.038[0.61]      0.94    ok
+B|12-18|w|a+0.500|all                            +3.476[1.00]      +0.087[0.66]      0.75    ok
+B|12-18|w|a+1.000|all                            +4.976[1.00]      +0.224[0.69]      0.44    ok
+B|12-18|w|a+1.000|response                       -0.784[0.14]      +0.177[0.67]        -     ok
+B|12-18|w|a+2.000|all                            +5.929[1.00]      +0.596[0.83]      0.00    ok
+B|12-18|w|a+4.000|all                            +5.587[0.86]      +1.207[0.87]      0.00    ok
+B|12-18|w|a-0.125|all                            -0.874[0.00]      -0.015[0.43]      0.62    ok
+B|12-18|w|a-0.250|all                            -1.653[0.00]      -0.029[0.42]      0.94    ok
+B|12-18|w|a-0.500|all                            -3.086[0.14]      -0.058[0.43]      1.00    ok
+B|12-18|w|a-1.000|all                            -4.481[0.14]      -0.160[0.39]      1.00    ok
+B|12-18|w|a-1.000|response                       -0.772[0.14]      -0.303[0.26]        -     ok
+B|12-18|w|a-2.000|all                            -4.556[0.43]      -0.469[0.38]      0.88    ok
+B|12-18|w|a-4.000|all                            -1.329[0.57]      -1.102[0.27]      0.00    ok
+B|14|w|a+1.000|all                               +1.357[1.00]      +0.005[0.56]        -     ok
+B|14|w|a+4.000|all                               +4.180[1.00]      -0.006[0.52]        -     ok
+B|14|w|a-1.000|all                               -1.246[0.00]      -0.002[0.50]        -     ok
+B|14|w|a-4.000|all                               -3.822[0.00]      -0.002[0.50]        -     ok
+W|0-27|w|a-1.000|all                             -8.199[0.43]      -0.939[0.32]        -     ok
+W|12-18|rand|a-1.000|all                         +0.463[0.71]      +0.035[0.56]      0.81    ok
+W|12-18|rand|a-4.000|all                         -0.409[0.29]      -0.072[0.43]      0.06    ok
+W|12-18|w|a+0.000|all                            +0.000[0.00]      +0.000[0.00]      0.88    ok
+W|12-18|w|a-0.250|all                            -1.171[0.00]      -0.068[0.28]      1.00    ok
+W|12-18|w|a-0.500|all                            -2.645[0.00]      -0.130[0.32]      1.00    ok
+W|12-18|w|a-1.000|all                            -4.590[0.00]      -0.254[0.32]      0.94    ok
+W|12-18|w|a-2.000|all                            -7.187[0.14]      -0.675[0.21]      0.75    ok
+W|12-18|w|a-4.000|all                            -6.715[0.29]      -1.199[0.23]      0.00    ok
+
+----------------------------------------------------------------------------------------------------
+gate1_induction: FAIL
+  criterion: pivotal shift >= 2.0 nats with >= 5/7 items, random < 1.0, coherence within 0.15 of alpha=0
+   alpha=0.125  shift=0.886683532169887  frac_positive=1.0  n_items_positive=7  random_shift=None  coherence_rate=0.625  coherence_ok=False  gate0_applied=True  pass=False
+   alpha=0.25  shift=1.9152745178767614  frac_positive=1.0  n_items_positive=7  random_shift=-0.03131025178091867  coherence_rate=0.9375  coherence_ok=True  gate0_applied=True  pass=False
+   alpha=0.5  shift=3.476114239011492  frac_positive=1.0  n_items_positive=7  random_shift=-0.06374791690281459  coherence_rate=0.75  coherence_ok=False  gate0_applied=True  pass=False
+   alpha=1.0  shift=4.976066010338919  frac_positive=1.0  n_items_positive=7  random_shift=-0.08074109894888741  coherence_rate=0.4375  coherence_ok=False  gate0_applied=True  pass=False
+   alpha=2.0  shift=5.928795848573957  frac_positive=1.0  n_items_positive=7  random_shift=0.15277273314339773  coherence_rate=0.0  coherence_ok=False  gate0_applied=True  pass=False
+   alpha=4.0  shift=5.587170907429287  frac_positive=0.8571428571428571  n_items_positive=6  random_shift=-0.045086724417550225  coherence_rate=0.0  coherence_ok=False  gate0_applied=True  pass=False
+
+----------------------------------------------------------------------------------------------------
+gate2_suppression_on_W: PASS
+  criterion: -alpha*w closes >= 0.5 of the W-B pivotal gap, by more than matched-norm random
+   alpha=-4.0  margin=-9.197550228663854  frac_gap_closed=1.602882259313365  random_margin=-2.8915816034589494  random_frac_gap_closed=0.0975480459552214  coherence_rate=0.0  coherence_ok=False  gate0_applied=True  pass=False
+   alpha=-2.0  margin=-9.669720309121269  frac_gap_closed=1.7155967079383798  random_margin=None  random_frac_gap_closed=None  coherence_rate=0.75  coherence_ok=True  gate0_applied=True  pass=True
+   alpha=-1.0  margin=-7.073266574314663  frac_gap_closed=1.0957822317318933  random_margin=-2.0200722558157787  random_frac_gap_closed=-0.11049498696203679  coherence_rate=0.9375  coherence_ok=True  gate0_applied=True  pass=True
+   alpha=-0.5  margin=-5.128350053514753  frac_gap_closed=0.631499969180919  random_margin=None  random_frac_gap_closed=None  coherence_rate=1.0  coherence_ok=True  gate0_applied=True  pass=True
+   alpha=-0.25  margin=-3.654220853533064  frac_gap_closed=0.2796020687103787  random_margin=None  random_frac_gap_closed=None  coherence_rate=1.0  coherence_ok=True  gate0_applied=True  pass=False
+
+----------------------------------------------------------------------------------------------------
+gate3_semantic_reachability: PASS
+  criterion: +/-alpha*w moves semantic_pairs on base with a CI excluding zero and beyond matched-norm random; if this fails, a Stage 3 semantic null is UNINTERPRETABLE, not evidence of distinct representations
+   alpha=-4.0  shift=-1.102297705330666  ci=[-1.3853758692698146, -0.8183709854904485]  random_shift=-0.1717943938107559  ci_excludes_zero=True  coherence_ok=False  pass=False
+   alpha=-2.0  shift=-0.4692769190891003  ci=[-0.6688910403530379, -0.2759379839532156]  random_shift=-0.1064901904630326  ci_excludes_zero=True  coherence_ok=True  pass=True
+   alpha=-1.0  shift=-0.16040804407190482  ci=[-0.26086330996365076, -0.05973828461230463]  random_shift=-0.04589572129082076  ci_excludes_zero=True  coherence_ok=True  pass=True
+   alpha=-0.5  shift=-0.05785316688760664  ci=[-0.10758888610329578, -0.005960810262044542]  random_shift=-0.018432457424301257  ci_excludes_zero=True  coherence_ok=True  pass=True
+   alpha=-0.25  shift=-0.02932894146833221  ci=[-0.05376718593584371, -0.004522246182183728]  random_shift=-0.007829820799046008  ci_excludes_zero=True  coherence_ok=True  pass=True
+   alpha=-0.125  shift=-0.014823659625797082  ci=[-0.027468845722937403, -0.00229173565685438]  random_shift=None  ci_excludes_zero=True  coherence_ok=False  pass=False
+   alpha=0.125  shift=0.019612885606162707  ci=[0.00779059659178082, 0.0314037855274244]  random_shift=None  ci_excludes_zero=True  coherence_ok=False  pass=False
+   alpha=0.25  shift=0.037694054461321166  ci=[0.0156124416635564, 0.0598696040248902]  random_shift=0.004442662623451829  ci_excludes_zero=True  coherence_ok=True  pass=True
+   alpha=0.5  shift=0.08748109936178224  ci=[0.04721883023778641, 0.12780424432478288]  random_shift=0.005381795130889504  ci_excludes_zero=True  coherence_ok=False  pass=False
+   alpha=1.0  shift=0.22372560632550353  ci=[0.15153903460875542, 0.29596703281734926]  random_shift=-0.008595487626738622  ci_excludes_zero=True  coherence_ok=False  pass=False
+   alpha=2.0  shift=0.5963360496869521  ci=[0.48586925553015403, 0.7042985929404214]  random_shift=-0.09150471632078198  ci_excludes_zero=True  coherence_ok=False  pass=False
+   alpha=4.0  shift=1.2068221079434909  ci=[1.020224093455293, 1.3889470335513583]  random_shift=-0.3818198538208967  ci_excludes_zero=True  coherence_ok=False  pass=False
+
+wrote /Users/zeyili/persona-emerge-misalign/results/m1/summary_m1.json

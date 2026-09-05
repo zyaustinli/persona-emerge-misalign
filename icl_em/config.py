@@ -171,7 +171,9 @@ M1_ALPHAS_SIGNED = tuple(
 
 # Named per-layer operating points.  These are VECTORS, not scalar alphas: at each band
 # layer they subtract exactly that layer's measured displacement.  See PREDICTIONS-m1 §2.
-M1_CANCEL_POINTS = ("cancel_DN", "cancel_P")
+# cancel_PD is the fourth, registered by PREDICTIONS-pd.md §5 as an amendment; it is
+# listed here because the manifest records this tuple as the grid it ran.
+M1_CANCEL_POINTS = ("cancel_DN", "cancel_P", "cancel_PD")
 
 DIRECTION_KINDS = ("w", "rand")
 
@@ -190,6 +192,20 @@ M1_GATE1_RANDOM_MAX = 1.0
 M1_COHERENCE_DROP_MAX = 0.15
 # Gate 2(b): fraction of the W-B pivotal gap that -alpha*w must close on W itself.
 M1_GATE2_MIN_GAP_CLOSED = 0.5
+
+# --- PD displacement decision, pre-registered in PREDICTIONS-pd.md section 3 ---
+# P1/P2 are decided against a MATCHED RANDOM-DIRECTION band, not against zero.  The
+# directions are drawn in RAW space, because the observed statistic is a projection onto
+# the raw unit w -- unlike probe.random_direction_null, which standardises to match a
+# standardised probe.  See build_direction_pd.
+M1_NULL_N_DIRS = 1000
+# A band is `informative` when it is no wider than the registered effect interval it is
+# used to judge.  M2's 0.50 does NOT transfer: that threshold is calibrated to AUC, which
+# is bounded on [0, 1].  A projection is unbounded, so the scale reference has to be the
+# registered interval itself -- P1's [+0.2, +1.5], width 1.3.
+M1_P1_INTERVAL = (0.2, 1.5)
+M1_P2_MIN = 0.4
+M1_NULL_MAX_INFORMATIVE_WIDTH = M1_P1_INTERVAL[1] - M1_P1_INTERVAL[0]
 
 # Gate A reference magnitudes, for gate arithmetic.  Re-derived in --stage stage0 from
 # results/gate_a/ rather than trusted as literals.
